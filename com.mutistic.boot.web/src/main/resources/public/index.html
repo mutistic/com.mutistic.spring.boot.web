@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="../static/css/index.css">
+<script type="text/javascript" src="../static/js/index.js"></script>
+
+</head>
+
+<body>
+	<h1>index.HTML</h1>
+	<h2>
+		1、src/main/resources：下静态资源路径<br />
+		可以直接访问的文件资源路径:参考类:org.springframework.boot.autoconfigure.web.ResourceProperties<br />
+		CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/",
+		"classpath:/resources/", "classpath:/static/", "classpath:/public/" }<br />
+		eg：http://127.0.0.1:8888/index.html<br />
+		index.html文件位置：src/main/resources/public/index.html <br />
+
+
+		2、src/main/webapp下静态资源路径可以直接访问<br />
+		eg：http://127.0.0.1:8888/jsp/ok.jsp<br />
+		ok.jsp文件位置：src/main/webapp/jsp/ok.jsp
+	</h2>
+</body>
+</html>
