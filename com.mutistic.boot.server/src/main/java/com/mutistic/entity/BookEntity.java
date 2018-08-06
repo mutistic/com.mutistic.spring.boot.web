@@ -2,6 +2,8 @@ package com.mutistic.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @program book 实体 
  * @description 
@@ -14,6 +16,8 @@ public class BookEntity {
 	private String title;
 	private String author;
 	private String remark;
+//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GTM+8") // 字符串(格式为yyyy-MM-dd HH:mm:ss)转换为日期java.util.Date
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date createrTime;
 	
 	public Long getBookId() {

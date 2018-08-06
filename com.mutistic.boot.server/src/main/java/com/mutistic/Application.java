@@ -1,11 +1,9 @@
 package com.mutistic;
 
-
 import java.util.Date;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.mutistic.entity.BookEntity;
@@ -50,7 +48,5 @@ public class Application {
 		CommonUtil.printOne("测试BookMapper.delete()方法:");
 		CommonUtil.printThree("删除结果：", mapper.delete(insert.getBookId()));
 	}
-	
-	
 	
 }

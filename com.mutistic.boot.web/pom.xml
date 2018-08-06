@@ -30,32 +30,29 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<!-- <exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions> -->
+			<!-- <exclusions> <exclusion> <groupId>org.springframework.boot</groupId> 
+				<artifactId>spring-boot-starter-logging</artifactId> </exclusion> </exclusions> -->
 		</dependency>
-		
-		<!-- 添加监控和度量依赖 
-		https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html-->
+
+		<dependency>
+			<groupId>com.mutistic</groupId>
+			<artifactId>com.mutistic.boot.server</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 添加监控和度量依赖 https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-actuator</artifactId>
 		</dependency>
-		<!-- security验签 依赖-->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
-		
-		
-		<!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖-->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency> -->
+		<!-- security验签 依赖 -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
+			</dependency> -->
+
+
+		<!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-log4j2</artifactId> 
+			</dependency> -->
 		<!-- 添加slf4j日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
 		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
 			</dependency> -->
@@ -115,7 +112,7 @@
 		<!-- 添加alibaba的druid数据库 驱动： -->
 		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>druid</artifactId> 
 			<version>1.1.10</version> </dependency> -->
-		
+
 		<!-- 测试依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
