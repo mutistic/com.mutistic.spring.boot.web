@@ -71,8 +71,58 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- appassembler-maven-plugin插件官网:http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html
+				mvn clean package appassembler:assemble
+				mvn clean appassembler:assemble -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<configuration>
+					<!-- 生成unix、windows平台执行脚本 -->
+					<platforms>
+						<platform>windows</platform>
+						<platform>unix</platform>
+					</platforms>
+					<!-- 根目录 -->
+					<assembleDirectory>${project.build.directory}/server</assembleDirectory>
+					<!-- 打包的jar，以及maven依赖的jar放到这个目录 lib -->
+					<repositoryName>lib</repositoryName>
+					<!-- lib目录中jar存放的规则,默认是 ${groupId}/${artifactId}的目录格式,flat表示直接把jar放到 
+						repositoryName声明的目录 -->
+					<repositoryLayout>flat</repositoryLayout>
+					<!-- 可执行脚本的目录 -->
+					<binFolder>bin</binFolder>
+					<!-- 配置文件的目标目录 -->
+					<configurationDirectory>conf</configurationDirectory>
+					<!-- 拷贝配置文件到configurationDirectory配置的目录种 -->
+					<copyConfigurationDirectory>true</copyConfigurationDirectory>
+					<!-- 执行从项目的目录拷贝配置文件(默认 src.main.config) -->
+					<configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+					<!-- 编码格式 -->
+					<encoding>UTF-8</encoding>
+					<!-- logs目录 -->
+					<logsDirectory>logs</logsDirectory>
+					<!-- 临时文件目录 -->
+					<tempDirectory>tep</tempDirectory>
+					<!-- 配置启动类 -->
+					<programs>
+						<program>
+							<id>server </id>
+							<mainClass>com.mutistic.Application</mainClass>
+							<!-- jvm参数 -->
+							<jvmSettings>
+								<extraArguments>
+									<!-- 指定以server的方式运行 -->
+									<extraArgument>-server</extraArgument>
+									<!-- 指定最大堆内存 -->
+									<extraArgument>-Xmx1G</extraArgument>
+									<!-- 指定最小堆内存 -->
+									<extraArgument>-Xms1G</extraArgument>
+								</extraArguments>
+							</jvmSettings>
+						</program>
+					</programs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
