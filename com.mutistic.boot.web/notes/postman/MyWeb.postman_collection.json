@@ -1,0 +1,685 @@
+{
+	"variables": [],
+	"info": {
+		"name": "MyWeb",
+		"_postman_id": "7d42ce50-fe26-b74e-3126-fa4f53e8ea98",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TestController",
+			"description": "",
+			"item": [
+				{
+					"name": "演示 @Controller + @RequestMapping + @ResponseBody 访问接口",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControlle/testRequestMapping",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestRestController",
+			"description": "",
+			"item": [
+				{
+					"name": "演示@RestController + @GetMapping：无需方法在添加 @ResponseBody注解",
+					"request": {
+						"url": "http://127.0.0.1:8888//testRestController/getMapping",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示入参时注入servler的API：HttpServletRequest参数",
+					"request": {
+						"url": "http://192.168.16.113:8888/testRestController/showHttpServletRequest",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userName",
+									"value": "root",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "passWord",
+									"value": "root123",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByMapping",
+			"description": "",
+			"item": [
+				{
+					"name": "演示 @Controller + @RequestMapping + @ResponseBody访问接口",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByMapping/testRequestMapping",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示 @RequestMapping 通过 @RequestParam 设置参数(默认参数必填)",
+					"request": {
+						"url": {
+							"raw": "http://127.0.0.1:8888/testControllerByMapping/getRequestMapping?name=admin",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"testControllerByMapping",
+								"getRequestMapping"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "admin",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示 @RequestMapping 通过 required 设置参数非必填",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByMapping/postRequestMapping",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "admin",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示 @GetMapping 通过 defaultValue 指定参数默认值",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByMapping/getMapping",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示 @PostMapping 通过 @PathVariable 请求URL绑定参数",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByMapping/postMapping/name=admin",
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByJSP",
+			"description": "",
+			"item": [
+				{
+					"name": "演示返回.JSP文件",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByJSP/showJSP",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "userName",
+									"value": "root",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "passWord",
+									"value": "root123",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示JSP界面使用 ${key}引入Model中变量",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByJSP/showMode",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示JSP界面使用 ${key}引入HttpServletRequest中变量",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByJSP/showHttpServletRequest",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByFreemarker",
+			"description": "",
+			"item": [
+				{
+					"name": "演示返回Freemarker视图文件",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByFreemarker/showFreemarker",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestWebapp",
+			"description": "",
+			"item": [
+				{
+					"name": "直接访问webapp下的静态资源",
+					"request": {
+						"url": "http://127.0.0.1:8888/jsp/ok.jsp",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "直接访问resource/public下静态资源",
+					"request": {
+						"url": "http://127.0.0.1:8888/index.html",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "直接访问resource/static/css下静态css",
+					"request": {
+						"url": "http://127.0.0.1:8888/css/index.css",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "直接访问resource/static/js下静态js",
+					"request": {
+						"url": "http://127.0.0.1:8888/js/index.js",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "修改spring.resources.static-locations 访问html下文件",
+					"request": {
+						"url": "http://127.0.0.1:8888/show.html",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestHttpServlet",
+			"description": "",
+			"item": [
+				{
+					"name": "演示Servlet  - testServlet.do - doGet",
+					"request": {
+						"url": "http://127.0.0.1:8888/testHttpServlet.do",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示Servlet  - testServlet.do - doPost",
+					"request": {
+						"url": "http://127.0.0.1:8888/testHttpServlet.do",
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示通过 ServletRegistrationBean 注册 Servlet bean",
+					"request": {
+						"url": "http://127.0.0.1:8888/testHttpServletByConfig.do",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByHI",
+			"description": "",
+			"item": [
+				{
+					"name": "演示 HandlerInterceptor拦截器",
+					"request": {
+						"url": "http://127.0.0.1:8888//testControllerByHI/showHandlerInterceptor",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByError",
+			"description": "",
+			"item": [
+				{
+					"name": "显示排除 ErrorMvcAutoConfiguration默认错误视图 后抛出异常显示的tomcat错误视图",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByError/showErrorViewByDefault404",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "显示自定义500错误异常的错误界面",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByError/showErrorView500",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "自定义异常IllegalArgumentException返回错误页面的使用",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByError/showErrorArgs",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "通过 @ExceptionHandler 处理当前Controller异常",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByEH/showExceptionHandler1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MyTestController",
+			"description": "",
+			"item": [
+				{
+					"name": "演示使用 JdbcTemplate 实现数据插入",
+					"request": {
+						"url": "http://127.0.0.1:8888/myTestController/insertByTemplate",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "111",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "222",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "演示使用 @EnableTransactionManagement 开启事务",
+					"request": {
+						"url": "http://127.0.0.1:8888/myTestController/insertByException",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "111",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Exception",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByAop",
+			"description": "",
+			"item": [
+				{
+					"name": "演示 AOP",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByAop/showBuAOP",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByStarter",
+			"description": "",
+			"item": [
+				{
+					"name": "演示 slf4j Logger 的使用",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByLogger/showByLogger",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByLog",
+			"description": "",
+			"item": [
+				{
+					"name": "创建starter项目并引用",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByStarter/showByStarter",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TestControllerByActuator",
+			"description": "",
+			"item": [
+				{
+					"name": "监控和度量的使用",
+					"request": {
+						"url": "http://127.0.0.1:8888/testControllerByActuator/showByActuator",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "actuator-info",
+					"request": {
+						"url": "http://127.0.0.1:8888/actuator/info",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookController",
+			"description": "",
+			"item": [
+				{
+					"name": "查询所有book信息",
+					"request": {
+						"url": "http://127.0.0.1:8888/bookController/queryAllList",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "根据ID查询book信息",
+					"request": {
+						"url": {
+							"raw": "http://127.0.0.1:8888/bookController/queryById?id=1533384516863",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"bookController",
+								"queryById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1533384516863",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "新增book信息",
+					"request": {
+						"url": "http://127.0.0.1:8888/bookController/insert",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"test title\",\n    \"author\": \"test author\",\n    \"remark\": \"test remark\",\n    \"createrTime\": \"2018-08-04 12:08:37\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "修改book信息",
+					"request": {
+						"url": "http://127.0.0.1:8888/bookController/update",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"bookId\": 1533384516863,\n    \"title\": \"post man test controller\",\n    \"author\": \"test author\",\n    \"remark\": \"test remark\",\n    \"createrTime\": \"2018-08-04 12:08:37\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "根据ID删除book信息",
+					"request": {
+						"url": {
+							"raw": "http://127.0.0.1:8888/bookController/delete?id=1533535085030",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"bookController",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1533535085030",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

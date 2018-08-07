@@ -30,7 +30,7 @@ public class TestRestController {
 	public String getMapping() {
 		StringBuffer val = new StringBuffer("1、演示@RestController + @GetMapping：无需方法在添加 @ResponseBody注解");
 		val.append("\n[Controller：使用@RestController。@RequestMapping(\"testRestController\") 指定默认访问路径]");
-		val.append("\n[方法：使用@GetMapping(\\\"getMapping\\\"))指定访问路径和请求方式GET]");
+		val.append("\n[方法：使用@GetMapping(\"getMapping\"))指定访问路径和请求方式GET]");
 		val.append("\n[请求方式：RequestMethod.GET]");
 		val.append("\n[参数信息：无参数]");
 		val.append("\n[返回类型：String]");
@@ -45,7 +45,6 @@ public class TestRestController {
 	 */
 	@GetMapping(value = "showHttpServletRequest")
 	public String showRequest(HttpServletRequest request, HttpServletResponse response) { 
-		System.out.println(HttpServletUtil.getIPAddress(request));
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
@@ -53,7 +52,7 @@ public class TestRestController {
 		
 		StringBuffer val = new StringBuffer("2、演示入参时注入servler的API：HttpServletRequest参数");
 		val.append("\n[Controller：使用@RestController。@RequestMapping(\"testRestController\") 指定默认访问路径]");
-		val.append("\n[方法：使用@GetMapping(\\\"showRequest\\\"))指定访问路径和请求方式GET]");
+		val.append("\n[方法：使用@GetMapping(\"showHttpServletRequest\"))指定访问路径和请求方式GET]");
 		val.append("\n[请求方式：RequestMethod.GET]");
 		val.append("\n[参数信息：javax.servlet.http.HttpServletRequest]");
 		val.append("\n[获取客户端IP："+ HttpServletUtil.getIPAddress(request) +"]");

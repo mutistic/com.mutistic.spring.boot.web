@@ -133,6 +133,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
+			<scope>true</scope>
 		</dependency>
 
 	</dependencies>
@@ -143,24 +144,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 没有该配置，spring-boot-devtools 热部署不生效 -->
+					<fork>true</fork>
+					<addResources>true</addResources>
+				</configuration>
 				<!-- 热部署方式一：使用springloaded插件 -->
-				<!-- <dependencies>
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.6.RELEASE</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<classifier>exec</classifier>
-						</configuration>
-					</execution>
-				</executions> -->
+				<!-- <dependencies> <dependency> <groupId>org.springframework</groupId> 
+					<artifactId>springloaded</artifactId> <version>1.2.6.RELEASE</version> </dependency> 
+					</dependencies> <executions> <execution> <goals> <goal>repackage</goal> </goals> 
+					<configuration> <classifier>exec</classifier> </configuration> </execution> 
+					</executions> -->
 			</plugin>
 		</plugins>
 	</build>
