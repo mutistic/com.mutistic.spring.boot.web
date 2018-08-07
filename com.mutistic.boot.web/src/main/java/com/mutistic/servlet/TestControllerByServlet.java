@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author mutisitic
  * @date 2018年7月26日
  */
-@SuppressWarnings("serial")
 @WebServlet("/testHttpServlet.do")
 //@WebServlet(urlPatterns="/testHttpServlet.do")
 //@WebServlet(name = "myServlet", urlPatterns="/testHttpServlet.do")
@@ -89,6 +88,16 @@ public class TestControllerByServlet extends HttpServlet {
 		resp.getWriter().print(val.toString());
 	}
 
+	/**
+	 * @description 演示 HttpServlet - doPost方法
+	 * @author mutisitic
+	 * @date 2018年8月7日
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		StringBuffer val = new StringBuffer("\n1、演示 HttpServlet - doGet方法");
