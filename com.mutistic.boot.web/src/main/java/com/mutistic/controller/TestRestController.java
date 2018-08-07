@@ -2,6 +2,7 @@ package com.mutistic.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpUtils;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,7 @@ public class TestRestController {
 	 */
 	@GetMapping(value = "showHttpServletRequest")
 	public String showRequest(HttpServletRequest request, HttpServletResponse response) { 
+		System.out.println(HttpServletUtil.getIPAddress(request));
 		try {
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");

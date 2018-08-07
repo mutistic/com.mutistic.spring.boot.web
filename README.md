@@ -20,6 +20,8 @@
 15. <a href="#a_logger">logger的使用</a>
 16. <a href="#a_actuator">监控和度量的使用</a>
 17. <a href="#a_tests">单元测试的使用</a>
+18. <a href="#a_microservice">微服务的使用</a>
+19. <a href="#a_zokkeeper">服务的注册和发现(使用zokkeeper)</a>
 96. <a href="#a_pit">spring boot web 入坑总结</a>
 97. <a href="#a_sql">sql</a>
 98. <a href="#a_sql">ea</a>
@@ -74,7 +76,14 @@
 ### <a id="a_actuator">十六、监控和度量的使用</a> <a href="#a_logger">last</a> <a href="a_tests">next</a>
 
 ---
-### <a id="a_tests">十七、单元测试的使用</a> <a href="#a_actuator">last</a> <a href="">next</a>
+### <a id="a_tests">十七、单元测试的使用</a> <a href="#a_actuator">last</a> <a href="a_microservice">next</a>
+
+---
+### <a id="a_microservice">十八、微服务的使用</a> <a href="#a_tests">last</a> <a href="a_zokkeeper">next</a>
+
+---
+### <a id="a_zokkeeper">十九、服务的注册和发现(使用zokkeeper)</a> <a href="#a_tests">last</a> <a href="a_pit">next</a>
+
 
 ---
 ## <a id="a_pit">I、[spring boot 入坑总结](https://github.com/mutistic/mutistic.spring.web/tree/master/com.mutistic.boot.web/notes/pit)</a> <a href="#a_catalogue">Catalogue</a> <a href="#a_sql">next</a>

@@ -1,4 +1,4 @@
-package com.mutistic.main;
+package com.mutistic.microservice;
 
 import java.util.List;
 
@@ -9,6 +9,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.mutistic.entity.BookEntity;
 import com.mutistic.utils.CommonUtil;
 
+/**
+ * @program 演示微服务的使用。使用 RestTemplate 测试调用Controller接口
+ * @description 
+ * @author mutisitic
+ * @date 2018年8月6日
+ */
 public class BookControllerTest {
 
 	public static void main(String[] args) {
@@ -21,7 +27,7 @@ public class BookControllerTest {
 		String responseJSON = rt.getForObject("http://127.0.0.1:8888/bookController/queryAllList",
 				String.class);
 
-		CommonUtil.printOne("获取RestTemplate请求的结果：queryById：" + responseJSON);
+		CommonUtil.printOne("获取RestTemplate请求的结果：queryAllList：" + responseJSON);
 		JSONObject resp = (JSONObject) JSON.parse(responseJSON);
 		if (resp.get("data") != null) {
 			List<JSONObject> dataList = JSON.toJavaObject((JSON) resp.parse(resp.get("data").toString()), List.class);
