@@ -41,7 +41,7 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-		<!-- 服务的注册和发现(使用zokkeeper)：调用方使用组件:curator-x-discovery-->
+		<!-- 服务的注册和发现(使用zokkeeper)：调用方使用组件:curator-x-discovery -->
 		<dependency>
 			<groupId>org.apache.curator</groupId>
 			<artifactId>curator-x-discovery</artifactId>
@@ -127,13 +127,40 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- 热部署方式一：使用spring-boot-devtools插件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 	</dependencies>
+
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- 热部署方式一：使用springloaded插件 -->
+				<!-- <dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.6.RELEASE</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
+				</executions> -->
 			</plugin>
 		</plugins>
 	</build>
