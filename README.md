@@ -1764,12 +1764,322 @@ public class TestControllerByHI {
 }
 ```
 
+8.3、使用WebMvcConfigurerAdapter演示FastJson的格式化拦截器：
+pom.xml添加fastjson依赖：
+```xml
+<dependency>
+	<groupId>com.alibaba</groupId>
+	<artifactId>fastjson</artifactId>
+	<version>1.2.47</version>
+</dependency>
+```
+		
+FastJsonAdapter.java：
+```Java
+package com.mutistic.fastjson;
+import java.util.List;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+// 添加FastJSON 转换适配器
+@SpringBootConfiguration
+public class FastJsonAdapter extends WebMvcConfigurerAdapter {
+	//  方式一：使用创建HttpMessageConverters bean
+	@Bean
+	public HttpMessageConverters fastJsonHttpMessageConverter () {
+		// 1、定义一个 convert转换类
+		FastJsonHttpMessageConverter convert = new FastJsonHttpMessageConverter();
+		// 2、添加 fastJson 配置信息，比如是否要格式化返回的json数据
+		FastJsonConfig config = new FastJsonConfig();
+		config.setSerializerFeatures(SerializerFeature.PrettyFormat);
+		// 3、在 convert种添加 config配置信息
+		convert.setFastJsonConfig(config);
+		/// 4、将 convert转换类添加到 HttpMessageConverters转换类集合中
+		return new HttpMessageConverters(convert);
+	}
+	
+	/**
+	 * 方式一：使用WebMvcConfigurerAdapter方式实现数据转换
+	 * @param converters
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureMessageConverters(java.util.List)
+	 */
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		FastJsonHttpMessageConverter convert = new FastJsonHttpMessageConverter();
+		FastJsonConfig config = new FastJsonConfig();
+		config.setSerializerFeatures(SerializerFeature.PrettyFormat);
+		convert.setFastJsonConfig(config);
+		converters.add(convert);
+	}
+}
+```
 
 ---
 ### <a id="a_error">九、自定义Error视图</a> <a href="#a_interceptor">last</a> <a href="#a_jdbc">next</a>
+9.1、通过ErrorPageRegistrar配置错误跳转界面：<br/>
+ErrorPageRegistrar：[org.springframework.boot.web.server.ErrorPageRegistrar](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/server/ErrorPageRegistrar.html)
+```
+这是一个功能接口，因此可以用作lambda表达式或方法引用的赋值目标。
+
+registerErrorPages(ErrorPageRegistry registry)
+	根据给定注册表的要求注册页面。
+```
+
+ErrorPage：[org.springframework.boot.web.server.ErrorPage](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/server/ErrorPage.html)
+```
+简单的与服务器无关的错误页面抽象。大致相当于<error-page> 传统上在web.xml中找到的元素。
+
+Class<? extends Throwable>	getException()
+	返回异常类型（或者null按状态匹配的页面）。
+
+String	getExceptionName()
+	异常类型名称。
+
+String	getPath()
+	渲染路径（通常实现为向前），以“/”开头。
+
+org.springframework.http.HttpStatus	getStatus()
+	此错误页面匹配的HTTP状态值（或null对于按例外匹配的页面）。
+
+int	getStatusCode()
+	此错误页面匹配的HTTP状态值。
+
+boolean	isGlobal()
+	如果此错误页面是全局错误页面，则返回（匹配所有不匹配的状态和异常类型）。
+```
+
+ErrorPageRegistrar的使用步骤：
+```
+1、实现 ErrorPageRegistrar 接口
+2、重写 registerErrorPages() 方法：
+3、通过 ErrorPageRegistry.addErrorPages() 方法添加 ErrorPage 错误界面
+3.1、错误界面配置默认路径：src/main/resourece下
+3.2、ErrorPage可以通过 HttpStatus：错误状态码配置错误界面
+3.3、ErrorPage可以通过 Throwable：异常类配置错误界面
+```
+
+ErrorPageConfig.java：
+```Java
+package com.mutistic.error;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+// 自定义异常错误界面 
+@Component
+public class ErrorPageConfig implements ErrorPageRegistrar {
+	@Override
+	public void registerErrorPages(ErrorPageRegistry registry) {
+		ErrorPage[] pageArray = new ErrorPage[3];
+		pageArray[0] = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404.html"); // 配置404错误状态码，跳转的界面
+		pageArray[1] = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500.html"); // 配置500错误状态码，跳转的界面
+		pageArray[2] = new ErrorPage(IllegalArgumentException.class, "/error/args.html"); // 配置404错误状态码，跳转的界面
+		
+		registry.addErrorPages(pageArray); 
+	}
+}
+```
+
+src/main/resources/html/error/404.html：
+```Html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>自定义400异常-错误页面</h1>
+	自定义错误页面的使用：
+	<br /> 1、实现 ErrorPageRegistrar 接口
+	<br />2、重写 registerErrorPages() 方法：
+	<br />3、通过 ErrorPageRegistry.addErrorPages() 方法添加 ErrorPage 错误界面
+	<br />3.1、错误界面配置默认路径：src/main/resourece下
+	<br />3.2、ErrorPage可以通过 HttpStatus：错误状态码配置错误界面
+	<br />3.3、ErrorPage可以通过 Throwable：异常类配置错误界面
+</body>
+</html>
+```
+
+9.2、Controller使用@ExceptionHandler声明异常处理返回，对本Controller有效
+ExceptionHandler：[org.springframework.web.bind.annotation.ExceptionHandler](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html)
+```
+用于处理特定处理程序类和/或处理程序方法中的异常的注释。
+
+使用此注释注释的处理程序方法允许具有非常灵活的签名。它们可以按任意顺序具有以下类型的参数：
+	异常参数：声明为一般异常或更具体的异常。如果注释本身不通过它缩小异常类型，这也可以作为映射提示value()。
+	请求和/或响应对象（通常来自Servlet API）。您可以选择任何特定的请求/响应类型，例如 ServletRequest/ HttpServletRequest。
+	会话对象：通常HttpSession。此类型的参数将强制存在相应的会话。因此，这样的论证永远不会null。 请注意，会话访问可能不是线程安全的，特别是在Servlet环境中："synchronizeOnSession"如果允许多个请求同时访问会话，请考虑将标志切换 为“true”。
+	WebRequest或 NativeWebRequest。允许通用请求参数访问以及请求/会话属性访问，而不与本机Servlet API绑定。
+	Locale对于当前请求区域设置（由最可用的区域设置解析程序确定，即LocaleResolver 在Servlet环境中配置）。
+	InputStream/ Reader用于访问请求的内容。这将是Servlet API公开的原始InputStream / Reader。
+	OutputStream/ Writer用于生成响应的内容。这将是Servlet API公开的原始OutputStream / Writer。
+	Model作为从处理程序方法返回模型映射的替代方法。请注意，提供的模型不预先填充常规模型属性，因此始终为空，以便为特定于异常的视图准备模型。
+
+处理程序方法支持以下返回类型：
+	一个ModelAndView对象（来自Servlet MVC）。
+	一个Model对象，视图名称通过一个隐式确定RequestToViewNameTranslator。
+	甲Map用于曝光模式，与视图名称对象隐含地通过确定 RequestToViewNameTranslator。
+	一个View对象。
+	一个String值，它被解释为视图名称。
+	@ResponseBody带注释的方法（仅限Servlet）来设置响应内容。返回值将使用消息转换器转换为响应流 。
+	一个HttpEntity<?>或 一个ResponseEntity<?>对象（仅限Servlet）来设置响应头和内容。ResponseEntity主体将使用消息转换器进行转换并写入响应流 。
+	void如果方法处理响应本身（通过直接编写响应内容 ，为此目的声明类型ServletResponse/ 的参数 HttpServletResponse）
+		或者是否应该通过RequestToViewNameTranslator （不在处理程序方法签名中声明响应参数）隐式确定视图名称。
+
+可以将ExceptionHandler注释与 @ResponseStatus特定HTTP错误状态组合使用。
+
+
+java.lang.Class<? extends java.lang.Throwable>[]	value
+	注释方法处理的异常。
+```
+
+TestControllerByEH.java：
+```Java
+package com.mutistic.error;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+@Controller
+@RequestMapping("/testControllerByEH/")
+public class TestControllerByEH {
+	// 通过 @ExceptionHandler 处理当前Controller异常
+	@ExceptionHandler(value = NullPointerException.class)
+	@ResponseBody
+	public String error(NullPointerException e) {
+		return "\n通过 @ExceptionHandler 处理当前Controller异常:" + e.getMessage();
+	}
+	// 通过 @ExceptionHandler 处理当前Controller异常
+	@GetMapping(value = "showExceptionHandler1")
+	public void showErrorView() throws Exception {
+		StringBuffer val = new StringBuffer("\n1、通过 @ExceptionHandler 处理当前Controller异常");
+		val.append("\n[Controller：声明一个方法实现 @ExceptionHandler 注解]");
+		val.append("\n[ExceptionHandler.value：拦截指定异常：value = Exception.class]");
+		val.append("\n[PS1：@ExceptionHandler 只对当前Controller生效]");
+		val.append("\n[PS2： @ExceptionHandler 会导致返回中文是乱码，需要对HttpServletRequest，HttpServletResponse 重新设置 CharacterEncoding 编码]");
+		val.append("\n[PS3： @ExceptionHandler 优先级比 ErrorPageRegistrar配置的 低（可以声明多个）]");
+		System.out.println(val.toString());
+		throw new NullPointerException(val.toString());
+	}
+}
+```
+
+9.3、通过@ControllerAdvice声明全局@ExceptionHandler异常处理：<br/>
+@ControllerAdvice：[org.springframework.web.bind.annotation.ControllerAdvice](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ControllerAdvice.html)
+```
+@component的专用化，用于声明@异常处理程序、@initbinder或@modelattribute方法，以便跨多个@controller类共享。
+
+@ControllerAdvice可以将类显式声明为Spring bean或通过类路径扫描自动检测。
+所有这些bean 在运行时通过AnnotationAwareOrderComparator，即基于 @Order和 排序 Ordered，并按顺序应用。
+对于处理异常，@ExceptionHandler将使用匹配的异常处理程序方法在第一个建议上选择一个异常。
+对于模型的属性和InitBinder初始化，@ModelAttribute 和@InitBinder方法也将按照@ControllerAdvice顺序。
+
+注意：对于@ExceptionHandler方法，在特定通知bean的处理程序方法中，根目录异常匹配将优先于匹配当前异常的原因。
+但是，优先级较高的建议的原因匹配仍然优先于较低优先级的通知bean上的任何匹配（无论是根目录还是原因级别）。
+因此，请在具有相应顺序的优先级通知bean上声明主根异常映射！
+
+默认情况下，@ControllerAdvice全局应用于所有控制器的方法。使用选择器annotations()， 
+basePackageClasses()和basePackages()（或其别名 value()）来定义更窄的目标控制器子集。
+如果声明了多个选择器，则应用OR逻辑，这意味着所选控制器应匹配至少一个选择器。
+请注意，选择器检查是在运行时执行的，因此添加许多选择器可能会对性能产生负面影响并增加复杂性。
+
+java.lang.Class<? extends java.lang.annotation.Annotation>[]	annotations
+	注释数组。
+
+java.lang.Class<?>[]	assignableTypes
+	类的数组。
+
+java.lang.Class<?>[]	basePackageClasses
+	类型安全的替代方法，value()用于指定包以选择由@ControllerAdvice 注释类辅助的控制器。
+
+java.lang.String[]	basePackages
+	基础包的数组。
+
+java.lang.String[]	value
+	basePackages()属性的别名。
+```
+
+GlobalExceptionHandler.java：
+```Java
+package com.mutistic.error;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.mutistic.utils.CommonUtil;
+@ControllerAdvice
+public class GlobalExceptionHandler {
+	// 通过 @ExceptionHandler 声明全局异常处理
+	@ExceptionHandler(value = FileNotFoundException.class)
+	@ResponseBody
+	public String error(Exception e, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding(CommonUtil.UTF8);
+			response.setCharacterEncoding(CommonUtil.UTF8);
+		} catch (UnsupportedEncodingException e1) { }
+		
+
+		StringBuffer val = new StringBuffer("\n通过@ControllerAdvice +  @ExceptionHandler 处理全局异常");
+		val.append("\n[Class：声明一个类实现 @ControllerAdvice 注解]");
+		val.append("\n[Method：声明一个方法实现 @ExceptionHandler 注解，同时实现 @ResponseBody注解]");
+		val.append("\n[ExceptionHandler.value：拦截指定异常：value = FileNotFoundException.class]");
+		val.append("\n[PS1： @ExceptionHandler 会导致返回中文是乱码，需要对HttpServletRequest，HttpServletResponse 重新设置 CharacterEncoding 编码]");
+		val.append("\n[PS2： 全局的@ExceptionHandler 优先级比 具体Controller的ExceptionHandler 低 （可以声明多个）]");
+		val.append("\n[PS3： @ExceptionHandler 优先级比 ErrorPageRegistrar配置的 低]");
+
+		return "通过 @ExceptionHandler 声明全局异常处理:" + e.getMessage();
+	}
+}
+```
 
 ---
 ### <a id="a_jdbc">十、JDBC的使用</a> <a href="#a_error">last</a> <a href="#a_transaction">next</a>
+10.1、使用JDBC首先要添加spring-boot-starter-jdbc依赖：<br/>
+pom.xml添加spring-boot-starter-jdbc依赖
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+```
+
+10.2、使用Mysql数据库：<br/>
+pom.xml添加mysql-connector-java依赖
+```xml
+<!-- 添加mysql数据库驱动 -->
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+</dependency>
+```
+application.properties配置datasource信息：
+```properties
+#配置jdbc-dataSource信息：参考类：org.springframework.boot.autoconfigure.jdbc.DataSourceProperties
+## 配置jdbc驱动：使用mysql驱动
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+## 配置 jdbc url
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/study
+## 配置 jdbc 用户名
+spring.datasource.username=root
+## 配置 jdbc 密码
+spring.datasource.password=root
+## 配置 Datasourece类型：eg使用 com.zaxxer.hikari.HikariDataSource代替org.apache.tomcat.jdbc.pool.DataSource 这样pom.xml就无需排除tomcat-jdbc
+### 可以参考默认支持的jdbc datesource类型：DataSourceAutoConfiguration.PooledDataSourceConfiguration()，默认是：org.apache.tomcat.jdbc.pool.DataSource
+#spring.datasource.type=com.zaxxer.hikari.HikariDataSource
+```
 
 ---
 ### <a id="a_transaction">十一、Transaction事务的使用</a> <a href="#a_jdbc">last</a> <a href="#a_aop">next</a>
