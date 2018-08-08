@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mutistic.utils.CommonUtil;
 
 /**
- * @program 实现 HandlerInterceptor 定制拦截器
+ * @program 实现 HandlerInterceptor 接口 定制拦截器
  * @description 
  * @author mutisitic
  * @date 2018年7月26日

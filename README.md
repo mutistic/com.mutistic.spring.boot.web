@@ -205,19 +205,19 @@ DispatcherServlet将使用默认的HttpServlet行为处理TRACE和OPTIONS，除�
 枚举值：GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS, TRACE
 ```
 
-@GetMapping：[org.springframework.web.bind.annotation.GetMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/GetMapping.html)
+@GetMapping：[org.springframework.web.bind.annotation.GetMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/GetMapping.html)<br/>
 用于将HTTP GET请求映射到特定处理程序方法的注释。具体来说，@GetMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.GET)
 
-@PostMapping：[org.springframework.web.bind.annotation.PostMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PostMapping.html)
+@PostMapping：[org.springframework.web.bind.annotation.PostMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PostMapping.html)<br/>
 用于将HTTP POST请求映射到特定处理程序方法的注释。具体来说，@PostMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.POST)
 
-@PatchMapping：[org.springframework.web.bind.annotation.PatchMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html)
+@PatchMapping：[org.springframework.web.bind.annotation.PatchMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html)<br/>
 用于将HTTP PATCH请求映射到特定处理程序方法的注释。具体来说，@PatchMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.PATCH)
 
-@PutMapping：[org.springframework.web.bind.annotation.PutMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PutMapping.html)
+@PutMapping：[org.springframework.web.bind.annotation.PutMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PutMapping.html)<br/>
 用于将HTTP PUT请求映射到特定处理程序方法的注释。具体来说，@PutMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.PUT)
 
-@DeleteMapping：[org.springframework.web.bind.annotation.DeleteMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/DeleteMapping.html)
+@DeleteMapping：[org.springframework.web.bind.annotation.DeleteMapping](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/DeleteMapping.html)<br/>
 用于将HTTP DELETE请求映射到特定处理程序方法的注释。具体来说，@DeleteMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.DELETE)
 
 
@@ -357,10 +357,10 @@ default boolean	isTrailerFieldsReady()
 boolean	isUserInRole(java.lang.String role)
 	返回一个布尔值，指示经过身份验证的用户是否包含在指定的逻辑“角色”中。
 
-void	login(java.lang.String username, java.lang.String password)
+login(java.lang.String username, java.lang.String password)
 	验证提供的用户名和密码，然后将经过身份验证的用户与请求相关联。
 
-void	logout()
+logout()
 	从请求中删除任何经过身份验证的用户。
 
 default PushBuilder	newPushBuilder()
@@ -371,21 +371,21 @@ T	启动HTTP升级过程，并在当前请求/响应对完成处理后将连接�
 
 ```
 
-HttpServletResponse[javax.servlet.http.HttpServletResponse](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/http/HttpServletResponse.html)
+HttpServletResponse：[javax.servlet.http.HttpServletResponse](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/http/HttpServletResponse.html)
 ```
 扩展ServletResponse接口以在发送响应时提供特定于HTTP的功能。例如，它具有访问HTTP标头和cookie的方法。
 servlet容器创建一个HttpServletResponse对象，并将其作为一个参数传递给servlet的服务方法（doGet，doPost等）。
 
-void	addCookie(Cookie cookie)
+addCookie(Cookie cookie)
 	将指定的cookie添加到响应中。
 
-void	addDateHeader(java.lang.String name, long date)
+addDateHeader(java.lang.String name, long date)
 	添加具有给定名称和日期值的响应标头。
 
-void	addHeader(java.lang.String name, java.lang.String value)
+addHeader(java.lang.String name, java.lang.String value)
 	添加具有给定名称和值的响应标头。
 
-void	addIntHeader(java.lang.String name, int value)
+addIntHeader(java.lang.String name, int value)
 	添加具有给定名称和整数值的响应标头。
 
 boolean	containsHeader(java.lang.String name)
@@ -418,31 +418,31 @@ int	getStatus()
 default java.util.function.Supplier<java.util.Map<java.lang.String,java.lang.String>>	getTrailerFields()
 	获取拖车标题的供应商。
 
-void	sendError(int sc)
+sendError(int sc)
 	使用指定的状态代码向客户端发送错误响应并清除缓冲区。
 
-void	sendError(int sc, java.lang.String msg)
+sendError(int sc, java.lang.String msg)
 	使用指定的状态代码向客户端发送错误响应并清除输出缓冲区。
 
-void	sendRedirect(java.lang.String location)
+sendRedirect(java.lang.String location)
 	使用指定的重定向位置URL向客户端发送临时重定向响应。
 
-void	setDateHeader(java.lang.String name, long date)
+setDateHeader(java.lang.String name, long date)
 	设置具有给定名称和日期值的响应标头。
 
-void	setHeader(java.lang.String name, java.lang.String value)
+setHeader(java.lang.String name, java.lang.String value)
 	设置具有给定名称和值的响应标头。
 
-void	setIntHeader(java.lang.String name, int value)
+setIntHeader(java.lang.String name, int value)
 	设置具有给定名称和整数值的响应标头。
 
-void	setStatus(int sc)
+setStatus(int sc)
 	设置此响应的状态代码。
 
-void	setStatus(int sc, java.lang.String sm)
+setStatus(int sc, java.lang.String sm)
 	已过时。 从版本2.1开始，由于消息参数的含义模糊。要设置状态代码 setStatus(int)，请使用描述使用发送错误sendError(int, String)。
 
-default void	setTrailerFields(java.util.function.Supplier<java.util.Map<java.lang.String,java.lang.String>> supplier)
+setTrailerFields(java.util.function.Supplier<java.util.Map<java.lang.String,java.lang.String>> supplier)
 	配置拖标头的供应商。
 ```
 
@@ -464,7 +464,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/testControllerByMapping/")
 public class TestControllerByMapping {
 	/**
-	 * 请求参数的使用： 1、通过@RequestParam获取请求参数： 1.1、value字：请求URL中参数的绑定值：name
+	 * 请求参数的使用： 1、通过@RequestParam获取请求参数： 
+	 * 1.1、value字：请求URL中参数的绑定值：name
 	 * 1.2、method：指定请求方式：参考org.springframework.web.bind.annotation.RequestMethod
 	 * 1.3、required：参数是否必填（默认true）：true必填，false非必填。
 	 * 1.4、defaultValue：设置默认值。当请求URL无改参数时，生效
@@ -905,9 +906,9 @@ String[]	getStaticLocations()
 
 boolean	isAddMappings() 
 
-void	setAddMappings(boolean addMappings) 
+setAddMappings(boolean addMappings) 
 
-void	setStaticLocations(String[] staticLocations) 
+setStaticLocations(String[] staticLocations) 
 
 private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
 			"classpath:/META-INF/resources/", "classpath:/resources/",
@@ -977,34 +978,34 @@ HttpServlet：[javax.servlet.http.HttpServlet](http://tomcat.apache.org/tomcat-9
 servlet通常在多线程服务器上运行，因此要注意servlet必须处理并发请求，并小心地同步对共享资源的访问。
 共享资源包括内存中的数据，比如实例或类变量，以及诸如文件、数据库连接和网络连接等外部对象。
 
-protected void	doDelete(HttpServletRequest req, HttpServletResponse resp)
+protected doDelete(HttpServletRequest req, HttpServletResponse resp)
 	由服务器调用（通过service方法）以允许servlet处理DELETE请求。
 
-protected void	doGet(HttpServletRequest req, HttpServletResponse resp)
+protected doGet(HttpServletRequest req, HttpServletResponse resp)
 	由服务器调用（通过service方法）以允许servlet处理GET请求。
 
-protected void	doHead(HttpServletRequest req, HttpServletResponse resp)
+protected doHead(HttpServletRequest req, HttpServletResponse resp)
 	从受保护service方法接收HTTP HEAD请求 并处理请求。
 
-protected void	doOptions(HttpServletRequest req, HttpServletResponse resp)
+protected doOptions(HttpServletRequest req, HttpServletResponse resp)
 	由服务器调用（通过service方法）以允许servlet处理OPTIONS请求。
 
-protected void	doPost(HttpServletRequest req, HttpServletResponse resp)
+protected doPost(HttpServletRequest req, HttpServletResponse resp)
 	由服务器调用（通过service方法）以允许servlet处理POST请求。
 
-protected void	doPut(HttpServletRequest req, HttpServletResponse resp)
+protected doPut(HttpServletRequest req, HttpServletResponse resp)
 	由服务器调用（通过service方法）以允许servlet处理PUT请求。
 
-protected void	doTrace(HttpServletRequest req, HttpServletResponse resp)
+protected doTrace(HttpServletRequest req, HttpServletResponse resp)
 	由服务器调用（通过该service方法）以允许servlet处理TRACE请求。
 
 protected long	getLastModified(HttpServletRequest req)
 	返回HttpServletRequest 自上次修改对象的时间，以格林威治标准时间1970年1月1日午夜为单位，以毫秒为单位。
 
-protected void	service(HttpServletRequest req, HttpServletResponse resp)
+protected service(HttpServletRequest req, HttpServletResponse resp)
 	从public service方法接收标准HTTP请求， 并将它们分派给此类中定义的doMethod方法。
 
-void	service(ServletRequest req, ServletResponse res)
+service(ServletRequest req, ServletResponse res)
 	将客户端请求分派给受保护的 service方法。
 ```
 
@@ -1047,6 +1048,23 @@ java.lang.String[]	urlPatterns
 
 java.lang.String[]	value
 	一种方便的方法，允许对类进行极其简单的注释。
+```
+
+启动 main方法时，要开启 @ServletComponentScan Servlet扫描注解，在 @SpringBootApplication之上：<br/>
+@ServletComponentScan：[org.springframework.boot.web.servlet.ServletComponentScan](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/ServletComponentScan.html)
+```
+使扫描的Servlet组分（filters，servlets，和listeners）。仅在使用嵌入式Web服务器时执行扫描。
+典型地，中的一个value，basePackages或basePackageClasses 应指定控制包被扫描的部件。
+在他们不在的情况下，将使用注释从类的包中执行扫描
+
+Class<?>[]	basePackageClasses
+	类型安全的替代方法，basePackages()用于指定要扫描带注释的servlet组件的包。
+
+String[]	basePackages
+	用于扫描带注释的servlet组件的基础包。
+
+String[]	value
+	basePackages()属性的别名。
 ```
 
 TestControllerByServlet.java：
@@ -1114,8 +1132,169 @@ public class TestControllerByServlet extends HttpServlet {
 }
 ```
 
+6.2.2、<a href="#a_filter">Filter过滤器的使用</a><br/>
 
-6.2.2、通过注解方式实现Filter：<br/>
+6.2.3、通过注解方式实现ServletContextListener 监听器：<br/>
+ServletContextListener：[javax.servlet.ServletContextListener](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/ServletContextListener.html)
+```
+此接口的实现接收有关它们所属的Web应用程序的servlet上下文的更改的通知。要接收通知事件，必须在Web应用程序的部署描述符中配置实现类。
+
+
+contextDestroyed(ServletContextEvent sce)
+	Web应用程序初始化过程正在启动的通知。在初始化Web应用程序中的任何过滤器或servlet之前，将通知所有ServletContextListener上下文初始化。默认实现是NO-OP。
+contextInitialized(ServletContextEvent sce)
+	通知servlet上下文即将关闭。在通知任何ServletContextListener上下文销毁之前，所有servlet和过滤器都已被destroy()编辑。默认实现是NO-OP。
+```
+
+@WebListener：[javax.servlet.annotation.WebListener](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/annotation/WebListener.html)
+```
+用于在给定Web应用程序上下文中为各种类型的事件声明侦听器的注释。
+注释必须实现一个，（或更多），
+下面的接口的类：HttpSessionAttributeListener， HttpSessionListener， ServletContextAttributeListener， ServletContextListener，  
+ServletRequestAttributeListener， ServletRequestListener或 例如HttpSessionIdListener 
+
+java.lang.String	value 
+	听众的描述，如果存在的话
+```
+
+TestServletContextListener.java：
+```Java
+package com.mutistic.servlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+import com.mutistic.utils.CommonUtil;
+// Servlet3的 @WebListener 注解 实现ServletContextListener 监听器
+@WebListener
+public class TestServletContextListener implements ServletContextListener {
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		StringBuffer val = new StringBuffer("\n1、演示 ServletContextListener - contextInitialized方法");
+		val.append("\n【Listener：实现 ServletContextListener 接口，实现 @WebListener 注解】");
+		val.append("\n【方法：重写ServletContextListener的contextInitialized()】");
+		System.out.println(val.toString());
+		CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextInitialized()");
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextDestroyed()");
+	}
+}
+```
+
+6.3、通过Configuration配置类创建bean（建议用注解方式）:<br/>
+TestServletConfiguration.java：
+```Java
+package com.mutistic.servlet;
+import java.util.Arrays;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import com.mutistic.utils.CommonUtil;
+@SpringBootConfiguration
+public class TestServletConfiguration {
+	// 通过 ServletRegistrationBean 创建  Servlet bean
+	@Bean
+	public ServletRegistrationBean<TestControllerByConfig> createrTestHttpServletByConfig() {
+		CommonUtil.printOne("执行：创建 ServletRegistrationBean<TestControllerByConfig> bean");
+//		ServletRegistrationBean<TestHttpServletByConfig> reg = new ServletRegistrationBean<TestHttpServletByConfig>();
+//		reg.setServlet(new TestHttpServletByConfig()); // 配置 httpServlet类
+//		reg.addUrlMappings("/testHttpServletByConfig.do"); // 配置访问URL
+//		return reg;
+		return new ServletRegistrationBean<TestControllerByConfig>(new TestControllerByConfig(), "/testHttpServletByConfig.do");
+	}
+	
+	// 通过 ServletListenerRegistrationBean 创建ServletContextListener bean
+	@Bean
+	public ServletListenerRegistrationBean<TestServletContextListenerByConfig> createrTestServletContextListenerByConfig() {
+		CommonUtil.printOne("执行：创建 ServletListenerRegistrationBean<TestServletContextListenerByConfig> bean");
+		return new ServletListenerRegistrationBean<TestServletContextListenerByConfig>(new TestServletContextListenerByConfig());
+	}
+}
+```
+
+6.3.1、通过ServletRegistrationBean注册Servlet:<br/>
+ServletRegistrationBean：[org.springframework.boot.web.servlet.ServletRegistrationBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/ServletRegistrationBean.html)
+```
+在Servlet 3.0+容器中ServletContextInitializer注册Servlets。类似于Spring Bean友好设计registration提供的功能ServletContext。
+在servlet必须在调用之前指定 RegistrationBean.onStartup(javax.servlet.ServletContext)。
+setUrlMappings(java.util.Collection<java.lang.String>)映射到'/ *'时可以使用或省略URL映射（除非 alwaysMapUrl设置为 false）。
+如果未指定，将推导出servlet名称。
+
+protected javax.servlet.ServletRegistration.Dynamic	addRegistration(String description, javax.servlet.ServletContext servletContext) 
+	在servlet注册ServletContext中
+
+addUrlMappings(String... urlMappings)
+	为Servlet添加Servlet规范中定义的URL映射。
+
+protected configure(javax.servlet.ServletRegistration.Dynamic registration)
+	配置注册设置。
+
+protected String	getDescription()
+	返回注册说明。
+
+javax.servlet.MultipartConfigElement	getMultipartConfig()
+	返回multi-part configuration要应用的或null。
+
+T	getServlet()
+	返回正在注册的servlet。
+
+String	getServletName()
+	返回将要注册的servlet名称。
+
+Collection<String>	getUrlMappings()
+	返回servlet规范中定义的URL映射的可变集合，如Servlet规范中所定义。
+
+setLoadOnStartup(int loadOnStartup)
+	设置loadOnStartup优先级。
+
+setMultipartConfig(javax.servlet.MultipartConfigElement multipartConfig)
+	设置multi-part configuration。
+
+setServlet(T servlet)
+	设置要注册的servlet。	
+
+setUrlMappings(Collection<String> urlMappings)
+	设置servlet的URL映射。
+```
+
+6.3.2、<a href="#a_filter">7.2、通过 FilterRegistrationBean 注册Filter</a><br/>
+
+6.3.3、通过ServletListenerRegistrationBean注册Listener:<br/>
+ServletListenerRegistrationBean：[org.springframework.boot.web.servlet.ServletListenerRegistrationBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/ServletListenerRegistrationBean.html)
+```
+在Servlet 3.0+容器中ServletContextInitializer注册EventListeners。类似于Spring Bean友好设计registration提供的功能ServletContext。此bean可用于注册以下类型的侦听器：
+	ServletContextAttributeListener
+	ServletRequestListener
+	ServletRequestAttributeListener
+	HttpSessionAttributeListener
+	HttpSessionListener
+	ServletContextListener
+
+protected String	getDescription()
+	返回注册说明。
+
+T	getListener()
+	返回要注册的监听器。
+
+static Set<Class<?>>	getSupportedTypes()
+	返回此注册支持的类型。
+
+static boolean	isSupportedType(EventListener listener)
+	true如果指定的侦听器是受支持的类型之一，则返回。
+
+protected register(String description, javax.servlet.ServletContext servletContext)
+	使用servlet上下文注册此bean。
+	
+setListener(T listener)
+	设置要注册的侦听器。
+```
+
+---
+### <a id="a_filter">七、Filter过滤器的使用</a> <a href="#a_servlet">last</a> <a href="#a_interceptor">next</a>
+7.1、通过注解方式实现Filter：<br/>
 Filter：[javax.servlet.Filter](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/Filter.html)
 ```
 过滤器是对资源请求（servlet或静态内容）或来自资源的响应（或两者）执行过滤任务的对象。
@@ -1132,12 +1311,12 @@ Filter：[javax.servlet.Filter](http://tomcat.apache.org/tomcat-9.0-doc/servleta
 	8）XSL / T过滤器
 	9）Mime型链式过滤器
 
-default void	destroy()
+destroy()
 	由Web容器调用以向过滤器指示它正在投入使用。在实例化过滤器之后，servlet容器只调用一次init方法。在要求过滤器执行任何过滤工作之前，init方法必须成功完成。
 	如果使用init方法，则Web容器无法将过滤器置于服务中：抛出ServletException  不在Web容器定义的时间段内返回 
 	默认实现是NO-OP
 
-void	doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 	doFilter每次由于客户端请求链末端的资源而请求/响应对通过链时，容器都会调用Filter 的方法。
 	传递给此方法的FilterChain允许Filter将请求和响应传递给链中的下一个实体。
 	此方法的典型实现将遵循以下模式： 
@@ -1148,7 +1327,7 @@ void	doFilter(ServletRequest request, ServletResponse response, FilterChain chai
 	4.1）中或没有在请求/响应对传递到下一个实体在过滤器链，以阻止请求处理
 	5.在调用过滤器链中的下一个实体后，直接在响应上设置标头。
 
-default void	init(FilterConfig filterConfig)
+init(FilterConfig filterConfig)
 	由Web容器调用以向过滤器指示它正在停止服务。只有在过滤器的doFilter方法中的所有线程都已退出或超时时间过后，才会调用此方法。
 	在Web容器调用此方法之后，它不会在此筛选器实例上再次调用doFilter方法。
 	此方法使过滤器有机会清除所有正在保留的资源（例如，内存，文件句柄，线程），并确保任何持久状态与过滤器在内存中的当前状态同步。默认实现是NO-OP。
@@ -1209,100 +1388,7 @@ public class TestFilter implements Filter {
 }
 ```
 
-6.2.2、通过注解方式实现ServletContextListener 监听器：<br/>
-ServletContextListener：[javax.servlet.ServletContextListener](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/ServletContextListener.html)
-```
-此接口的实现接收有关它们所属的Web应用程序的servlet上下文的更改的通知。要接收通知事件，必须在Web应用程序的部署描述符中配置实现类。
-
-
-default void	contextDestroyed(ServletContextEvent sce)
-	Web应用程序初始化过程正在启动的通知。在初始化Web应用程序中的任何过滤器或servlet之前，将通知所有ServletContextListener上下文初始化。默认实现是NO-OP。
-default void	contextInitialized(ServletContextEvent sce)
-	通知servlet上下文即将关闭。在通知任何ServletContextListener上下文销毁之前，所有servlet和过滤器都已被destroy()编辑。默认实现是NO-OP。
-```
-
-@WebListener：[javax.servlet.annotation.WebListener](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/annotation/WebListener.html)
-```
-用于在给定Web应用程序上下文中为各种类型的事件声明侦听器的注释。
-注释必须实现一个，（或更多），
-下面的接口的类：HttpSessionAttributeListener， HttpSessionListener， ServletContextAttributeListener， ServletContextListener，  
-ServletRequestAttributeListener， ServletRequestListener或 例如HttpSessionIdListener 
-
-java.lang.String	value 
-	听众的描述，如果存在的话
-```
-
-TestServletContextListener.java：
-```Java
-package com.mutistic.servlet;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
-import com.mutistic.utils.CommonUtil;
-// Servlet3的 @WebListener 注解 实现ServletContextListener 监听器
-@WebListener
-public class TestServletContextListener implements ServletContextListener {
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		StringBuffer val = new StringBuffer("\n1、演示 ServletContextListener - contextInitialized方法");
-		val.append("\n【Listener：实现 ServletContextListener 接口，实现 @WebListener 注解】");
-		val.append("\n【方法：重写ServletContextListener的contextInitialized()】");
-		System.out.println(val.toString());
-		CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextInitialized()");
-	}
-
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextDestroyed()");
-	}
-}
-```
-
-6.3、通过Configuration配置类创建bean（建议用注解方式）:<br/>
-ServletRegistrationBean：[org.springframework.boot.web.servlet.ServletRegistrationBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/ServletRegistrationBean.html)
-```
-在Servlet 3.0+容器中ServletContextInitializer注册Servlets。类似于Spring Bean友好设计registration提供的功能ServletContext。
-在servlet必须在调用之前指定 RegistrationBean.onStartup(javax.servlet.ServletContext)。
-setUrlMappings(java.util.Collection<java.lang.String>)映射到'/ *'时可以使用或省略URL映射（除非 alwaysMapUrl设置为 false）。
-如果未指定，将推导出servlet名称。
-
-protected javax.servlet.ServletRegistration.Dynamic	addRegistration(String description, javax.servlet.ServletContext servletContext) 
-	在servlet注册ServletContext中
-
-void	addUrlMappings(String... urlMappings)
-	为Servlet添加Servlet规范中定义的URL映射。
-
-protected void	configure(javax.servlet.ServletRegistration.Dynamic registration)
-	配置注册设置。
-
-protected String	getDescription()
-	返回注册说明。
-
-javax.servlet.MultipartConfigElement	getMultipartConfig()
-	返回multi-part configuration要应用的或null。
-
-T	getServlet()
-	返回正在注册的servlet。
-
-String	getServletName()
-	返回将要注册的servlet名称。
-
-Collection<String>	getUrlMappings()
-	返回servlet规范中定义的URL映射的可变集合，如Servlet规范中所定义。
-
-void	setLoadOnStartup(int loadOnStartup)
-	设置loadOnStartup优先级。
-
-void	setMultipartConfig(javax.servlet.MultipartConfigElement multipartConfig)
-	设置multi-part configuration。
-
-void	setServlet(T servlet)
-	设置要注册的servlet。	
-
-void	setUrlMappings(Collection<String> urlMappings)
-	设置servlet的URL映射。
-```
-
+7.2、通过 FilterRegistrationBean 注册Filter：<br/>
 FilterRegistrationBean：[org.springframework.boot.web.servlet.FilterRegistrationBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/FilterRegistrationBean.html)
 ```
 在Servlet 3.0+容器中ServletContextInitializer注册Filters。类似于Spring Bean友好设计registration 提供的功能ServletContext。
@@ -1313,37 +1399,8 @@ FilterRegistrationBean：[org.springframework.boot.web.servlet.FilterRegistratio
 T	getFilter()
 	返回Filter要注册。
 
-void	setFilter(T filter)
+setFilter(T filter)
 	设置要注册的过滤器。
-```
-
-ServletListenerRegistrationBean：[org.springframework.boot.web.servlet.ServletListenerRegistrationBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/ServletListenerRegistrationBean.html)
-```
-在Servlet 3.0+容器中ServletContextInitializer注册EventListeners。类似于Spring Bean友好设计registration提供的功能ServletContext。此bean可用于注册以下类型的侦听器：
-	ServletContextAttributeListener
-	ServletRequestListener
-	ServletRequestAttributeListener
-	HttpSessionAttributeListener
-	HttpSessionListener
-	ServletContextListener
-
-protected String	getDescription()
-	返回注册说明。
-
-T	getListener()
-	返回要注册的监听器。
-
-static Set<Class<?>>	getSupportedTypes()
-	返回此注册支持的类型。
-
-static boolean	isSupportedType(EventListener listener)
-	true如果指定的侦听器是受支持的类型之一，则返回。
-
-protected void	register(String description, javax.servlet.ServletContext servletContext)
-	使用servlet上下文注册此bean。
-	
-void	setListener(T listener)
-	设置要注册的侦听器。
 ```
 
 TestServletConfiguration.java：
@@ -1352,23 +1409,10 @@ package com.mutistic.servlet;
 import java.util.Arrays;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import com.mutistic.utils.CommonUtil;
 @SpringBootConfiguration
 public class TestServletConfiguration {
-	// 通过 ServletRegistrationBean 创建  Servlet bean
-	@Bean
-	public ServletRegistrationBean<TestControllerByConfig> createrTestHttpServletByConfig() {
-		CommonUtil.printOne("执行：创建 ServletRegistrationBean<TestControllerByConfig> bean");
-//		ServletRegistrationBean<TestHttpServletByConfig> reg = new ServletRegistrationBean<TestHttpServletByConfig>();
-//		reg.setServlet(new TestHttpServletByConfig()); // 配置 httpServlet类
-//		reg.addUrlMappings("/testHttpServletByConfig.do"); // 配置访问URL
-//		return reg;
-		return new ServletRegistrationBean<TestControllerByConfig>(new TestControllerByConfig(), "/testHttpServletByConfig.do");
-	}
-	
 	// 通过 FilterRegistrationBean 创建  Filter bean
 	@Bean
 	public FilterRegistrationBean<TestFilterByConfig> createrTestFilterByConfig() {
@@ -1380,21 +1424,346 @@ public class TestServletConfiguration {
 		filter.setUrlPatterns(Arrays.asList("/testHttpServletByConfig.do")); //配置过滤URL
 		return filter;
 	}
-	
-	// 通过 ServletListenerRegistrationBean 创建ServletContextListener bean
-	@Bean
-	public ServletListenerRegistrationBean<TestServletContextListenerByConfig> createrTestServletContextListenerByConfig() {
-		CommonUtil.printOne("执行：创建 ServletListenerRegistrationBean<TestServletContextListenerByConfig> bean");
-		return new ServletListenerRegistrationBean<TestServletContextListenerByConfig>(new TestServletContextListenerByConfig());
-	}
 }
 ```
 
 ---
-### <a id="a_filter">七、Filter过滤器的使用</a> <a href="#a_servlet">last</a> <a href="#a_interceptor">next</a>
-
----
 ### <a id="a_interceptor">八、HandlerInterceptor拦截器的使用</a> <a href="#a_filter">last</a> <a href="#a_error">next</a>
+HandlerInterceptor拦截器使用步骤：
+```
+1、实现 HandlerInterceptor 接口，重写 preHandle()、postHandle()、afterCompletion()方法
+1.1、preHandle方法：在Controller请求之前触发（一般用于登陆验证）
+1.2、postHandle方法：在Controller请求之后，页面未渲染时触发（一般用于业务逻辑等）
+1.3、afterCompletion方法：Controller请求完毕，页面渲染完成触发（一般用于清理资源）
+
+2、继承 WebMvcConfigurer 类，重写addInterceptors()方法，实现@SpringBootConfiguration注解
+2.1、通过 InterceptorRegistry.addInterceptor() 添加 实例化的 HandlerInterceptor实现类
+2.2、通过 InterceptorRegistration.addPathPatterns() 添加需要拦截的请求路径
+
+PS1：使用WebMvcConfigurationSupport 需要自定义所有的配置，通常不建议使用这个。
+```
+
+8.1、实现 HandlerInterceptor 接口：<br/>
+HandlerInterceptor：[org.springframework.web.servlet.HandlerInterceptor](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/HandlerInterceptor.html)
+```
+允许自定义处理程序执行链的工作流接口。
+应用程序可以为某些处理程序组注册任意数量的现有或自定义拦截器，以添加常见的预处理行为，而无需修改每个处理程序实现。
+
+在适当的HandlerAdapter触发处理程序本身的执行之前调用HandlerInterceptor。
+此机制可用于大量预处理方面，例如用于授权检查，或常见的处理程序行为，如区域设置或主题更改。其主要目的是允许分解重复的处理程序代码。
+
+在异步处理场景中，处理程序可以在单独的线程中执行，而主线程退出而不呈现或调用 postHandle和afterCompletion回调。
+并发处理程序执行完成后，将调度该请求以继续呈现模型，并再次调用此合同的所有方法。
+
+通常，每个HandlerMapping bean定义一个拦截器链，共享其粒度。
+为了能够将某个拦截器链应用于一组处理程序，需要通过一个HandlerMapping bean映射所需的处理程序。
+拦截器本身在应用程序上下文中定义为bean，由映射bean定义通过其“拦截器”属性引用（在XML中：<list> of <ref>）。
+
+HandlerInterceptor基本上类似于Servlet过滤器，但与后者相反，它只允许自定义预处理，禁止执行处理程序本身，以及自定义后处理。
+过滤器功能更强大，例如，它们允许交换传递链中的请求和响应对象。请注意，过滤器在web.xml中配置，web.xml是应用程序上下文中的HandlerInterceptor。
+
+作为基本准则，与细粒度处理程序相关的预处理任务是HandlerInterceptor实现的候选者，尤其是分解出来的公共处理程序代码和授权检查。
+另一方面，过滤器非常适合请求内容和视图内容处理，如多部分表单和GZIP压缩。这通常表示何时需要将过滤器映射到某些内容类型（例如图像）或所有请求
+
+afterCompletion(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler, java.lang.Exception ex)
+	拦截处理程序的执行。在HandlerMapping确定适当的处理程序对象之后调用，但在HandlerAdapter调用处理程序之前。
+	DispatcherServlet处理执行链中的处理程序，该处理程序由任意数量的拦截器组成，最后处理程序本身。
+		使用此方法，每个拦截器可以决定中止执行链，通常发送HTTP错误或编写自定义响应。
+	注意：特殊注意事项适用于异步请求处理
+
+postHandle(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler, ModelAndView modelAndView)
+	拦截处理程序的执行。在HandlerAdapter实际调用处理程序之后调用，但在DispatcherServlet呈现视图之前调用。
+		可以通过给定的ModelAndView将其他模型对象公开给视图。
+	DispatcherServlet处理执行链中的处理程序，该处理程序由任意数量的拦截器组成，最后处理程序本身。
+		使用此方法，每个拦截器可以对执行进行后处理，以执行链的相反顺序应用。
+	注意：特殊注意事项适用于异步请求处理
+
+default boolean	preHandle(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler)
+	完成请求处理后回调，即渲染视图后回调。将调用处理程序执行的任何结果，从而允许适当的资源清理。
+	注意：只有在拦截器的preHandle 方法成功完成并返回时才会被调用true！
+	与该postHandle方法一样，该方法将以相反的顺序在链中的每个拦截器上调用，因此第一个拦截器将是最后一个被调用的拦截器。
+	注意：特殊注意事项适用于异步请求处理
+```
+
+AsyncHandlerInterceptor：[org.springframework.web.servlet.AsyncHandlerInterceptor](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/AsyncHandlerInterceptor.html)
+```
+HandlerInterceptor使用在异步请求处理开始后调用的回调方法进行扩展。
+
+当处理程序启动异步请求时，DispatcherServlet 退出而不调用postHandle并且afterCompletion通常对同步请求执行，
+因为请求处理的结果（例如ModelAndView）可能尚未就绪并且将从另一个线程同时生成。
+在这种情况下，
+afterConcurrentHandlingStarted(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object) 会调用，允许实现执行任务，例如在将线程释放到Servlet容器之前清理线程绑定的属性。
+
+异步处理完成后，将请求分派给容器以进行进一步处理。在这个阶段，DispatcherServlet 所调用preHandle，postHandle和afterCompletion。
+到初始请求和异步处理完成后后续的调度之间进行区分，拦截器可以检查是否 javax.servlet.DispatcherType的ServletRequest 是"REQUEST"或"ASYNC"。
+
+请注意，HandlerInterceptor当异步请求超时或因网络错误而完成时，实现可能需要执行。
+对于这种情况，Servlet容器不会调度，因此不会调用postHandle和afterCompletion方法。
+相反，拦截器可以注册以通过registerCallbackInterceptor和registerDeferredResultInterceptor 
+方法跟踪异步请求WebAsyncManager.preHandle无论是否将启动异步请求处理，都可以主动对每个请求执行此操作
+
+afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler)
+	调用而不是postHandle和afterCompletion 处理程序同时执行时。
+	实现可以使用提供的请求和响应，但应避免以与处理程序的并发执行冲突的方式修改它们。此方法的典型用法是清理线程局部变量
+```
+
+TestHandlerInterceptor.java：
+```Java
+package com.mutistic.interceptor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+import com.mutistic.utils.CommonUtil;
+// 实现 HandlerInterceptor 接口 定制拦截器
+public class TestHandlerInterceptor implements HandlerInterceptor {
+	/**
+	 * 在Controller请求之前触发（一般用于登陆验证）
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @return
+	 * @throws Exception
+	 * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object)
+	 */
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.preHandle()[在请求之前触发（一般用于登陆验证）]" + handler);
+		return true;
+	}
+
+	/**
+	 * 在Controller请求之后，页面未渲染时触发（一般用于业务逻辑等）
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @param modelAndView
+	 * @throws Exception
+	 * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      org.springframework.web.servlet.ModelAndView)
+	 */
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.postHandle()[在请求之后，页面未渲染时触发（一般用于业务逻辑等）]");
+	}
+
+	/**
+	 * Controller请求完毕，页面渲染完成触发（一般用于清理资源）
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @param ex
+	 * @throws Exception
+	 * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+	 *      java.lang.Exception)
+	 */
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.afterCompletion()[请求完毕，页面渲染完成触发（一般用于清理资源）]");
+	}
+}
+```
+
+8.2、继承 WebMvcConfigurer 类，添加HandlerInterceptor实例：<br/>
+WebMvcConfigurer：[org.springframework.web.servlet.config.annotation.WebMvcConfigurer](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/WebMvcConfigurer.html)
+```
+定义回调方法，以自定义启用Spring MVC的基于Java的配置@EnableWebMvc。
+@EnableWebMvc注释配置类可以实现此接口以回调并有机会自定义默认配置。
+
+
+addArgumentResolvers(java.util.List<HandlerMethodArgumentResolver> resolvers)
+	添加解析器以支持自定义控制器方法参数类型。
+
+addCorsMappings(CorsRegistry registry)
+	配置跨源请求处理。
+
+addFormatters(FormatterRegistry registry)
+	在默认情况下添加Converters和Formatters。
+
+addInterceptors(InterceptorRegistry registry)
+	添加Spring MVC生命周期拦截器，用于控制器方法调用的预处理和后处理。
+
+addResourceHandlers(ResourceHandlerRegistry registry)
+	添加处理程序以提供静态资源，例如来自Web应用程序根目录下的特定位置的图像，js和css文件，类路径等。
+
+addReturnValueHandlers(java.util.List<HandlerMethodReturnValueHandler> handlers)
+	添加处理程序以支持自定义控制器方法返回值类型。
+
+addViewControllers(ViewControllerRegistry registry)
+	配置预先配置了响应状态代码的简单自动控制器和/或视图以呈现响应主体。
+
+configureAsyncSupport(AsyncSupportConfigurer configurer)
+	配置异步请求处理选项。
+
+configureContentNegotiation(ContentNegotiationConfigurer configurer)
+	配置内容协商选项。
+
+configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
+	配置处理程序以通过转发到Servlet容器的“默认”servlet来委派未处理的请求。
+
+configureHandlerExceptionResolvers(java.util.List<HandlerExceptionResolver> resolvers)
+	配置异常解析器。
+
+configureMessageConverters(java.util.List<HttpMessageConverter<?>> converters)
+	配置HttpMessageConverters用于读取或写入请求或响应的正文。
+
+configurePathMatch(PathMatchConfigurer configurer)
+	帮助配置HandlerMappings路径匹配选项，例如尾部斜杠匹配，后缀注册，路径匹配器和路径助手。
+
+configureViewResolvers(ViewResolverRegistry registry)
+	配置视图解析器以将从控制器返回的基于字符串的视图名称转换为具体View 实现以执行渲染。
+
+extendHandlerExceptionResolvers(java.util.List<HandlerExceptionResolver> resolvers)
+	扩展或修改默认配置的异常解析器列表。
+
+extendMessageConverters(java.util.List<HttpMessageConverter<?>> converters)
+	用于在配置转换器列表后扩展或修改转换器列表的挂钩。
+
+default MessageCodesResolver	getMessageCodesResolver()
+	提供MessageCodesResolver用于根据数据绑定和验证错误代码构建消息代码的自定义。
+
+default Validator	getValidator()
+	提供自定义Validator而不是默认创建的自定义。
+```
+
+WebMvcConfigurerAdapter：[org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/WebMvcConfigurerAdapter.html)
+```
+已过时。WebMvcConfigurer使用空方法的实现，允许子类仅覆盖它们感兴趣的方法。
+```
+
+WebMvcConfigurationSupport：[org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/WebMvcConfigurationSupport.html)
+```
+这是提供MVC Java后置的配置的主类。
+通常通过添加@EnableWebMvc到应用程序@Configuration类来导入它。
+另一个更高级的选项是直接从此类扩展并根据需要覆盖方法，记住添加@Configuration到子类和@Bean重写@Bean方法。
+
+该类注册以下内容HandlerMappings：
+	RequestMappingHandlerMapping 在0处排序，用于将请求映射到带注释的控制器方法。
+	HandlerMapping 从1开始，将URL路径直接映射到视图名称。
+	BeanNameUrlHandlerMapping 在2处排序以将URL路径映射到控制器bean名称。
+	HandlerMapping 命令at Integer.MAX_VALUE-1来提供静态资源请求。
+	HandlerMapping 命令Integer.MAX_VALUE将请求转发到默认servlet。
+
+注册这些HandlerAdapters：
+	RequestMappingHandlerAdapter 用于使用带注释的控制器方法处理请求。
+	HttpRequestHandlerAdapter 用于处理请求HttpRequestHandlers。
+	SimpleControllerHandlerAdapter 用于处理基于接口的请求Controllers。
+	HandlerExceptionResolverComposite使用此链接的异常解析器注册a ：
+	ExceptionHandlerExceptionResolver通过ExceptionHandler方法处理异常 。
+	ResponseStatusExceptionResolver用于注释的例外 ResponseStatus。
+	DefaultHandlerExceptionResolver 用于解析已知的Spring异常类型
+
+注册AntPathMatcher和a UrlPathHelper 用于：
+	的RequestMappingHandlerMapping，
+	在HandlerMapping对ViewControllers
+	和HandlerMapping服务资源
+
+注意，这些bean可以配置一个PathMatchConfigurer。
+	无论是RequestMappingHandlerAdapter和 ExceptionHandlerExceptionResolver与默认情况下，以下的默认实例配置：
+	一个 ContentNegotiationManager
+	一个 DefaultFormattingConversionService
+	OptionalValidatorFactoryBean 如果类路径上有JSR-303实现可用
+	一系列HttpMessageConverters取决于类路径上可用的第三方库。
+```
+
+@EnableWebMvc：[org.springframework.web.servlet.config.annotation.EnableWebMvc](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/EnableWebMvc.html)
+```
+将此批注添加到@Configuration类中可导入Spring MVC配置WebMvcConfigurationSupport
+	@Configuration
+	@EnableWebMvc
+	@ComponentScan(basePackageClasses = MyConfiguration.class)
+	public class MyConfiguration {
+	}
+
+要自定义导入的配置，请实现接口 WebMvcConfigurer并覆盖单个方法，例如：
+	@Configuration
+	@EnableWebMvc
+	@ComponentScan(basePackageClasses = MyConfiguration.class)
+	public class MyConfiguration implements WebMvcConfigurer {
+	       @Override
+	       public void addFormatters(FormatterRegistry formatterRegistry) {
+	     		formatterRegistry.addConverter(new MyConverter());
+	       }
+	       @Override
+	       public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	    		 converters.add(new MyHttpMessageConverter());
+	       }
+	}
+
+
+注意：只有一个@Configuration类可以具有@EnableWebMvc导入Spring Web MVC配置的 注释。但是，可以有多个@Configuration类来实现WebMvcConfigurer，以便自定义提供的配置。
+如果WebMvcConfigurer没有公开需要配置​​的更高级设置，请考虑删除@EnableWebMvc 
+注释并直接从WebMvcConfigurationSupport 或扩展DelegatingWebMvcConfiguration，例如：
+	@Configuration
+	@ComponentScan(basePackageClasses = { MyConfiguration.class })
+	public class MyConfiguration extends WebMvcConfigurationSupport {
+	   @Override
+	   public void addFormatters(FormatterRegistry formatterRegistry) {
+			 formatterRegistry.addConverter(new MyConverter());
+	   }
+	   @Bean
+	   public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
+			 // Create or delegate to "super" to create and
+			 // customize properties of RequestMappingHandlerAdapter
+	   }
+	}
+```
+
+TestConfigurationByHI.java：
+```Java
+package com.mutistic.interceptor;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.mutistic.utils.CommonUtil;
+// 实现 WebMvcConfigurer通过 addInterceptors()方法添加 HandlerInterceptor 实例
+@SpringBootConfiguration
+//public class TestConfigurationByHI extends WebMvcConfigurationSupport { // 屏蔽Spring Boot的@EnableAutoConfiguration中的设置，需要自定义所有的配置
+//public class TestConfigurationByHI extends WebMvcConfigurerAdapter { // SpringBoot2.0及Spring 5.0 WebMvcConfigurerAdapter已过期
+public class TestConfigurationByHI implements WebMvcConfigurer { // 源接口类 使用 WebMvcConfigurer 代替过期的 WebMvcConfigurerAdapter
+	/**
+	 * 拦截器的使用方式：
+	 * WebMvcConfigurationSupport：https://www.cnblogs.com/deng720/p/8989388.html
+	 * WebMvcConfigurerAdapter：https://blog.csdn.net/u012129558/article/details/79006253
+	 * WebMvcConfigurer：http://412887952-qq-com.iteye.com/blog/2398639
+	 */
+	/**
+	 * 添加拦截器
+	 * @param registry
+	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		CommonUtil.printOne("执行：TestConfigurationByHI implements WebMvcConfigurer.addInterceptors()");
+		registry.addInterceptor(new TestHandlerInterceptor()).addPathPatterns("/testControllerByHI/*");
+	}
+}
+```
+
+TestControllerByHI.java：
+```Java
+package com.mutistic.interceptor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.mutistic.utils.CommonUtil;
+// Controller请求 演示 HandlerInterceptor拦截器
+@RestController
+@RequestMapping("/testControllerByHI/")
+public class TestControllerByHI {
+	@GetMapping(value = "showHandlerInterceptor", produces = "text/html;charset=UTF-8")
+	public String showHandlerInterceptor() {
+		return CommonUtil.printTwo("Controller请求 演示 HandlerInterceptor拦截器", "showHandlerInterceptor");
+	}
+}
+```
+
 
 ---
 ### <a id="a_error">九、自定义Error视图</a> <a href="#a_interceptor">last</a> <a href="#a_jdbc">next</a>
