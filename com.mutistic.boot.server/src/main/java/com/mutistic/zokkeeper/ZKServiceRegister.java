@@ -43,20 +43,20 @@ public class ZKServiceRegister implements ApplicationRunner {
 		client.start(); // 启动zk
 		client.blockUntilConnected(); // 链接
 
-		// 注册 127.0.0.1:8888 服务节点：服务节点名称为：controller
+		// 注册 127.0.0.1:8888 服务节点：服务节点名称为：address
 		ServiceInstance<Object> instances = ServiceInstance.builder().name("address").address("127.0.0.1").port(8888)
 				.build();
-		// 注册 book 服务 路径为book
+		// 注册 book 服务 路径为host
 		ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
 				.basePath("/host").build();
 		discovery.registerService(instances);
 		discovery.start();
 		log.info("zookepper 服务注册成功：127.0.0.1:8888");
 
-		// 注册 192.168.16.113:8888 服务节点：服务节点名称为：controller
+		// 注册 192.168.16.113:8888 服务节点：服务节点名称为：address
 		ServiceInstance<Object> instances2 = ServiceInstance.builder().name("address").address("192.168.16.113")
 				.port(8888).build();
-		// 注册 book 服务 路径为book
+		// 注册 book 服务 路径为host
 		ServiceDiscovery<Object> discovery2 = ServiceDiscoveryBuilder.builder(Object.class).client(client)
 				.basePath("/host").build();
 		discovery2.registerService(instances2);

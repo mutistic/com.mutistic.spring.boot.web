@@ -26,9 +26,6 @@
 18. <a href="#a_zokkeeper">服务的注册和发现(简单使用zokkeeper)</a>
 19. <a href="#a_devtools">热部署</a>
 20. <a href="#a_maven">打包发布</a>
-96. <a href="#a_pit">spring boot web 入坑总结</a>
-97. <a href="#a_sql">sql</a>
-98. <a href="#a_sql">ea</a>
 99. <a href="#a_down">down</a>
 
 ---
@@ -770,12 +767,9 @@ public class TestControllerByJSP {
 ViewUtil.java：
 ```Java
 package com.mutistic.utils;
-
 public class ViewUtil {
-
 	public final static String VIEW_PREFIX_JSP = "/jsp/";
 	public final static String VIEW_SUFFIX_JSP = ".jsp";
-
 	public static String getViewJsp(String val) {
 		return VIEW_PREFIX_JSP + val + VIEW_SUFFIX_JSP;
 	}
@@ -884,7 +878,7 @@ ResourceProperties：[org.springframework.boot.autoconfigure.web.ResourcePropert
 嵌套类：
 static class 	ResourceProperties.Cache
 	缓存配置
-	。
+	
 static class 	ResourceProperties.Chain
 	Spring资源处理链的配置。
 
@@ -3134,6 +3128,10 @@ public class ApplicationContextTests {
 }
 ```
 
+16.4、使用@MockBean创建测试bean：<br/>
+@MockBean：[org.springframework.boot.test.mock.mockito.MockBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/mock/mockito/MockBean.html)
+
+BDDMockito：org.mockito.BDDMockito
 
 使用Mock需要引入mockito-core依赖，spring-boot-starter-test已经自动引入
 ```xml
@@ -3144,11 +3142,6 @@ public class ApplicationContextTests {
   <scope>compile</scope>
 </dependency>
 ```
-
-16.4、使用@MockBean创建测试bean：<br/>
-@MockBean：[org.springframework.boot.test.mock.mockito.MockBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/mock/mockito/MockBean.html)
-
-BDDMockito：org.mockito.BDDMockito
 
 MockTests.java：
 ```Java
@@ -3624,14 +3617,17 @@ ZK官网：【http://zookeeper.apache.org/】
 ZK下载镜像：【http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.13/】
 ZK的使用参考：【https://www.cnblogs.com/shanyou/p/3221990.html】
 ZK客戶端命令使用：【https://www.cnblogs.com/senlinyang/p/7833669.html】
-Zookeeper配置：【配置文件在 conf 目录下，这个目录下有 zoo_sample.cfg 和 log4j.properties，你需要做的就是将 zoo_sample.cfg 改名为 zoo.cfg，因为 Zookeeper 在启动时会找这个文件作为默认配置文件Zookeeper 的配置文件在 conf 目录下，这个目录下有 zoo_sample.cfg 和 log4j.properties，你需要做的就是将 zoo_sample.cfg 改名为 zoo.cfg，因为 Zookeeper 在启动时会找这个文件作为默认配置文件】
+Zookeeper配置：【配置文件在 conf 目录下，这个目录下有 zoo_sample.cfg 和 log4j.properties，
+你需要做的就是将 zoo_sample.cfg 改名为 zoo.cfg，因为 Zookeeper 在启动时会找这个文件作为默认配置文件Zookeeper 的配置文件在 conf 目录下，
+这个目录下有 zoo_sample.cfg 和 log4j.properties，你需要做的就是将 zoo_sample.cfg 改名为 zoo.cfg，
+因为 Zookeeper 在启动时会找这个文件作为默认配置文件】
 tickTime：【这个时间是作为 Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。】
 dataDir：【顾名思义就是 Zookeeper 保存数据的目录，默认情况下，Zookeeper 将写数据的日志文件也保存在这个目录里。】
 dataLogDir：【顾名思义就是 Zookeeper 保存日志文件的目录】
 clientPort：【这个端口就是客户端连接 Zookeeper 服务器的端口，Zookeeper 会监听这个端口，接受客户端的访问请求。】
 启动zookeeper:【/bin/zkServer.cmd】
 zookeeper客户端:【/bin/zkCli.cmd】
-zk默认地址：127.0.0.1:2181
+zk默认地址：【127.0.0.1:2181】
 zk 与  curator 版本关系：【curator的版本：2.12.0，对应Zookeeper的版本为：3.4.x】
 zk 与  curator 版本关系：【curator的版本：3.x或4.x，对应Zookeeper的版本为：3.5.x】
 ```
@@ -3677,20 +3673,20 @@ public class ZKServiceRegister implements ApplicationRunner {
 		client.start(); // 启动zk
 		client.blockUntilConnected(); // 链接
 
-		// 注册 127.0.0.1:8888 服务节点：服务节点名称为：controller
+		// 注册 127.0.0.1:8888 服务节点：服务节点名称为：address
 		ServiceInstance<Object> instances = ServiceInstance.builder().name("address").address("127.0.0.1").port(8888)
 				.build();
-		// 注册 book 服务 路径为book
+		// 注册 book 服务 路径为host
 		ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
 				.basePath("/host").build();
 		discovery.registerService(instances);
 		discovery.start();
 		log.info("zookepper 服务注册成功：127.0.0.1:8888");
 
-		// 注册 192.168.16.113:8888 服务节点：服务节点名称为：controller
+		// 注册 192.168.16.113:8888 服务节点：服务节点名称为：address
 		ServiceInstance<Object> instances2 = ServiceInstance.builder().name("address").address("192.168.16.113")
 				.port(8888).build();
-		// 注册 book 服务 路径为book
+		// 注册 book 服务 路径为host
 		ServiceDiscovery<Object> discovery2 = ServiceDiscoveryBuilder.builder(Object.class).client(client)
 				.basePath("/host").build();
 		discovery2.registerService(instances2);
@@ -3812,18 +3808,18 @@ pom.xml 添加spring-boot-devtools依赖：
 </dependency>
 
 <build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<!-- 没有该配置，spring-boot-devtools 热部署不生效 -->
-					<fork>true</fork>
-					<addResources>true</addResources>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<plugins>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<configuration>
+				<!-- 没有该配置，spring-boot-devtools 热部署不生效 -->
+				<fork>true</fork>
+				<addResources>true</addResources>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
 ```
 
 19.2、使用springloaded实现热部署：
@@ -3927,7 +3923,6 @@ pom.xml build配置打包信息:
 	</plugins>
 </build>
 ```
-
 
 ---
 <a id="a_down"></a>  
