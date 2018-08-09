@@ -49,11 +49,11 @@
 		</dependency>
 		 -->
 		<!-- 配合:BookControllerTest 演示微服务 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.mutistic</groupId>
 			<artifactId>com.mutistic.boot.server</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- 服务的注册和发现(使用zokkeeper)：调用方使用组件:curator-x-discovery -->
 		<dependency>
@@ -84,11 +84,11 @@
 		</dependency>
 
 		<!-- fastjson依赖 -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.47</version>
-		</dependency> -->
+		</dependency>
 
 		<!-- 使用jetty作为web容器的话 需要排除tomcat -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId> 
