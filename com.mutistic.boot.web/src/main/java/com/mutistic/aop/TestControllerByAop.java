@@ -32,7 +32,14 @@ public class TestControllerByAop {
 				+ "<dependency>\r\n" + 
 				"			<groupId>org.springframework.boot</groupId>\r\n" + 
 				"			<artifactId>spring-boot-starter-aop</artifactId>\r\n" + 
-				"		</dependency>]");
+				"		</dependency>\n"
+				+ "实际上是使用aspectjweaver依赖：\r\n" + 
+				"<dependency>\r\n" + 
+				"  <groupId>org.aspectj</groupId>\r\n" + 
+				"  <artifactId>aspectjweaver</artifactId>\r\n" + 
+				"  <version>1.8.13</version>\r\n" + 
+				"  <scope>compile</scope>\r\n" + 
+				"</dependency>]");
 		val.append("\n[Class：实现@Aspect注解，同时实现@Component注解将其注册到spring容器中]");
 		val.append("\n[方法：实现 定义通知方式 的注解：AOP五种通知方式：@Before、@After、@AfterReturning、@AfterThrowing、@Around]");
 		val.append("\n[定义切入点：通过 通知方式的注解value字段execution指定]");
