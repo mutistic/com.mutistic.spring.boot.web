@@ -10,7 +10,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * @program 使用 @TestConfiguration 配置测试环境生效的配置信息
+ * @program 使用 EnvironmentTestUtils 配置测试环境生效的属性信息
  * @description
  * @author mutisitic
  * @date 2018年8月2日
@@ -31,7 +31,7 @@ public class EnvironmentTests {
 	@Test
 	public void testShowValue() {
 		StringBuffer val = new StringBuffer("\n\n\n----------------------");	
-		val.append("使用 @TestConfiguration 配置测试环境生效的配置信息：");
+		val.append("使用 EnvironmentTestUtils 配置测试环境生效的属性信息：");
 		val.append("\n[1、@SpringBootTest类：注入org.springframework.core.env.Environment]");
 		val.append("\n[2、Test默认有限取test下的配置文件，取不到后会取主目录下的配置文件]");
 		val.append("\n[3、可以通过@SpringBootTest的properties属性 配置参数]");

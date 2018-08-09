@@ -26,7 +26,7 @@ public class TestControllerByActuator {
 				"			<artifactId>spring-boot-actuator</artifactId>\r\n" + 
 				"		</dependency>]");
 		
-		val.append("\n[2、浏览器访问日志打印的actuator开放的端口信息：http://127.0.0.1:8888/actuator 下]");
+		val.append("\n[2、浏览器访问日志打印的actuator开放的端口信息：http://127.0.0.1:8080/actuator 下]");
 		
 		val.append("\n[3、spring boot 2.x版本默认开放：health和info端口]");
 		val.append("\n[3.1、通过management.endpoint.xxxx.enable属性配置端口的开放和关闭eg：\n"

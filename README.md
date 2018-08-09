@@ -23,8 +23,8 @@
 15. <a href="#a_actuator">监控和度量的使用</a>
 16. <a href="#a_tests">单元测试的使用</a>
 17. <a href="#a_microservice">微服务的使用</a>
-18. <a href="#a_zokkeeper">服务的注册和发现(使用zokkeeper)</a>
-19. <a href="#a_devtools">、热部署</a>
+18. <a href="#a_zokkeeper">服务的注册和发现(简单使用zokkeeper)</a>
+19. <a href="#a_devtools">热部署</a>
 20. <a href="#a_maven">打包发布</a>
 96. <a href="#a_pit">spring boot web 入坑总结</a>
 97. <a href="#a_sql">sql</a>
@@ -2572,7 +2572,7 @@ public class TestAspect {
 	//  execution(<修饰符模式>?<返回类型模式><方法名模式>(<参数模式>)<异常模式>?)
 	@Before(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))") // execution 定义切入点：如xx包的xx方法
 	public void before(JoinPoint joinPoint) {
-		StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
+		StringBuffer val = new StringBuffer("\n\n\n------------------");
 		val.append("\n[@Before：前置通知]");
 		val.append("\n[前置通知：在目标 方法开始之前进行执行的通知]");
 		val.append("\n[前置通知：使用 @Before 注解, 并将切入点表达式的值作为注解值]");
@@ -2666,27 +2666,1267 @@ public class TestAspect {
 
 ---
 ### <a id="a_starter">十三、创建starter项目并引用</a> <a href="#a_aop">last</a> <a href="a_logger">next</a>
+13.1、创建starter项目并引用的步骤-以创建redis的starter项目为例：
+```
+[1、starter项目pom.xml：建议创建maven项目，此项目演示redis配置，故需要引入jedis依赖：
+<dependency>
+	<groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+</dependency>]
+[2、创建properties类（RedisProperties）：可实现@ConfigurationProperties注解，指定prefix，eg:prefix="redis"]，定义属性及get/set方法
+[3、创建configuration类（RedisAutoConfiguration）：1、实现@Configuration或@SpringBootConfiguration注解，
+2、实现@EnableConfigurationProperties注解
+3、@EnableConfigurationProperties注解需要指定@ConfigurationProperties的properties类4、通过 @ConditionalOnClass 配置 Jedis.class 优化configuration配置
+@SpringBootConfiguration
+@EnableConfigurationProperties
+@ConditionalOnClass(Jedis.class)
+public class RedisConfiguration { } ]
+[4、configuration类创建Jedis bean（jedis）：1、入参RedisProperties
+2、创建Jedis实例传入 host和port信息
+3、通过@ConditionalOnMissingBean 配置 Jedis 优化bean的创建
+	@Bean
+	@ConditionalOnMissingBean
+	public Jedis jedis(RedisProperties properties) {
+		return new Jedis(properties.getHost(), properties.getPort());
+	}]
+[5、starter项目启动configuration类：
+5.1、通过@Import实现开启configuration类(@EnableRedis)：@Import导入RedisAutoConfiguration类，然后@SpringBootApplication类实现@EnableRedis注解
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Import(RedisConfiguration.class)
+public @interface EnableRedis { }5.2、可以通过resoureces/META-INF/spring.factories配置：
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.mutistic.starter.RedisConfiguration]
+[6、引用方pom.xml：引用创建redis-starter的项目：eg：
+<dependency>
+	<groupId>com.mutistic</groupId>
+	<artifactId>com.mutistic.boot.web.redis</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+</dependency>]
+[7、引用方properties：可以配置redis.host，redis.port的信息，是可以传递给redis-starter的RedisProperties]
+[8、引用方就可以获取Jedis完成redis功能]
+```
+
+RedisProperties.java：
+```
+package com.mutistic.starter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+// Redis Properties 配置文件类
+// 实现 @ConfigurationProperties 可以指定prefix
+@ConfigurationProperties(prefix = "redis")
+public class RedisProperties {
+
+	private String host;
+	private Integer port;
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public Integer getPort() {
+		return port;
+	}
+
+	public void setPort(Integer port) {
+		this.port = port;
+	}
+}
+```
+RedisConfiguration.java：
+```Java
+package com.mutistic.starter;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import redis.clients.jedis.Jedis;
+// 创建 Jedis bend 配置类
+@SpringBootConfiguration
+@EnableConfigurationProperties
+@ConditionalOnClass(Jedis.class)
+public class RedisConfiguration {
+	@Bean
+	@ConditionalOnMissingBean
+	public Jedis jedis(RedisProperties properties) {
+		return new Jedis(properties.getHost(), properties.getPort());
+	}
+}
+```
+RedisConfiguration.java：
+```Java
+package com.mutistic.starter;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.springframework.context.annotation.Import;
+// 开启 RedisConfiguration 配置类
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Import(RedisConfiguration.class)
+public @interface EnableRedis { }
+```
 
 ---
 ### <a id="a_logger">十四、logger的使用</a> <a href="#a_starter">last</a> <a href="a_actuator">next</a>
+Logger：[org.slf4j.Logger](https://www.slf4j.org/api/org/slf4j/Logger.html)</br>
+此类是原始[org.apache.log4j.Logger](https://www.slf4j.org/api/org/slf4j/Logger.html)类的最小实现 （如log4j 1.2中所示），委托对Logger实例的所有调用。</br>
+
+LogbackLoggingSystem：[org.springframework.boot.logging.logback.LogbackLoggingSystem](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/logging/logback/LogbackLoggingSystem.html)</br>
+
+14.1、slf4j Logger 的使用步骤：
+```
+[1、pom.xml：spring-boot-starter-web的依赖默认 添加 slf4j的依赖：
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-logging</artifactId>
+  <version>2.0.3.RELEASE</version>
+  <scope>compile</scope>
+</dependency>]
+[1.1、如果使用slf4j具体的依赖配置：需要排除 spring-boot-starter-logging 默认日志依赖
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+</dependency>]
+
+[2、Logger：private static final Logger log = LoggerFactory.getLogger(TestControllerByLog.class);]
+
+[3、日志级别level：参考org.slf4j.event.Level：OFF（关闭）< DEBUG（调试）< INFO（记录）< WARN（警告）< ERROR（错误） TRACE（跟踪）、FATAL（严重），一般使用：DEBUG、INFO、WARN、ERROR四种]
+[3.1、默认日志级别：info]
+[3.2、可以通过属性 logging.level.root 调整日志级别： 配置日志级别：（logging.level.root root表示所有的）（logging.level.* *表示具体包名或类名：logging.level.com.mutistic.utils.CommonUtil）
+logging.level.root=DEBUG]
+[3.3通过启动参数args调整的日志级别只对spring boot内部的类生效：--debug 或 --debug=true]
+
+[4、可用通过配置文件配置：参考org.springframework.boot.logging.logback.LogbackLoggingSystem]
+[4.1、logging.level：设置日志级别]
+[4.2、logging.file：设置日志文件文件名及输入路径]
+[4.3、logging.path：设置日志文件路径：默认日志文件名为：spring.log]
+[4.4、日志输出格式参考：https://blog.csdn.net/qq496013218/article/details/69220907]
+[4.4.1、logging.pattern.console：设置控制台日志输出格式：eg：logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss.sss} [%p][%t] [%c:%L] - %m%n]
+[4.4.1、logging.pattern.file：设置文件日志输出格式]
+[4.4.3、日志格式参数说明：
+	%m 输出代码中指定的消息
+	%p	输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL
+	%r	输出自应用启动到输出该log信息耗费的毫秒数
+	%c	输出所属的类目，通常就是所在类的全名
+	%t	输出产生该日志事件的线程名
+	%n	输出一个回车换行符，Windows平台为“\r\n”，Unix平台为“\n”
+	%d	输出日志时间点的日期或时间，默认格式为ISO-8601，也可以在其后指定格式，比如：%d{yyy MMM dd HH:mm:ss.SSS}，
+	%l	输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)]
+
+[5、spring boot 默认是使用logback.xml或logback-spring.xml文件设置日志信息，默认位置 src/resources，spring 推荐使用：logback-spring.xml]
+[5.1、logback.xml配置参考：https://logback.qos.ch/manual/configuration.html]
+[5.2、logback.xml或logback-spring.xml简单配置实例：
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 日志输出到文件的配置：使用ch.qos.logback.core.ConsoleAppender 适配器-->
+	<appender name="fileLog" class="ch.qos.logback.core.FileAppender">
+		<!-- 配置输出文件位置及文件名:默认在项目目录下 -->
+		<file>logs/catalina.log</file>
+		<!-- 配置输出格式 -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n
+			</pattern>
+		</encoder>
+	</appender>
+	<!-- 日志输出到控制台的配置 -->
+	<appender name="consoleLog"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="fileLog" />
+		<appender-ref ref="consoleLog" />
+	</root>
+</configuration>]
+[5.3、日志文件默认大小为10M，不可修改]
+
+[6、选用其他日志组件的配pom.xml配置：需要先排除掉默认logger依赖：以log4j2日志为例:
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+	<exclusions>
+		<exclusion>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖-->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-log4j2</artifactId>
+</dependency>]
+[6.1、log4j2默认的日志配置文件名是log4j2.xml或log4j2-spring.xml：配置信息参考logback.xml]
+```
+
+pom.xml添加slf4j-log4j12依赖：
+```xml
+<!-- 添加web项目依赖 -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+	<!-- 引入其他log 需要排除spring-boot-starter-logging -->
+	<exclusions>
+		<exclusion>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
+<!-- <dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-log4j2</artifactId>
+</dependency> -->
+<!-- 添加slf4j日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+</dependency>
+```
+
+src/main/resources/logback.xml日志配置参考：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 日志输出到文件的配置：使用ch.qos.logback.core.ConsoleAppender 适配器
+		参考配置位置：org.springframework.boot.logging.logback.file-appender.xml-->
+	<appender name="fileLog" class="ch.qos.logback.core.FileAppender">
+		<!-- 配置输出文件位置及文件名：默认在项目目录下 -->
+		<file>logs/catalina.out</file>
+		<!-- 配置回滚信息 -->
+		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/catalina.%d{yyyy-MM-dd}.%i.out</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy> -->
+		<!-- 配置输出格式 -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 日志输出到控制台的配置：使用ch.qos.logback.core.ConsoleAppender 适配器
+		参考配置位置：org.springframework.boot.logging.logback.console-appender.xml -->
+	<appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="fileLog" />
+		<appender-ref ref="consoleLog" />
+	</root>
+</configuration>
+```
 
 ---
 ### <a id="a_actuator">十五、监控和度量的使用</a> <a href="#a_logger">last</a> <a href="a_tests">next</a>
+[监控和度量的使用](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)：
+```
+[1、pom.xml添加actuator依赖：
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-actuator</artifactId>
+</dependency>]
+
+[2、浏览器访问日志打印的actuator开放的端口信息：http://127.0.0.1:8080/actuator 下]
+
+[3、spring boot 2.x版本默认开放：health和info端口]
+[3.1、通过management.endpoint.xxxx.enable属性配置端口的开放和关闭eg：
+management.endpoint.shutdown.enabled=true]
+[3.2、spring boot 2.x版本：属性配置调整到management.endpoint 下]
+[3.3、spring boot 2.x版本：通过management.endpoints.web.exposure.include=* 设置开放端口，*表示所有，默认为health和info端口（实际上2.0.3以上版本并没有该属性，不生效）]
+[3.4、spring boot 2.x版本：通过management.endpoints.web.exposure.exclude=shutdown 设置关闭端口（实际上2.0.3以上版本并没有该属性，不生效）]
+
+[4、端口说明：参考https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html]
+[4.1、auditevents：公开当前应用程序的审核事件信息。]
+[4.2、beans：显示应用程序中所有Spring bean的完整列表。]
+[4.3、conditions：显示在配置和自动配置类上评估的条件以及它们匹配或不匹配的原因。]
+[4.4、configprops：显示所有的整理列表@ConfigurationProperties。]
+[4.5、env：露出Spring的属性ConfigurableEnvironment。]
+[4.6、flyway：显示已应用的任何Flyway数据库迁移。]
+[4.7、health：显示应用健康信息。]
+[4.8、httptrace：显示HTTP跟踪信息（默认情况下，最后100个HTTP请求 - 响应交换）。]
+[4.9、info：显示任意应用信息。]
+[4.10、loggers：显示和修改应用程序中记录器的配置。]
+[4.11、liquibase：显示已应用的任何Liquibase数据库迁移。]
+[4.12、metrics：显示当前应用程序的“指标”信息。]
+[4.13、mappings：显示所有@RequestMapping路径的整理列表。]
+[4.14、scheduledtasks：显示应用程序中的计划任务。]
+[4.15、sessions：允许从Spring Session支持的会话存储中检索和删除用户会话。使用Spring Session对响应式Web应用程序的支持时不可用。]
+[4.16、shutdown：允许应用程序正常关闭。]
+[4.17、threaddump：执行线程转储。]
+[PS1、经测试发现spring boot 2.x无法访问actuator信息，具体原因还未知]
+```
+
+pom.xml添加spring-boot-actuator依赖：
+```xml
+<!-- 添加监控和度量依赖 -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-actuator</artifactId>
+</dependency>
+```
 
 ---
 ### <a id="a_tests">十六、单元测试的使用</a> <a href="#a_actuator">last</a> <a href="a_microservice">next</a>
+pom.xml添加spring-boot-starter-test依赖：
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-test</artifactId>
+	<scope>test</scope>
+</dependency>
+```
+@RunWith：org.junit.runner.RunWith
+
+@Test：org.junit.Test
+
+SpringRunner：[org.springframework.test.context.junit4.SpringRunner](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/junit4/SpringRunner.html)
+
+@SpringBootTest：[org.springframework.boot.test.context.SpringBootTest](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html)
+
+16.1、使用 @SpringBootTest 测试JdbcTemplate：<br/>
+JdbcTemplateTests.java：
+```Java
+package com.mutistic.test.jdbc;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import com.mutistic.jdbc.MyTestDao;
+// 使用  @SpringBootTest 测试JdbcTemplate
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class JdbcTemplateTests {
+	@Autowired
+	private MyTestDao myTestDao;
+	@Test
+	public void testInsert() {
+		StringBuffer val = new StringBuffer("\n\n\n----------------------");
+		val.append("使用  @SpringBootTest 测试JdbcTemplate：");
+		val.append("\n[1、pom.xml添加test依赖：\n"
+				+ "<dependency>\n" + 
+				"			<groupId>org.springframework.boot</groupId>\n" + 
+				"			<artifactId>spring-boot-starter-test</artifactId>\n" + 
+				"			<scope>test</scope>\n" + 
+				"		</dependency>]");
+		
+		val.append("\n[2、Test类：实现 @RunWith(SpringRunner.class) 注解，并且实现@SpringBootTest注解]");
+		val.append("\n[3、方法：实现@Test注解]");
+		val.append("\n[PS1：test包下的在正式环境是会被忽略掉的]");
+		
+		val.append("========以下是JdbcTemplate信息=========");
+		val.append("\n[使用 JdbcTemplate通过execute() 方法执行sql语句完成数据插入]");
+		val.append("\n[执行sql：" + myTestDao.insert(2l, "test") + "]");
+		System.out.println(val.toString());
+	}
+}
+```
+
+16.2、使用 @TestConfiguration 配置测试环境生效的配置信息：<br/>
+EnvironmentTestUtils：[org.springframework.boot.test.util.EnvironmentTestUtils](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/util/EnvironmentTestUtils.html)
+
+```Java
+package com.mutistic.test.env;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.EnvironmentTestUtils;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.test.context.junit4.SpringRunner;
+// 使用 EnvironmentTestUtils 配置测试环境生效的属性信息
+@RunWith(SpringRunner.class)
+// @SpringBootTest
+@SpringBootTest(properties = { "app.version=1.0.0" })
+public class EnvironmentTests {
+	@Autowired
+	private ConfigurableEnvironment env;
+	@Before
+	public void initProperties() {
+		EnvironmentTestUtils.addEnvironment(env, "app.name=spring boot web test");
+	}
+
+	@Test
+	public void testShowValue() {
+		StringBuffer val = new StringBuffer("\n\n\n----------------------");	
+		val.append("使用 EnvironmentTestUtils 配置测试环境生效的属性信息：");
+		val.append("\n[1、@SpringBootTest类：注入org.springframework.core.env.Environment]");
+		val.append("\n[2、Test默认有限取test下的配置文件，取不到后会取主目录下的配置文件]");
+		val.append("\n[3、可以通过@SpringBootTest的properties属性 配置参数]");
+		val.append("\n[4、可以通过EnvironmentTestUtils添加配置参数：\n"
+				+ "4.1、声明一个方法，实现org.junit.Before注解\n"
+				+ "4.2、通过EnvironmentTestUtils.addEnvironment() 方法添加属性：\n"
+				+ "EnvironmentTestUtils.addEnvironment(env, \"app.name=spring boot web test\")"
+				+ "4.3、env类型为：org.springframework.core.env.ConfigurableEnvironment]");
+
+		val.append("========以下是ConfigurableEnvironment获取properties信息=========");
+		val.append("\n[获取配置参数server.port：" + env.getProperty("server.port") + "]");
+		val.append("\n[获取@SpringBootTest配置的属性app.version：" + env.getProperty("app.version") + "]");
+		val.append("\n[获取EnvironmentTestUtils.addEnvironment()添加的属性app.name：" + env.getProperty("app.name") + "]");
+		System.out.println(val.toString());
+
+	}
+}
+```
+
+16.3、使用 @TestConfiguration 配置测试环境生效的配置信息：<br/>
+@TestConfiguration：[org.springframework.boot.test.context.TestConfiguration](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/TestConfiguration.html)
+
+ConfigurationTests.java：
+```Java
+package com.mutistic.test.config;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+@TestConfiguration
+public class ConfigurationTests {
+	@Bean
+	public Runnable createrRunnable() { return () -> {}; }
+}
+```
+
+ApplicationContextTests.java：
+```Java
+package com.mutistic.test.config;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.junit4.SpringRunner;
+import com.mutistic.jdbc.MyTestDao;
+// 使用 @TestConfiguration 配置测试环境生效的配置信息
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ConfigurationTests.class)
+public class ApplicationContextTests {
+	@Autowired
+	private ApplicationContext context;
+	@Test
+	public void testShowTestBean() {
+		StringBuffer val = new StringBuffer("\n\n\n----------------------");
+		val.append("使用 @TestConfiguration 配置测试环境生效的配置信息：");
+		val.append("\n[1、Configuration类：实现 @TestConfiguration注解，注意不能使用@Configuration或@SpringBootConfiguration注解配置类]");
+		val.append("\n[2、@SpringBootTest类：通过classes属性配置Configuration类，否者@TestConfiguration不会生效：\n"
+				+ "@SpringBootTest(classes = ConfigurationTests.class)]");
+
+		val.append("========以下是ApplicationContext获取bean信息=========");
+		val.append("\n[输出正常测试bean：" + context.getBeansOfType(MyTestDao.class) + "]");
+		val.append("\n[输出测试环境bean：" + context.getBeansOfType(Runnable.class) + "]");
+		System.out.println(val.toString());
+	}
+}
+```
+
+
+使用Mock需要引入mockito-core依赖，spring-boot-starter-test已经自动引入
+```xml
+<dependency>
+  <groupId>org.mockito</groupId>
+  <artifactId>mockito-core</artifactId>
+  <version>2.15.0</version>
+  <scope>compile</scope>
+</dependency>
+```
+
+16.4、使用@MockBean创建测试bean：<br/>
+@MockBean：[org.springframework.boot.test.mock.mockito.MockBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/mock/mockito/MockBean.html)
+
+BDDMockito：org.mockito.BDDMockito
+
+MockTests.java：
+```Java
+package com.mutistic.test.mok;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.BDDMockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+import com.mutistic.utils.CommonUtil;
+// 使用@MockBean创建测试bean
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MockTests {
+	// 使用@MockBean创建测试bean
+	@MockBean
+	private MockUserMapper mockUserMapper;
+	//  在执行测试之前需要的前置通知 
+	@Before
+	public void craterMockit() {
+		BDDMockito.given(mockUserMapper.createrUser("mutistic")).willReturn(999);
+		CommonUtil.printTwo("使用@Before 添加预测传入mutistic，返回结果为999：", "BDDMockito.given(mockUserMapper.createrUser(\"mutistic\")).willReturn(999);");
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testCreater() {
+		StringBuffer val = new StringBuffer("\n\n\n----------------------");	
+		val.append("使用 @MockBean 创建bean用来做预测接口方法的测试：");
+		val.append("\n[1、使用 @MockBean(org.springframework.boot.test.mock.mockito.MockBean)注解 创建bean]");
+		val.append("\n[1.1、MockBean："+ mockUserMapper.getClass() +"]");
+		val.append("\n[2、使用 org.mockito.BDDMockito.given()：调用接口方法]");
+		val.append("\n[3、使用BDDMockito.given().willReturn()：预测接口的返回值]");
+		val.append("\n[4、使用BDDMockito.given().willThrow()：预测接口抛出异常]");
+		val.append("\n[4.1、预测接口抛出异常时需要，@Test注解通过 expected 字段 设置异常类型]");
+		val.append("\n[5、预测信息也可以通过@Before(org.junit.Before)注解的方法配置]");
+		System.out.println(val.toString());
+		
+		
+		CommonUtil.printOne("以下时预测和断言信息：");
+		// 调用接口，预测返回结果
+		BDDMockito.given(mockUserMapper.createrUser("")).willReturn(0); // 预测传入空字符串，返回0
+		CommonUtil.printTwo("预测传入空字符串，返回结果为0：", "BDDMockito.given(mockUserMapper.createrUser(\"\")).willReturn(0);");
+		
+		BDDMockito.given(mockUserMapper.createrUser("admin")).willReturn(1); // 预测传入admin，返回1
+		CommonUtil.printThree("预测传入admin，返回结果为1：", "BDDMockito.given(mockUserMapper.createrUser(\"admin\")).willReturn(1);");
+		
+		BDDMockito.given(mockUserMapper.createrUser(null)).willThrow(NullPointerException.class); // 预测传入null，抛出  NullPointerException异常
+		CommonUtil.printThree("预测传入null，抛出  NullPointerException异常：", "BDDMockito.given(mockUserMapper.createrUser(null)).willThrow(NullPointerException.class);");
+		
+		
+		// 断言接口
+		Assert.assertEquals(Integer.valueOf(0), mockUserMapper.createrUser("")); // 断言调用接口传入"" 结果为0
+		CommonUtil.printTwo("断言调用接口传入\"\" 结果为0：断言成功：", "Assert.assertEquals(Integer.valueOf(0), mockUserMapper.createrUser(\"\"));");
+
+		Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser("admin")); // 断言调用接口传入admin 结果为1
+		CommonUtil.printThree("断言调用接口传入admin 结果为1：断言成功：", "Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser(\"admin\"));");
+		
+		Assert.assertEquals(Integer.valueOf(999), mockUserMapper.createrUser("mutistic")); // 断言调用接口传入预测不存在的信息
+		CommonUtil.printThree("断言调用接口传入mutistic 结果为999：断言成功：", "Assert.assertEquals(Integer.valueOf(999), mockUserMapper.createrUser(\"mutistic\"));");
+	
+		Assert.assertEquals(Integer.valueOf(11), mockUserMapper.createrUser(null)); // 断言调用接口传入null, 结果抛出NullPointerException异常
+		CommonUtil.printThree("断言调用接口传入null, 结果抛出NullPointerException异常：断言成功：", "Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser(null));");
+
+//		Assert.assertEquals(Integer.valueOf(11), mockUserMapper.createrUser("not exists")); // 断言调用接口传入预测不存在的信息
+		CommonUtil.printThree("断言调用接口传入不存在的信息 结果为11，：断言成功：", "Assert.assertEquals(Integer.valueOf(111), mockUserMapper.createrUser(\"not exists\"));");
+	}
+}
+```
+MockUserMapper.java：
+```
+package com.mutistic.test.mok;
+public interface MockUserMapper {
+	public Integer createrUser(String userName);
+}
+```
+
+16.5、使用 TestRestTemplate 测试Controller：<br/>
+TestRestTemplate：[org.springframework.boot.test.web.client.TestRestTemplate](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/web/client/TestRestTemplate.html)
+ControllerTestsByTempleate.java：
+```Java
+package com.mutistic.test.controller;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
+// 使用 TestRestTemplate 测试Controller
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+public class ControllerTestsByTempleate {
+	@Autowired
+	private TestRestTemplate testRestTemplate;
+	@Test
+	public void testShowTest() {
+		StringBuffer val = new StringBuffer("\n\n\n----------------------");
+		val.append("使用 TestRestTemplate 测试Controller：");
+		val.append("\n[1、@SpringBootTest注解类：使用webEnvironment属性配置为WebEnvironment.RANDOM_PORT：随机接口]");
+		val.append("\n[2、注入TestRestTemplate(org.springframework.boot.test.web.client.TestRestTemplate) bean]");
+		val.append("\n[3、TestRestTemplate.getForObject()：方法模拟请求Controller接口]");
+		val.append("\n[4、getForObject()为Controller接口返回值]");
+		val.append("\n[PS1、TestRestTemplate 需要在web环境下，才能注入进来]");
+		System.out.println(val.toString());
+
+		String context = testRestTemplate.getForObject("/testsController/showTest", String.class);
+		Assert.assertEquals("TestsController.showTest", context);
+	}
+	@Test
+	public void testShowByParams() {
+		System.out.println("Get请求可以在请求路径上直接传参： url?key=value");
+		Long id = 100l;
+		String context = testRestTemplate.getForObject("/testsController/showByParams?id=" + id, String.class);
+		Assert.assertEquals("TestsController.showByParams" + id, context);
+	}
+}
+
+```
+
+16.6、使用 MockMvc 测试Controller：<br/>
+MockMvc：[org.springframework.test.web.servlet.MockMvc](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/web/servlet/MockMvc.html)
+ControllerTestsByMockMvc.java：
+```Java
+package com.mutistic.test.controller;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import com.mutistic.tests.TestsController;
+// 使用 MockMvc 测试Controller
+@RunWith(SpringRunner.class)
+@WebMvcTest(controllers = TestsController.class)
+public class ControllerTestsByMockMvc {
+	@Autowired
+	private MockMvc mockMvc;
+	@Test
+	public void testShowTest() throws Exception {
+		StringBuffer val = new StringBuffer("\n\n\n----------------------");
+		val.append("使用 TestRestTemplate 测试Controller：");
+		val.append("\n[1、类：实现@WebMvcTest注解，通过 controllers指定需要测试的Controller类]");
+		val.append("\n[2、注入MockMvc(org.springframework.test.web.servlet.MockMvc) bean]");
+		val.append("\n[3、MockMvc.perform()：调用接口：入参：MockMvcRequestBuilders]");
+		val.append("\n[4、MockMvcRequestBuilders.get()：设置调用URL和请求方式，还有post()等请求方式]");
+		val.append("\n[5、MockMvc.perform().andExpect()：设置预测返回结果]");
+		val.append("\n[6、MockMvcResultMatchers.status().isOk()：预测接口访问成功：isOk() = HttpStatus.OK = 200]");
+		val.append("\n[7、MockMvcResultMatchers.content().string(value)：设置预测返回结果类型为String且值为value]");
+		val.append("\n[PS1：	@WebMvcTest不需要运行在Web环境下，但是需要自行执定Controller]");
+		val.append("\n[PS2：	@WebMvcTest和@SpringBootTest不能同时使用]");
+		val.append("\n[PS3：	@WebMvcTest不会加载整个spring bean，@SpringBootTest可以加载整个spring bean]");
+		val.append("\n[PS4：	@SpringBootTest + @AutoConfigureMockMvc 可以注入 MockMvc bean]");
+		System.out.println(val.toString());
+
+		// 预测接口调用成功 isOk() = HttpStatus.OK = 200
+		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showTest"))
+				.andExpect(MockMvcResultMatchers.status().isOk()); // 预测结果是能够访问成功
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showTest"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().string("TestsController.showTest")); // 预测接口返回
+	}
+
+	@Test
+	public void testShowByParams() throws Exception {
+		System.out.println("MockMvcRequestBuilders.get().param()：添加参数");
+		Long id = 400l;
+		// 预测接口调用成功 isOk() = HttpStatus.OK = 200
+		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showByParams").param("id", id + ""))
+				.andExpect(MockMvcResultMatchers.status().isOk()); // 预测结果是能够访问成功
+
+		// 预测接口调用成功 isOk() = HttpStatus.OK = 200
+		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showByParams").param("id", id + ""))
+				.andExpect(MockMvcResultMatchers.content().string("TestsController.showByParams" + id)); // 预测结果是能够访问成功
+	}
+}
+```
 
 ---
 ### <a id="a_microservice">十七、微服务的使用</a> <a href="#a_tests">last</a> <a href="a_zokkeeper">next</a>
+演示创建com.mutistic.boot.server：<br/>
+pom.xml：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.mutistic</groupId>
+	<artifactId>com.mutistic.boot.server</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>com.mutistic.boot.server</name>
+	<description>server</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<!-- fastjson依赖 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+```
+
+application.properties：
+```properties
+## 设置端口号
+#server.port=8888
+## 设置请求编码格式
+spring.http.encoding.charset=UTF-8
+spring.http.encoding.enabled=true
+spring.http.encoding.force=true
+spring.http.encoding.force-request=true
+spring.http.encoding.force-response=true
+spring.messages.encoding=UTF-8
+
+## 配置jdbc驱动：使用mysql驱动
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+## 配置 jdbc url
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/study?useSSL=false
+## 配置 jdbc 用户名
+spring.datasource.username=root
+## 配置 jdbc 密码
+spring.datasource.password=root
+
+#设置jackson date 格式化字符串
+spring.jackson.date-format=yyy-MM-dd HH:mm:ss
+```
+
+Application.java：
+```java
+package com.mutistic;
+import java.util.Date;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import com.mutistic.entity.BookEntity;
+import com.mutistic.mapper.BookMapper;
+import com.mutistic.utils.CommonUtil;
+@SpringBootApplication
+public class Application {
+	public static void main(String[] args) {
+		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
+		testBookMapper(ctx);
+	}
+
+	private static void testBookMapper(ConfigurableApplicationContext ctx) {
+		CommonUtil.printOne("获取BookMapper bean："+ ctx.getBean(BookMapper.class));
+		
+		BookMapper mapper = ctx.getBean(BookMapper.class);
+		
+		CommonUtil.printOne("测试BookMapper.insert()方法:");
+		BookEntity insert = new BookEntity();
+		insert.setBookId((new Date()).getTime());
+		insert.setTitle("test title");
+		insert.setAuthor("test author");
+		insert.setRemark("test remark");
+		insert.setCreaterTime(new Date());
+		CommonUtil.printThree("新增结果：", mapper.insert(insert));
+		
+		CommonUtil.printOne("测试BookMapper.queryAllList()方法:");
+		CommonUtil.printThree("查询结果：", mapper.queryAllList());
+		
+		CommonUtil.printOne("测试BookMapper.queryById()方法:");
+		BookEntity query = mapper.queryById(insert.getBookId());
+		CommonUtil.printThree("查询结果：", query == null ? null : query.toString());
+		
+		CommonUtil.printOne("测试BookMapper.update()方法:");
+		query.setCreaterTime(new Date());
+		CommonUtil.printThree("更新结果：", mapper.update(query));
+		
+		CommonUtil.printOne("测试BookMapper.delete()方法:");
+		CommonUtil.printThree("删除结果：", mapper.delete(insert.getBookId()));
+	}
+}
+```
+
+BookEntity.java：
+```Java
+package com.mutistic.entity;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+// book 实体 
+public class BookEntity {
+	private Long bookId;
+	private String title;
+	private String author;
+	private String remark;
+//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GTM+8") // 字符串(格式为yyyy-MM-dd HH:mm:ss)转换为日期java.util.Date
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date createrTime;
+	
+	public Long getBookId() { return bookId; }
+	public void setBookId(Long bookId) { this.bookId = bookId; }
+	public String getTitle() { return title; }
+	public void setTitle(String title) { this.title = title; }
+	public String getAuthor() { return author; }
+	public void setAuthor(String author) { this.author = author;}
+	public String getRemark() {	return remark;}
+	public void setRemark(String remark) {this.remark = remark;	}
+	public Date getCreaterTime() {return createrTime;}
+	public void setCreaterTime(Date createrTime) {this.createrTime = createrTime;	}
+	@Override
+	public String toString() {
+		return "BookEntity [bookId=" + bookId + ", title=" + title + ", author=" + author + ", remark=" + remark
+				+ ", createrTime=" + createrTime + "]";
+	}
+}
+```
+
+BookMapper.java：
+```Java
+package com.mutistic.mapper;
+import java.util.List;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import com.mutistic.entity.BookEntity;
+@Mapper
+public interface BookMapper {
+	@Insert("INSERT INTO book (bookId, title, author, remark, createrTime) VALUES (#{bookId}, #{title}, #{author}, #{remark}, #{createrTime}) ")
+	Integer insert(BookEntity entity);
+	
+	@Select("SELECT bookId, title, author, remark, createrTime FROM book")
+	List<BookEntity> queryAllList();
+	
+	@Select("SELECT bookId, title, author, remark, createrTime FROM book WHERE bookId = #{id}")
+	BookEntity queryById(Long id);
+	
+	@Update("UPDATE book SET bookId = #{bookId}, title = #{title}, author = #{author}, remark = #{remark}, createrTime = #{createrTime}  WHERE bookId = #{bookId}")
+	Integer update(BookEntity entity);
+	
+	@Delete("DELETE FROM book WHERE bookId = #{id}")
+	Integer delete(Long id);
+}
+```
+
+BookController.java：
+```Java
+package com.mutistic.controller;
+import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import com.mutistic.base.ResponseUtil;
+import com.mutistic.entity.BookEntity;
+import com.mutistic.mapper.BookMapper;
+
+@RestController
+@RequestMapping("/bookController/")
+public class BookController {
+	@Autowired
+	private BookMapper bookMapper;
+	// 查询所有book信息 
+	@GetMapping("queryAllList")
+	public Object queryAllList(HttpServletRequest request) { return ResponseUtil.setSuccess(bookMapper.queryAllList()); }
+	// 根据ID查询book信息
+	@GetMapping("queryById")
+	public Object queryById(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.queryById(id)); }
+	// 新增book信息 
+	@PostMapping("insert")
+	public Object insert(@RequestBody BookEntity book) {
+		book.setBookId((new Date()).getTime());
+		if(null == book.getCreaterTime()) 
+			book.setCreaterTime(new Date());
+		return ResponseUtil.setSuccess(bookMapper.insert(book));
+	}
+	// 修改book信息 
+	@PostMapping("update")
+	public Object update(@RequestBody BookEntity book) {
+		if(null == book.getCreaterTime()) book.setCreaterTime(new Date());
+		return ResponseUtil.setSuccess(bookMapper.update(book));
+	}
+	//根据ID删除book信息 
+	@DeleteMapping("delete")
+	public Object delete(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.delete(id)); }
+}
+```
+
+ResponseUtil.java：
+```Java
+package com.mutistic.base;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
+import com.alibaba.fastjson.JSON;
+// Response 工具类
+public class ResponseUtil {
+	private static final Logger log = LoggerFactory.getLogger(ResponseUtil.class);
+	public static ResponseEntity<ModelMap> setSuccess(Object data) {
+		ModelMap mode = new ModelMap();
+		if (data != null) {
+			mode.put("data", data);
+		}
+
+		mode.put("code", HttpStatus.OK.value());
+		mode.put("msg", HttpStatus.OK.getReasonPhrase());
+		mode.put("timestamp", System.currentTimeMillis());
+		log.info("response===> "+ JSON.toJSONString(mode));
+		return ResponseEntity.ok(mode);
+	}
+}
+```
 
 ---
-### <a id="a_zokkeeper">十八、服务的注册和发现(使用zokkeeper)</a> <a href="#a_tests">last</a> <a href="a_devtools">next</a>
+### <a id="a_zokkeeper">十八、服务的注册和发现(简单使用zokkeeper)</a> <a href="#a_tests">last</a> <a href="a_devtools">next</a>
+18.1、Zookeeper的安装和使用：
+```
+ZK官网：【http://zookeeper.apache.org/】
+ZK下载镜像：【http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.13/】
+ZK的使用参考：【https://www.cnblogs.com/shanyou/p/3221990.html】
+ZK客戶端命令使用：【https://www.cnblogs.com/senlinyang/p/7833669.html】
+Zookeeper配置：【配置文件在 conf 目录下，这个目录下有 zoo_sample.cfg 和 log4j.properties，你需要做的就是将 zoo_sample.cfg 改名为 zoo.cfg，因为 Zookeeper 在启动时会找这个文件作为默认配置文件Zookeeper 的配置文件在 conf 目录下，这个目录下有 zoo_sample.cfg 和 log4j.properties，你需要做的就是将 zoo_sample.cfg 改名为 zoo.cfg，因为 Zookeeper 在启动时会找这个文件作为默认配置文件】
+tickTime：【这个时间是作为 Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。】
+dataDir：【顾名思义就是 Zookeeper 保存数据的目录，默认情况下，Zookeeper 将写数据的日志文件也保存在这个目录里。】
+dataLogDir：【顾名思义就是 Zookeeper 保存日志文件的目录】
+clientPort：【这个端口就是客户端连接 Zookeeper 服务器的端口，Zookeeper 会监听这个端口，接受客户端的访问请求。】
+启动zookeeper:【/bin/zkServer.cmd】
+zookeeper客户端:【/bin/zkCli.cmd】
+zk默认地址：127.0.0.1:2181
+zk 与  curator 版本关系：【curator的版本：2.12.0，对应Zookeeper的版本为：3.4.x】
+zk 与  curator 版本关系：【curator的版本：3.x或4.x，对应Zookeeper的版本为：3.5.x】
+```
+
+18.2、Zookeeper注册服务：<br/>
+服务注册方pom.xml添加curator-x-discovery-server使用zk的依赖：
+```xml
+<!-- 服务的注册和发现(使用zokkeeper)：服务方使用组件:curator-x-discovery-server -->
+<dependency>
+	<groupId>org.apache.curator</groupId>
+	<artifactId>curator-x-discovery-server</artifactId>
+	<version>2.12.0</version>
+</dependency>
+```
+
+ZKServiceRegister.java：
+```Java
+package com.mutistic.zokkeeper;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.RetryOneTime;
+import org.apache.curator.x.discovery.ServiceDiscovery;
+import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
+import org.apache.curator.x.discovery.ServiceInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+// ZK注册服务
+@Component
+public class ZKServiceRegister implements ApplicationRunner {
+	private static final Logger log = LoggerFactory.getLogger(ZKServiceRegister.class);
+
+	@Value("${zookeeper.address}")
+	private String zkAddress;
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+
+		// 注册zk客户端
+		CuratorFramework client = CuratorFrameworkFactory.newClient(zkAddress, new RetryOneTime(400000));
+		client.start(); // 启动zk
+		client.blockUntilConnected(); // 链接
+
+		// 注册 127.0.0.1:8888 服务节点：服务节点名称为：controller
+		ServiceInstance<Object> instances = ServiceInstance.builder().name("address").address("127.0.0.1").port(8888)
+				.build();
+		// 注册 book 服务 路径为book
+		ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
+				.basePath("/host").build();
+		discovery.registerService(instances);
+		discovery.start();
+		log.info("zookepper 服务注册成功：127.0.0.1:8888");
+
+		// 注册 192.168.16.113:8888 服务节点：服务节点名称为：controller
+		ServiceInstance<Object> instances2 = ServiceInstance.builder().name("address").address("192.168.16.113")
+				.port(8888).build();
+		// 注册 book 服务 路径为book
+		ServiceDiscovery<Object> discovery2 = ServiceDiscoveryBuilder.builder(Object.class).client(client)
+				.basePath("/host").build();
+		discovery2.registerService(instances2);
+		discovery2.start();
+		log.info("zookepper 服务注册成功：192.168.16.113:9999");
+		
+		showZk();
+	}
+
+	private void showZk() {
+		StringBuffer val = new StringBuffer("\nZookeeper注册服务：");
+		val.append("\n[可以在配置文件中配置zk的连接地址信息：zookeeper.address=127.0.0.1:2181]");
+		val.append("\n[服务注册方pom.xml添加curator使用zk的依赖：\n"
+				+ "<!-- 服务的注册和发现(使用zokkeeper)：服务方使用组件:curator-x-discovery-server -->\r\n" + 
+				"		<dependency>\r\n" + 
+				"			<groupId>org.apache.curator</groupId>\r\n" + 
+				"			<artifactId>curator-x-discovery-server</artifactId>\r\n" + 
+				"			<version>2.12.0</version>\r\n" + 
+				"		</dependency>]");
+		val.append("\n[通过 CuratorFrameworkFactory.newClient() 创建Zk链接]");
+		val.append("\n[通过 ServiceInstance 创建节点]");
+		val.append("\n[通过 ServiceDiscoveryBuilder 创建服务]");
+		System.out.println(val.toString());
+	}
+}
+```
+
+18.3、Zookeeper服务调用：<br/>
+服务调用方pom.xml添加curator-x-discovery使用zk的依赖：
+```xml
+<!-- 服务的注册和发现(使用zokkeeper)：调用方使用组件:curator-x-discovery -->
+<dependency>
+	<groupId>org.apache.curator</groupId>
+	<artifactId>curator-x-discovery</artifactId>
+	<version>2.12.0</version>
+</dependency>
+```
+
+BookZKMain.java：
+```Java
+package com.mutistic.zokkeeper;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.RetryOneTime;
+import org.apache.curator.x.discovery.ServiceDiscovery;
+import org.apache.curator.x.discovery.ServiceDiscoveryBuilder;
+import org.apache.curator.x.discovery.ServiceInstance;
+import org.springframework.web.client.RestTemplate;
+import com.alibaba.fastjson.JSON;
+import com.mutistic.utils.CommonUtil;
+// zk服务的调用
+public class BookZKMain {
+	public static void main(String[] args) throws Exception {
+		// 链接zk客户端
+		CuratorFramework client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", new RetryOneTime(1000));
+		client.start(); // 启动zk
+		client.blockUntilConnected(); // 链接
+
+		ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
+				.basePath("/host").build();
+		Collection<ServiceInstance<Object>> list = discovery.queryForInstances("address");
+
+		List<String> serviceList = new ArrayList<String>();
+		list.forEach((instances) -> {
+			CommonUtil.printThree("获取zk服务注册信息：", JSON.toJSONString(instances));
+			serviceList.add(instances.getAddress() + ":" + instances.getPort());
+		});
+		
+		LoadBalance lb = new LoadBalance(serviceList);
+		for (int i = 0; i < 10; i++) {
+			// 调用接口
+			RestTemplate rt = new RestTemplate();
+			String url = "http://" + lb.choose() + "/bookController/queryById?id=1533384516863";
+			CommonUtil.printTwo("获取RestTemplate请求的结果：" + url, rt.getForObject(url, String.class));
+		}
+	}
+}
+```
+轮询算法：LoadBalance.java：
+```Java
+package com.mutistic.zokkeeper;
+import java.util.List;
+// 轮询算法 
+public class LoadBalance {
+
+	private int index = 0;
+	private List<String> services;
+
+	public LoadBalance(List<String> services) {
+		super();
+		this.services = services;
+	}
+
+	public String choose() {
+		String service = services.get(index);
+		index++;
+		if(index >= services.size()) {
+			index = 0;
+		}
+		return service;
+	}
+}
+```
 
 ---
 ### <a id="a_devtools">十九、热部署</a> <a href="#a_zokkeeper">last</a> <a href="a_maven">next</a>
+19.1、使用spring-boot-devtools实现热部署：
+pom.xml 添加spring-boot-devtools依赖：
+```xml
+<!-- 热部署方式一：使用spring-boot-devtools插件 -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-devtools</artifactId>
+	<optional>true</optional>
+	<scope>true</scope>
+</dependency>
+
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- 没有该配置，spring-boot-devtools 热部署不生效 -->
+					<fork>true</fork>
+					<addResources>true</addResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+```
+
+19.2、使用springloaded实现热部署：
+pom.xml build 添加springloaded依赖：
+```xml
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<!-- 热部署方式二：使用springloaded插件 -->
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework</groupId>
+					<artifactId>springloaded</artifactId>
+					<version>1.2.6.RELEASE</version>
+				</dependency>
+			</dependencies>
+			<executions>
+				<execution>
+					<goals>
+						<goal>repackage</goal>
+					</goals>
+					<configuration>
+						<classifier>exec</classifier>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
+</build>
+```
 
 ---
 ### <a id="a_maven">二十、打包发布</a> <a href="#a_devtools">last</a> <a href="a_down">next</a>
+使用[appassembler-maven-plugin](http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html)插件打包项目:
+```
+环境配置maven bin：path【C:\Work\Software\Maven\apache-maven-3.0.5\bin;】
+执行命令：打包maven依赖【mvn clean appassembler:assemble】
+执行命令：打包本项目【mvn clean package appassembler:assemble】
+```
+
+pom.xml build配置打包信息:
+```xml
+<build>
+	<plugins>
+		<plugin>
+			<!-- appassembler-maven-plugin插件官网:http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html
+			mvn clean package appassembler:assemble
+			mvn clean appassembler:assemble -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>appassembler-maven-plugin</artifactId>
+			<version>2.0.0</version>
+			<configuration>
+				<!-- 生成unix、windows平台执行脚本 -->
+				<platforms>
+					<platform>windows</platform>
+					<platform>unix</platform>
+				</platforms>
+				<!-- 根目录 -->
+				<assembleDirectory>${project.build.directory}/server</assembleDirectory>
+				<!-- 打包的jar，以及maven依赖的jar放到这个目录 lib -->
+				<repositoryName>lib</repositoryName>
+				<!-- lib目录中jar存放的规则,默认是 ${groupId}/${artifactId}的目录格式,flat表示直接把jar放到 
+					repositoryName声明的目录 -->
+				<repositoryLayout>flat</repositoryLayout>
+				<!-- 可执行脚本的目录 -->
+				<binFolder>bin</binFolder>
+				<!-- 配置文件的目标目录 -->
+				<configurationDirectory>conf</configurationDirectory>
+				<!-- 拷贝配置文件到configurationDirectory配置的目录种 -->
+				<copyConfigurationDirectory>true</copyConfigurationDirectory>
+				<!-- 执行从项目的目录拷贝配置文件(默认 src.main.config) -->
+				<configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+				<!-- 编码格式 -->
+				<encoding>UTF-8</encoding>
+				<!-- logs目录 -->
+				<logsDirectory>logs</logsDirectory>
+				<!-- 临时文件目录 -->
+				<tempDirectory>tep</tempDirectory>
+				<!-- 配置启动类 -->
+				<programs>
+					<program>
+						<id>server </id>
+						<mainClass>com.mutistic.Application</mainClass>
+						<!-- jvm参数 -->
+						<jvmSettings>
+							<extraArguments>
+								<!-- 指定以server的方式运行 -->
+								<extraArgument>-server</extraArgument>
+								<!-- 指定最大堆内存 -->
+								<extraArgument>-Xmx1G</extraArgument>
+								<!-- 指定最小堆内存 -->
+								<extraArgument>-Xms1G</extraArgument>
+							</extraArguments>
+						</jvmSettings>
+					</program>
+				</programs>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
+```
 
 
 ---

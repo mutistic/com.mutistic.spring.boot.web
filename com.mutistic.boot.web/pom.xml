@@ -30,10 +30,24 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<!-- <exclusions> <exclusion> <groupId>org.springframework.boot</groupId> 
-				<artifactId>spring-boot-starter-logging</artifactId> </exclusion> </exclusions> -->
+			<!-- <exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions> -->
 		</dependency>
-
+		<!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency> -->
+		<!-- 添加slf4j日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		 -->
 		<!-- 配合:BookControllerTest 演示微服务 -->
 		<dependency>
 			<groupId>com.mutistic</groupId>
@@ -57,14 +71,6 @@
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
 			</dependency> -->
 
-
-		<!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-log4j2</artifactId> 
-			</dependency> -->
-		<!-- 添加slf4j日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
-			</dependency> -->
-
 		<!-- 添加redis依赖 -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -77,6 +83,13 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
+		<!-- fastjson依赖 -->
+		<!-- <dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency> -->
+
 		<!-- 使用jetty作为web容器的话 需要排除tomcat -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId> 
 			<exclusions> <exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-tomcat</artifactId> 
@@ -87,14 +100,13 @@
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-tomcat</artifactId> 
 			<scope>provided</scope> </dependency> -->
 
-
 		<!-- 配合：TestControllerByJSP 演示返回jsp文件所需要的jsp组件: 用于编译jsp -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- 配合：TestControllerByFreemarker 演示返回ftl文件所需要的Freemarker组件-->
+		<!-- 配合：TestControllerByFreemarker 演示返回ftl文件所需要的Freemarker组件 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
@@ -149,7 +161,7 @@
 					<fork>true</fork>
 					<addResources>true</addResources>
 				</configuration>
-				<!-- 热部署方式一：使用springloaded插件 -->
+				<!-- 热部署方式二：使用springloaded插件 -->
 				<!-- <dependencies> <dependency> <groupId>org.springframework</groupId> 
 					<artifactId>springloaded</artifactId> <version>1.2.6.RELEASE</version> </dependency> 
 					</dependencies> <executions> <execution> <goals> <goal>repackage</goal> </goals> 

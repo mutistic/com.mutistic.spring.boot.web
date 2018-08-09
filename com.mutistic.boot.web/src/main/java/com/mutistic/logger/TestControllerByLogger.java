@@ -43,7 +43,7 @@ public class TestControllerByLogger {
 		val.append("\n[3.2、可以通过属性 logging.level.root 调整日志级别： 配置日志级别：（logging.level.root root表示所有的）（logging.level.* *表示具体包名或类名：logging.level.com.mutistic.utils.CommonUtil）\n" + 
 				"logging.level.root=DEBUG]");
 		val.append("\n[3.3通过启动参数args调整的日志级别只对spring boot内部的类生效：--debug 或 --debug=true]" );
-		
+
 		val.append("\n[4、可用通过配置文件配置：参考org.springframework.boot.logging.logback.LogbackLoggingSystem]");
 		val.append("\n[4.1、logging.level：设置日志级别]");
 		val.append("\n[4.2、logging.file：设置日志文件文件名及输入路径]");
@@ -62,7 +62,7 @@ public class TestControllerByLogger {
 				"%l	输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)]");
 		
 		val.append("\n[5、spring boot 默认是使用logback.xml或logback-spring.xml文件设置日志信息，默认位置 src/resources，spring 推荐使用：logback-spring.xml]");
-		val.append("\n[5.1、logback.xml配置参考：https://logback.qos.ch/manual/configuration.html\n]");
+		val.append("\n[5.1、logback.xml配置参考：https://logback.qos.ch/manual/configuration.html]");
 		val.append("\n[5.2、logback.xml或logback-spring.xml简单配置实例：\n"
 				+ "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
 				"<configuration>\r\n" + 

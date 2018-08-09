@@ -31,9 +31,7 @@ public class BookController {
 	 * @return
 	 */
 	@GetMapping("queryAllList")
-	public Object queryAllList(HttpServletRequest request) {
-		return ResponseUtil.setSuccess(bookMapper.queryAllList());
-	}
+	public Object queryAllList(HttpServletRequest request) { return ResponseUtil.setSuccess(bookMapper.queryAllList()); }
 
 	/**
 	 * @description 根据ID查询book信息
@@ -43,9 +41,7 @@ public class BookController {
 	 * @return
 	 */
 	@GetMapping("queryById")
-	public Object queryById(@RequestParam("id") Long id) {
-		return ResponseUtil.setSuccess(bookMapper.queryById(id));
-	}
+	public Object queryById(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.queryById(id)); }
 
 	/**
 	 * @description 新增book信息 
@@ -57,9 +53,8 @@ public class BookController {
 	@PostMapping("insert")
 	public Object insert(@RequestBody BookEntity book) {
 		book.setBookId((new Date()).getTime());
-		if(null == book.getCreaterTime()) {
+		if(null == book.getCreaterTime()) 
 			book.setCreaterTime(new Date());
-		}
 		return ResponseUtil.setSuccess(bookMapper.insert(book));
 	}
 	
@@ -72,9 +67,7 @@ public class BookController {
 	 */
 	@PostMapping("update")
 	public Object update(@RequestBody BookEntity book) {
-		if(null == book.getCreaterTime()) {
-			book.setCreaterTime(new Date());
-		}
+		if(null == book.getCreaterTime()) book.setCreaterTime(new Date());
 		return ResponseUtil.setSuccess(bookMapper.update(book));
 	}
 
@@ -86,7 +79,5 @@ public class BookController {
 	 * @return
 	 */
 	@DeleteMapping("delete")
-	public Object delete(@RequestParam("id") Long id) {
-		return ResponseUtil.setSuccess(bookMapper.delete(id));
-	}
+	public Object delete(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.delete(id)); }
 }

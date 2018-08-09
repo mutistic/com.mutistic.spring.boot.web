@@ -5,7 +5,6 @@ import com.mutistic.utils.CommonUtil;
 public class UseZookeeperMain {
 
 	public static void main(String[] args) {
-
 		CommonUtil.printOne("Zookeeper的安装和使用：");
 		CommonUtil.printThree("ZK官网：", "http://zookeeper.apache.org/");
 		CommonUtil.printThree("ZK下载镜像：", "http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.13/");

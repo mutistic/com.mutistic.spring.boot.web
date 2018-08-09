@@ -15,9 +15,15 @@ import org.springframework.web.client.RestTemplate;
 import com.alibaba.fastjson.JSON;
 import com.mutistic.utils.CommonUtil;
 
+/**
+ * @program zk服务的调用
+ * @description 
+ * @author mutisitic
+ * @date 2018年8月9日
+ */
 public class BookZKMain {
 	public static void main(String[] args) throws Exception {
-		// 注册zk客户端
+		// 链接zk客户端
 		CuratorFramework client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", new RetryOneTime(1000));
 		client.start(); // 启动zk
 		client.blockUntilConnected(); // 链接

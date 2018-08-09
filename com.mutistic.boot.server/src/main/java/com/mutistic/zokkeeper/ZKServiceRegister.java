@@ -62,6 +62,24 @@ public class ZKServiceRegister implements ApplicationRunner {
 		discovery2.registerService(instances2);
 		discovery2.start();
 		log.info("zookepper 服务注册成功：192.168.16.113:9999");
+		
+		showZk();
+	}
+
+	private void showZk() {
+		StringBuffer val = new StringBuffer("\nZookeeper注册服务：");
+		val.append("\n[可以在配置文件中配置zk的连接地址信息：zookeeper.address=127.0.0.1:2181]");
+		val.append("\n[服务注册方pom.xml添加curator使用zk的依赖：\n"
+				+ "<!-- 服务的注册和发现(使用zokkeeper)：服务方使用组件:curator-x-discovery-server -->\r\n" + 
+				"		<dependency>\r\n" + 
+				"			<groupId>org.apache.curator</groupId>\r\n" + 
+				"			<artifactId>curator-x-discovery-server</artifactId>\r\n" + 
+				"			<version>2.12.0</version>\r\n" + 
+				"		</dependency>]");
+		val.append("\n[通过 CuratorFrameworkFactory.newClient() 创建Zk链接]");
+		val.append("\n[通过 ServiceInstance 创建节点]");
+		val.append("\n[通过 ServiceDiscoveryBuilder 创建服务]");
+		System.out.println(val.toString());
 	}
 
 }
