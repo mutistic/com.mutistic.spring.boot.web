@@ -2081,8 +2081,369 @@ spring.datasource.password=root
 #spring.datasource.type=com.zaxxer.hikari.HikariDataSource
 ```
 
+10.2、演示JdbcTemplate的使用
+JdbcTemplate：[org.springframework.jdbc.core.JdbcTemplate](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html)
+```
+这是JDBC核心包中的中心类。 它简化了JDBC的使用，有助于避免常见错误。它执行核心JDBC工作流，留下应用程序代码以提供SQL并提取结果。
+此类执行SQL查询或更新，启动对ResultSet的迭代并捕获JDBC异常并将它们转换为org.springframework.dao包中定义的通用的，更具信息性的异常层次结构 。
+
+使用此类的代码只需要实现回调接口，为它们提供明确定义的合同。该PreparedStatementCreator回调接口创建给予连接一份声明中，SQL和任何必要的参数。
+所述ResultSetExtractor接口从一个结果中提取值。又见PreparedStatementSetter和 RowMapper两个流行的替代回调接口。
+
+可以通过使用DataSource引用直接实例化在服务实现中使用，也可以在应用程序上下文中准备并作为bean引用提供给服务。
+注意：DataSource应始终在应用程序上下文中配置为bean，在第一种情况下直接提供给服务，在第二种情况下配置为准备好的模板。
+
+因为这个类可以通过回调接口和SQLExceptionTranslator 接口进行参数化，所以不需要对它进行子类化。
+
+此类执行的所有SQL操作都在调试级别记录，使用“org.springframework.jdbc.core.JdbcTemplate”作为日志类别。
+注意：配置后，此类的实例是线程安全的。
+
+
+protected void	applyStatementSettings(java.sql.Statement stmt)
+	准备给定的JDBC语句（或PreparedStatement或CallableStatement），应用语句设置，如获取大小，最大行数和查询超时。
+int[]	batchUpdate(java.lang.String... sql)
+	使用批处理在单个JDBC语句上发出多个SQL更新。
+
+java.util.Map<java.lang.String,java.lang.Object>	call(CallableStatementCreator csc, java.util.List<SqlParameter> declaredParameters)
+	使用CallableStatementCreator执行SQL调用以提供SQL和任何所需的参数。
+
+protected java.sql.Connection	createConnectionProxy(java.sql.Connection con)
+	为给定的JDBC连接创建一个关闭抑制代理。
+
+protected java.util.Map<java.lang.String,java.lang.Object>	createResultsMap()
+	创建要用作结果映射的Map实例。
+
+<T> T	execute(CallableStatementCreator csc, CallableStatementCallback<T> action)
+	执行JDBC数据访问操作，实现为处理JDBC CallableStatement的回调操作。
+
+protected java.util.Map<java.lang.String,java.lang.Object>	extractOutputParameters(java.sql.CallableStatement cs, java.util.List<SqlParameter> parameters)
+	从完成的存储过程中提取输出参数。
+
+protected java.util.Map<java.lang.String,java.lang.Object>	extractReturnedResults(java.sql.CallableStatement cs, java.util.List<SqlParameter> updateCountParameters, java.util.List<SqlParameter> resultSetParameters, int updateCount)
+	从完成的存储过程中提取返回的ResultSet。
+
+protected RowMapper<java.util.Map<java.lang.String,java.lang.Object>>	getColumnMapRowMapper()
+	创建一个新的RowMapper，用于将列作为键值对读取。
+
+int	getFetchSize()
+	返回为此JdbcTemplate指定的获取大小。
+
+int	getMaxRows()
+	返回为此JdbcTemplate指定的最大行数。
+
+int	getQueryTimeout()
+	返回此JdbcTemplate执行的语句的查询超时。
+
+protected <T> RowMapper<T>	getSingleColumnRowMapper(java.lang.Class<T> requiredType)
+	创建一个新的RowMapper，用于从单个列读取结果对象。
+
+protected void	handleWarnings(java.sql.SQLWarning warning)
+	如果遇到实际警告，则抛出SQLWarningException。
+
+protected void	handleWarnings(java.sql.Statement stmt)
+	如果我们不忽略警告，则抛出SQLWarningException，否则记录警告（在调试级别）。
+
+boolean	isIgnoreWarnings()
+	返回我们是否忽略SQLWarnings。
+
+boolean	isResultsMapCaseInsensitive()
+	返回CallableStatement的执行是否会在使用参数的不区分大小写的名称的Map中返回结果。
+
+boolean	isSkipResultsProcessing()
+	返回是否应跳过结果处理。
+
+boolean	isSkipUndeclaredResults()
+	返回是否应跳过未声明的结果。
+
+protected PreparedStatementSetter	newArgPreparedStatementSetter(java.lang.Object[] args)
+	使用传入的args创建一个新的基于arg的PreparedStatementSetter。
+
+protected PreparedStatementSetter	newArgTypePreparedStatementSetter(java.lang.Object[] args, int[] argTypes)
+	使用传入的args和类型创建一个新的基于arg-type的PreparedStatementSetter。
+
+protected java.util.Map<java.lang.String,java.lang.Object>	processResultSet(java.sql.ResultSet rs, ResultSetSupportingSqlParameter param)
+	从存储过程处理给定的ResultSet。
+
+<T> T	query(PreparedStatementCreator psc, PreparedStatementSetter pss, ResultSetExtractor<T> rse)
+	使用预准备语句进行查询，允许PreparedStatementCreator和PreparedStatementSetter。等其他重载方法
+
+java.util.List<java.util.Map<java.lang.String,java.lang.Object>>	queryForList(java.lang.String sql)
+	给定静态SQL，执行结果列表的查询。等其他重载方法
+
+java.util.Map<java.lang.String,java.lang.Object>	queryForMap(java.lang.String sql)
+	给定静态SQL，对结果Map执行查询。等其他重载方法
+
+<T> T	queryForObject(java.lang.String sql, java.lang.Class<T> requiredType)
+	给定静态SQL，对结果对象执行查询。等其他重载方法
+
+SqlRowSet	queryForRowSet(java.lang.String sql)
+	给定静态SQL，执行SqlRowSet的查询。
+
+void	setFetchSize(int fetchSize)
+	设置此JdbcTemplate的获取大小。
+
+void	setIgnoreWarnings(boolean ignoreWarnings)
+	设置我们是否要忽略SQLWarnings。
+
+void	setMaxRows(int maxRows)
+	设置此JdbcTemplate的最大行数。
+
+void	setQueryTimeout(int queryTimeout)
+	为此JdbcTemplate执行的语句设置查询超时。
+
+void	setResultsMapCaseInsensitive(boolean resultsMapCaseInsensitive)
+	设置Call​​ableStatement的执行是否将在使用参数的不区分大小写的名称的Map中返回结果。
+
+void	setSkipResultsProcessing(boolean skipResultsProcessing)
+	设置是否应跳过结果处理。
+
+void	setSkipUndeclaredResults(boolean skipUndeclaredResults)
+	设置是否应跳过未声明的结果。
+
+protected DataAccessException	translateException(java.lang.String task, java.lang.String sql, java.sql.SQLException ex)
+	将给定SQLException转换为通用DataAccessException。
+
+int	update(PreparedStatementCreator psc)
+	使用PreparedStatementCreator发出单个SQL更新操作（例如insert，update或delete语句）以提供SQL和任何必需的参数。等其他重载方法
+```
+
+MyTestDao.java：
+```Java
+package com.mutistic.jdbc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+@Repository
+public class MyTestDao {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	public String insert(Long id, String name) {
+		String sql = "INSERT INTO mytest VALUES ('" + id + "', '" + name + "');";
+		jdbcTemplate.execute(sql);
+		return sql;
+	}
+}
+```
+
+MyTestController.java：
+```Java
+package com.mutistic.jdbc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+@RestController
+@RequestMapping("/myTestController/")
+public class MyTestController {
+	@Autowired
+	private MyTestDao myTestDao;
+	// 演示使用 JdbcTemplate 实现数据插入
+	@PostMapping(value = "insertByTemplate", produces = "text/html;charset=UTF-8")
+	public String insertByJdbc(@RequestParam("id") Long id, @RequestParam("name") String name) {
+		StringBuffer val = new StringBuffer("\n演示使用 JdbcTemplate 实现数据插入 ");
+		val.append("\n[使用 JdbcTemplate通过execute() 方法执行sql语句完成数据插入]");
+		val.append("\n[执行sql：" + myTestDao.insert(id, name) + "]");
+		System.out.println(val.toString());
+		return val.toString();
+	}
+}
+```
+
 ---
 ### <a id="a_transaction">十一、Transaction事务的使用</a> <a href="#a_jdbc">last</a> <a href="#a_aop">next</a>
+@EnableTransactionManagement：[org.springframework.transaction.annotation.EnableTransactionManagement](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/EnableTransactionManagement.html)
+```
+启用S​​pring的注释驱动的事务管理功能，类似于Spring的<tx:*>XML命名空间中的支持。要在@Configuration 上使用 如下
+@Configuration
+@EnableTransactionManagement
+public class AppConfig {
+
+ @Bean
+ public FooRepository fooRepository() {
+     // configure and return a class having @Transactional methods
+     return new JdbcFooRepository(dataSource());
+ }
+
+ @Bean
+ public DataSource dataSource() {
+     // configure and return the necessary JDBC DataSource
+ }
+
+ @Bean
+ public PlatformTransactionManager txManager() {
+     return new DataSourceTransactionManager(dataSource());
+ }
+}
+
+作为参考，可以将上面的示例与以下Spring XML配置进行比较
+<beans>
+ <tx:annotation-driven/>
+ <bean id="fooRepository" class="com.foo.JdbcFooRepository">
+     <constructor-arg ref="dataSource"/>
+ </bean>
+ <bean id="dataSource" class="com.vendor.VendorDataSource"/>
+ <bean id="transactionManager" class="org.sfwk...DataSourceTransactionManager">
+     <constructor-arg ref="dataSource"/>
+ </bean>
+</beans>
+
+在上述两种情况下的，@EnableTransactionManagement并且<tx:annotation-driven/>是负责注册其编织拦截到当调用堆栈功率注解驱动事务管理必要的弹簧部件，例如的TransactionInterceptor和的Proxy-或基于AspectJ的建议JdbcFooRepository的@Transactional 方法是调用。
+两个示例之间的细微差别在于PlatformTransactionManagerbean 的命名：在这种@Bean情况下，名称是 “txManager”（根据方法的名称）; 在XML情况下，名称是 “transactionManager”。该<tx:annotation-driven/>是硬连线到查找名为“transactionManager的”默认bean，但 @EnableTransactionManagement更加灵活; 它将回退到PlatformTransactionManager容器中任何bean 的类型查找。因此，名称可以是“txManager”，“transactionManager”或“tm”：它无关紧要。
+
+对于那些希望在@EnableTransactionManagement要使用的确切事务管理器bean 之间建立更直接关系的人 ，TransactionManagementConfigurer可以实现回调接口 - 注意下面的implements子句和@Override注释方法
+@Configuration
+@EnableTransactionManagement
+public class AppConfig implements TransactionManagementConfigurer {
+ @Bean
+ public FooRepository fooRepository() {
+     // configure and return a class having @Transactional methods
+     return new JdbcFooRepository(dataSource());
+ }
+ @Bean
+ public DataSource dataSource() {
+     // configure and return the necessary JDBC DataSource
+ }
+ @Bean
+ public PlatformTransactionManager txManager() {
+     return new DataSourceTransactionManager(dataSource());
+ }
+ @Override
+ public PlatformTransactionManager annotationDrivenTransactionManager() {
+     return txManager();
+ }
+}
+这种方法可能是理想的，因为它更明确，或者为了区分PlatformTransactionManager同一容器中存在的两个bean 可能是必要的。顾名思义， annotationDrivenTransactionManager()将是用于处理@Transactional方法的那个 。有关TransactionManagementConfigurer更多详细信息，请参阅Javadoc。
+该mode()属性控制如何应用建议：如果模式是 AdviceMode.PROXY（默认值），则其他属性控制代理的行为。请注意，代理模式仅允许通过代理拦截呼叫; 同一类中的本地调用不能以这种方式截获。
+
+请注意，如果mode（）设置为AdviceMode.ASPECTJ，则将proxyTargetClass()忽略该属性的值。
+另请注意，在这种情况下，spring-aspects模块JAR必须存在于类路径中，编译时编织或加载时编织将方面应用于受影响的类。
+这种情况没有涉及代理人; 本地回话也会被截获。
+```
+
+@Transactional：[org.springframework.transaction.annotation.Transactional](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html)
+```
+描述方法或类的事务属性。
+这个注释类型通常可以直接与Spring的RuleBasedTransactionAttribute 类相媲美 ，实际上它AnnotationTransactionAttributeSource会直接将数据转换为后一类，因此Spring的事务支持代码不必知道注释。
+如果没有规则相关的例外，它会像对待 DefaultTransactionAttribute （回滚上RuntimeException和Error，但不会对检查的异常）。
+
+Isolation	isolation
+	事务隔离级别。
+
+java.lang.Class<? extends java.lang.Throwable>[]	noRollbackFor
+	定义零（0）或更多异常Classes，它必须是子类Throwable，指示哪些异常类型 不得导致事务回滚。
+
+java.lang.String[]	noRollbackForClassName
+	定义零（0）或更多异常名称（对于必须是其子类的Throwable异常），指示哪些异常类型不得 导致事务回滚。
+
+Propagation	propagation
+	事务传播类型。
+
+boolean	readOnly
+	true如果事务实际上是只读的，则可以设置为布尔标志，允许在运行时进行相应的优化。
+
+java.lang.Class<? extends java.lang.Throwable>[]	rollbackFor
+	定义零（0）或更多异常classes，它必须是子类Throwable，指示哪些异常类型必须导致事务回滚。
+
+java.lang.String[]	rollbackForClassName
+	定义零（0）或更多异常名称（对于必须是其子类的Throwable异常），指示哪些异常类型必须导致事务回滚。
+
+int	timeout
+	此事务的超时。
+
+java.lang.String	transactionManager
+	指定事务的限定符值。
+
+java.lang.String	value
+	别名为transactionManager()。
+```
+
+Isolation：[org.springframework.transaction.annotation.Isolation](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Isolation.html)
+```
+枚举，表示与Transactional注释一起使用的事务隔离级别，对应于 TransactionDefinition接口。
+
+DEFAULT
+使用基础数据存储的默认隔离级别。
+
+READ_COMMITTED
+一个常量，表示防止脏读; 可以发生不可重复的读取和幻像读取。
+
+READ_UNCOMMITTED
+一个常量，表示可以发生脏读，不可重复读和幻像读。
+
+REPEATABLE_READ
+一个常量，表示防止脏读和不可重复读; 可以发生幻像读取。
+
+SERIALIZABLE
+一个常量，表示禁止脏读，不可重复读和幻像读。
+```
+
+Propagation[org.springframework.transaction.annotation.Propagation](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html)
+```
+枚举，表示与Transactional注释一起使用的事务传播行为，对应于 TransactionDefinition接口。
+
+MANDATORY
+支持当前事务，如果不存在则抛出异常。
+
+NESTED
+如果当前事务存在，则在嵌套事务中执行，其行为类似于PROPAGATION_REQUIRED else。
+
+NEVER
+如果事务存在，则以非事务方式执行，抛出异常。
+
+NOT_SUPPORTED
+以非事务方式执行，暂停当前事务（如果存在）。
+
+REQUIRED
+支持当前事务，如果不存在则创建新事务。
+
+REQUIRES_NEW
+创建一个新事务，并暂停当前事务（如果存在）。
+
+SUPPORTS
+支持当前事务，如果不存在则以非事务方式执行。
+```
+
+MyTestController.java：
+```Java
+package com.mutistic.jdbc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+@RestController
+@RequestMapping("/myTestController/")
+@EnableTransactionManagement // 开启事务
+public class MyTestController {
+	@Autowired
+	private MyTestDao myTestDao;
+	// 演示使用 @EnableTransactionManagement 开启事务
+	@PostMapping(value = "insertByException", produces = "text/html;charset=UTF-8")
+	@Transactional(rollbackFor = Exception.class, noRollbackFor = NullPointerException.class)
+	public String insertByException(@RequestParam("id") Long id, @RequestParam("name") String name) {
+		StringBuffer val = new StringBuffer("\n演示使用 @EnableTransactionManagement 开启事务 ");
+		val.append("\n[Controller类或者@SpringBootApplication类 实现  @EnableTransactionManagement 开启事务]");
+		val.append("\n[方法上：实现@Transactional添加事务]");
+		val.append("\n[执行sql：" + myTestDao.insert(id, name) + "]");
+		val.append("\n[PS1：@EnableTransactionManagement默认对运行时异常即：RuntimeException进行回滚，其他异常不触发回滚]");
+		val.append("\n[PS2：方法可以无需抛出 throws Exception]");
+		val.append("\n[PS3：@Transactional rollbackFor可以指定那些异常回滚，默认是运行时异常，还有其他参数设置是否回滚的异常信息]");
+		val.append("\n[PS4：@Transactional noRollbackFor可以指定那些异常不回滚]");
+		val.append("\n[PS5：@Transactional 必须声明在初始调用的public方法上，参考事务的传播机制]");
+		val.append("\n[PS6：@Transactional 要保证数据库是支持事务]");
+		System.out.println(val.toString());
+		
+		if("Exception".equals(name)) {
+			throw new RuntimeException(val.toString());
+		}
+		
+		return val.toString();
+	}
+}
+```
 
 ---
 ### <a id="a_aop">十二、AOP的使用</a> <a href="#a_transaction">last</a> <a href="#a_starter">next</a>

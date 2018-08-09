@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @program 演示JdbcTemplate的使用
+ * @description 
+ * @author mutisitic
+ * @date 2018年8月9日
+ */
 @Repository
 public class MyTestDao {
 

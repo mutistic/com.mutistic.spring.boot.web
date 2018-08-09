@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @program 演示 @RestController
+ * @program 演示 JdbcTemplate 和 事务
  * @description
  * @author mutisitic
  * @date 2018年7月25日
