@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestControllerByMapping {
 
 	/**
-	 * 请求参数的使用： 1、通过@RequestParam获取请求参数： 1.1、value字：请求URL中参数的绑定值：name
+	 * 请求参数的使用： 1、通过@RequestParam获取请求参数： 
+	 * 1.1、value字：请求URL中参数的绑定值：name
 	 * 1.2、method：指定请求方式：参考org.springframework.web.bind.annotation.RequestMethod
 	 * 1.3、required：参数是否必填（默认true）：true必填，false非必填。
 	 * 1.4、defaultValue：设置默认值。当请求URL无改参数时，生效
