@@ -39,8 +39,8 @@ pom.xml：需要添加spring-boot-starter-web依赖：
 ```xml
 <!-- 添加web项目依赖 -->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 ```
 
@@ -52,63 +52,63 @@ org.springframework.web.bind.annotation.RequestMapping](https://docs.spring.io/s
 1、使用灵活方法签名将Web请求映射到请求处理类中的方法的注释。
 2、既Spring MVC和Spring WebFlux支持此注释通过 RequestMappingHandlerMapping并RequestMappingHandlerAdapter 在其各自的模块和封装结构。有关每个支持的处理程序方法参数和返回类型的确切列表，
 3、注意：此注解可以在类和方法级别使用。在大多数情况下，在方法层面的应用程序将喜欢使用的HTTP方法具体的变种之一 
-	@GetMapping，@PostMapping， @PutMapping，@DeleteMapping，或 @PatchMapping。
+    @GetMapping，@PostMapping， @PutMapping，@DeleteMapping，或 @PatchMapping。
 4、注意：使用控制器接口（例如，用于AOP代理）时，请确保始终将所有映射注释（例如 @RequestMapping和@SessionAttributes- ）
-	放在控制器接口上，而不是放在实现类上。
+    放在控制器接口上，而不是放在实现类上。
 
 public abstract java.lang.String name
-	为此映射指定名称。在类型级别和方法级别支持! 在两个级别上使用时，组合名称通过串联"＃"作为分隔符派生。
+    为此映射指定名称。在类型级别和方法级别支持! 在两个级别上使用时，组合名称通过串联"＃"作为分隔符派生。
 
 public abstract java.lang.String[] value
-	这是别名path()。例如 @RequestMapping("/foo")相当于 @RequestMapping(path="/foo")。在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会继承此主映射，从而使其针对特定处理程序方法进行缩小。
+    这是别名path()。例如 @RequestMapping("/foo")相当于 @RequestMapping(path="/foo")。在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会继承此主映射，从而使其针对特定处理程序方法进行缩小。
 
 public abstract java.lang.String[] path
-	路径映射URI（例如"/myPath.do"）。还支持Ant样式的路径模式（例如"/myPath/*.do"）。
-	在方法级别，在类型级别表示的主映射内支持相对路径（例如"edit.do"）。
-	路径映射URI可以包含占位符（例如"/$ {connect}"）。
-	在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会继承此主映射，从而使其针对特定处理程序方法进行缩小
+    路径映射URI（例如"/myPath.do"）。还支持Ant样式的路径模式（例如"/myPath/*.do"）。
+    在方法级别，在类型级别表示的主映射内支持相对路径（例如"edit.do"）。
+    路径映射URI可以包含占位符（例如"/$ {connect}"）。
+    在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会继承此主映射，从而使其针对特定处理程序方法进行缩小
 
 public abstract RequestMethod[] method
-	要映射的HTTP请求方法，缩小主映射：GET，POST，HEAD，OPTIONS，PUT，PATCH，DELETE，TRACE。
-	在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都继承此HTTP方法限制（即，在处理程序方法被解析之前，将检查类型级别限制）。
+    要映射的HTTP请求方法，缩小主映射：GET，POST，HEAD，OPTIONS，PUT，PATCH，DELETE，TRACE。
+    在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都继承此HTTP方法限制（即，在处理程序方法被解析之前，将检查类型级别限制）。
 
 public abstract java.lang.String[] params
-	映射请求的参数，缩小主映射。
-	任何环境的格式相同：一系列"myParam = myValue"样式表达式，如果发现每个此类参数都具有给定值，则仅映射请求。
-	使用"!="运算符可以取消表达式，如"myParam!= myValue"。
-	还支持"myParam"样式表达式，这些参数必须存在于请求中（允许具有任何值）。
-	最后，"!myParam"样式表达式表明指定的参数不应该出现在请求中。
-	在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会继承此参数限制（即，甚至在解析处理程序方法之前检查类型级别限制）。
-	参数映射被视为在类型级别强制执行的限制。主路径映射（即指定的URI值）仍然必须唯一地标识目标处理程序，参数映射仅表示调用处理程序的前提条件。
+    映射请求的参数，缩小主映射。
+    任何环境的格式相同：一系列"myParam = myValue"样式表达式，如果发现每个此类参数都具有给定值，则仅映射请求。
+    使用"!="运算符可以取消表达式，如"myParam!= myValue"。
+    还支持"myParam"样式表达式，这些参数必须存在于请求中（允许具有任何值）。
+    最后，"!myParam"样式表达式表明指定的参数不应该出现在请求中。
+    在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会继承此参数限制（即，甚至在解析处理程序方法之前检查类型级别限制）。
+    参数映射被视为在类型级别强制执行的限制。主路径映射（即指定的URI值）仍然必须唯一地标识目标处理程序，参数映射仅表示调用处理程序的前提条件。
 
 public abstract java.lang.String[] headers
-	映射请求的标头，缩小主映射。
-	任何环境的格式相同：一系列"My-Header = myValue"样式表达式，只有在发现每个此类标题具有给定值时才会映射请求。
-	使用"!="运算符可以取消表达式，如"My-Header!= myValue"。
-	还支持"My-Header"样式表达式，这些标题必须存在于请求中（允许具有任何值）。
-	最后，"!My-Header"样式表达式表明指定的标头不应该出现在请求中。
-	还支持媒体类型通配符（*），用于诸如Accept和Content-Type之类的标题。例如，
-	 @RequestMapping（value ="/something"，headers ="content-type = text/*"）
-	将匹配请的内容类型为 text/html"，"text/plain"等。
-	在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都继承此标头限制（即在处理器方法甚至解析之前检查类型级别限制）。
+    映射请求的标头，缩小主映射。
+    任何环境的格式相同：一系列"My-Header = myValue"样式表达式，只有在发现每个此类标题具有给定值时才会映射请求。
+    使用"!="运算符可以取消表达式，如"My-Header!= myValue"。
+    还支持"My-Header"样式表达式，这些标题必须存在于请求中（允许具有任何值）。
+    最后，"!My-Header"样式表达式表明指定的标头不应该出现在请求中。
+    还支持媒体类型通配符（*），用于诸如Accept和Content-Type之类的标题。例如，
+     @RequestMapping（value ="/something"，headers ="content-type = text/*"）
+    将匹配请的内容类型为 text/html"，"text/plain"等。
+    在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都继承此标头限制（即在处理器方法甚至解析之前检查类型级别限制）。
 
 public abstract java.lang.String[] consumes
-	映射请求的可消耗媒体类型，缩小主映射。
-	格式是单个媒体类型或媒体类型序列，如果Content-Type匹配这些媒体类型之一，则仅映射请求。例子：
-	 consumes="text  plain"
-	 consumes = {"text/ lain"， application/*"}
-	使用"!"可以取消表达式。运算符，如"!text/ lain"， 匹配Content-Type除"text/ lain"以 的所有请求。
-	在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会覆盖此消耗限制。
+    映射请求的可消耗媒体类型，缩小主映射。
+    格式是单个媒体类型或媒体类型序列，如果Content-Type匹配这些媒体类型之一，则仅映射请求。例子：
+     consumes="text  plain"
+     consumes = {"text/ lain"， application/*"}
+    使用"!"可以取消表达式。运算符，如"!text/ lain"， 匹配Content-Type除"text/ lain"以 的所有请求。
+    在类型级别和方法级别支持! 在类型级别使用时，所有方法级别映射都会覆盖此消耗限制。
 
 public abstract java.lang.String[] produces
-	映射请求的可生成媒体类型，缩小主映射。
-	格式是单个媒体类型或媒体类型序列，如果Accept匹配这些媒体类型之一，则仅映射请求。例子：
-	 produce ="text/plain"
-  	 produce = {"text/plain" "application/*"}
-	 produce = MediaType.APPLICATION_JSON_UTF8_VALUE
-	它会影响写入的实际内容类型，例如，应使用UTF-8编码生成JSON响应MediaType.APPLICATION_JSON_UTF8_VALUE。
-	使用"!"可以取消表达式。运算符，如!text/plain"，它匹配Accept除"text/plain"以外的所有请求。
-	在类型级别和方法级别支持! 在类型级别使用时，所有方法级别的映射都会覆盖此限制。
+    映射请求的可生成媒体类型，缩小主映射。
+    格式是单个媒体类型或媒体类型序列，如果Accept匹配这些媒体类型之一，则仅映射请求。例子：
+     produce ="text/plain"
+       produce = {"text/plain" "application/*"}
+     produce = MediaType.APPLICATION_JSON_UTF8_VALUE
+    它会影响写入的实际内容类型，例如，应使用UTF-8编码生成JSON响应MediaType.APPLICATION_JSON_UTF8_VALUE。
+    使用"!"可以取消表达式。运算符，如!text/plain"，它匹配Accept除"text/plain"以外的所有请求。
+    在类型级别和方法级别支持! 在类型级别使用时，所有方法级别的映射都会覆盖此限制。
 ```
 
 2.2、@ResponseBody：[org.springframework.web.bind.annotation.ResponseBody](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ResponseBody.html)
@@ -123,14 +123,14 @@ public abstract java.lang.String[] produces
 此注释用作特殊化@Component，允许通过类路径扫描自动检测实现类。它通常与基于RequestMapping注释的带注释的处理程序方法结合使用 。
 
 public abstract java.lang.String value
-	该值可以指示对逻辑组件名称的建议，在自动检测的组件的情况下将其转换为Spring bean。
+    该值可以指示对逻辑组件名称的建议，在自动检测的组件的情况下将其转换为Spring bean。
 ```
 ```
 @Controller的使用步骤：
-	Class主类Controller类：使用@Controller
-	方法：使用@RequestMapping(value = "URL")指定方法访问路径
-	方法：使用@ResponseBody注解返回结果
-	请求类型：@RequestMapping支持多种请求方式如get/post/put
+    Class主类Controller类：使用@Controller
+    方法：使用@RequestMapping(value = "URL")指定方法访问路径
+    方法：使用@ResponseBody注解返回结果
+    请求类型：@RequestMapping支持多种请求方式如get/post/put
 ```
 
 TestController.java：
@@ -142,18 +142,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 // 演示 @Controller
 @Controller
 public class TestController {
-	@RequestMapping(value = "/testControlle/testRequestMapping")//, produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String testRequestMapping() {
-		StringBuffer val = new StringBuffer("1、 @Controller的使用步骤：");
-		val.append("Class主类Controller类：使用@Controller");
-		val.append("方法：使用@RequestMapping(value = \"URL\")指定方法访问路径");
-		val.append("方法：使用@ResponseBody注解返回结果");
-		val.append("请求类型：@RequestMapping支持多种请求方式如get/post/put");
-		val.append("参数信息：无参数");
-		val.append("返回类型：String");
-		return val.toString();
-	}
+    @RequestMapping(value = "/testControlle/testRequestMapping")//, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String testRequestMapping() {
+        StringBuffer val = new StringBuffer("1、 @Controller的使用步骤：");
+        val.append("Class主类Controller类：使用@Controller");
+        val.append("方法：使用@RequestMapping(value = \"URL\")指定方法访问路径");
+        val.append("方法：使用@ResponseBody注解返回结果");
+        val.append("请求类型：@RequestMapping支持多种请求方式如get/post/put");
+        val.append("参数信息：无参数");
+        val.append("返回类型：String");
+        return val.toString();
+    }
 }
 ```
 
@@ -165,7 +165,7 @@ public class TestController {
 RequestMappingHandlerMapping- RequestMappingHandlerAdapter 一对是在MVC的Java配置和MVC命名空间的默认。
 
 public abstract java.lang.String value
-	该值可以指示对逻辑组件名称的建议，在自动检测的组件的情况下将其转换为Spring bean。
+    该值可以指示对逻辑组件名称的建议，在自动检测的组件的情况下将其转换为Spring bean。
 ```
 
 TestRestController.java：
@@ -179,16 +179,16 @@ import com.mutistic.utils.HttpServletUtil;
 @RestController
 @RequestMapping("/testRestController/")
 public class TestRestController {
-	@GetMapping(value = "getMapping", produces = "text/html;charset=UTF-8")
-	public String getMapping() {
-		StringBuffer val = new StringBuffer("1、演示@RestController + @GetMapping：无需方法在添加 @ResponseBody注解");
-		val.append("\n[Controller：使用@RestController。@RequestMapping(\"testRestController\") 指定默认访问路径]");
-		val.append("\n[方法：使用@GetMapping(\\\"getMapping\\\"))指定访问路径和请求方式GET]");
-		val.append("\n[请求方式：RequestMethod.GET]");
-		val.append("\n[参数信息：无参数]");
-		val.append("\n[返回类型：String]");
-		return val.toString();
-	}
+    @GetMapping(value = "getMapping", produces = "text/html;charset=UTF-8")
+    public String getMapping() {
+        StringBuffer val = new StringBuffer("1、演示@RestController + @GetMapping：无需方法在添加 @ResponseBody注解");
+        val.append("\n[Controller：使用@RestController。@RequestMapping(\"testRestController\") 指定默认访问路径]");
+        val.append("\n[方法：使用@GetMapping(\\\"getMapping\\\"))指定访问路径和请求方式GET]");
+        val.append("\n[请求方式：RequestMethod.GET]");
+        val.append("\n[参数信息：无参数]");
+        val.append("\n[返回类型：String]");
+        return val.toString();
+    }
 }
 
 ```
@@ -230,16 +230,16 @@ DispatcherServlet将使用默认的HttpServlet行为处理TRACE和OPTIONS，除�
 如果方法参数为Map<String, String>或 MultiValueMap<String, String> 且未指定参数名称，则使用所有请求参数名称和值填充map参数。
 
 public abstract java.lang.String value
-	别名为name()。
+    别名为name()。
 
 public abstract java.lang.String name
-	要绑定的请求参数的名称。
+    要绑定的请求参数的名称。
 
 public abstract boolean required
-	是否需要参数。默认为true，如果请求中缺少参数，则会导致抛出异常。提供默认值隐式值是required默认为false。
+    是否需要参数。默认为true，如果请求中缺少参数，则会导致抛出异常。提供默认值隐式值是required默认为false。
 
 public abstract java.lang.String defaultValue
-	未提供请求参数或具有空值时设置参数的默认值。
+    未提供请求参数或具有空值时设置参数的默认值。
 ```
 
 @PathVariable：[org.springframework.web.bind.annotation.PathVariable](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html)
@@ -248,12 +248,12 @@ public abstract java.lang.String defaultValue
 如果方法参数是，Map<String, String> 那么将使用所有路径变量名称和值填充映射。
 
 public abstract java.lang.String name
-	要绑定的路径变量的名称。
+    要绑定的路径变量的名称。
 
 public abstract boolean required
-	默认为true，如果在传入的请求中缺少路径变量，则会导致异常被抛出。
-	如果设置为null或Java 8 java.util.Optional，则将其转换为false。
-	在这种情况下可选。例如，在一个为不同请求服务的ModelAttribute方法上。
+    默认为true，如果在传入的请求中缺少路径变量，则会导致异常被抛出。
+    如果设置为null或Java 8 java.util.Optional，则将其转换为false。
+    在这种情况下可选。例如，在一个为不同请求服务的ModelAttribute方法上。
 ```
 
 2.7、Request和Response：<br/>
@@ -262,112 +262,112 @@ HttpServletRequest：[javax.servlet.http.HttpServletRequest](http://tomcat.apach
 公共接口HttpServletRequest 扩展了ServletRequest 扩展ServletRequest接口以提供HTTP servlet的请求信息。
 servlet容器创建一个HttpServletRequest对象，并将其作为一个参数传递给servlet的服务方法（doGet，doPost等）。
 
-boolean	authenticate(HttpServletResponse response)
-	如果请求是针对受安全性约束保护的资源，则触发相同的身份验证过程。
+boolean    authenticate(HttpServletResponse response)
+    如果请求是针对受安全性约束保护的资源，则触发相同的身份验证过程。
 
-java.lang.String	changeSessionId()
-	更改与此请求关联的会话的会话ID。
+java.lang.String    changeSessionId()
+    更改与此请求关联的会话的会话ID。
 
-java.lang.String	getAuthType()
-	返回用于保护servlet的身份验证方案的名称。
+java.lang.String    getAuthType()
+    返回用于保护servlet的身份验证方案的名称。
 
-java.lang.String	getContextPath()
-	返回请求URI的一部分，指示请求的上下文。
+java.lang.String    getContextPath()
+    返回请求URI的一部分，指示请求的上下文。
 
-Cookie[]	getCookies()
-	返回一个数组，其中包含Cookie客户端使用此请求发送的所有对象。
+Cookie[]    getCookies()
+    返回一个数组，其中包含Cookie客户端使用此请求发送的所有对象。
 
-long	getDateHeader(java.lang.String name)
-	返回指定请求标头的long 值，作为表示Date对象的值。
+long    getDateHeader(java.lang.String name)
+    返回指定请求标头的long 值，作为表示Date对象的值。
 
-java.lang.String	getHeader(java.lang.String name)
-	以a形式返回指定请求标头的值 String。
+java.lang.String    getHeader(java.lang.String name)
+    以a形式返回指定请求标头的值 String。
 
-java.util.Enumeration<java.lang.String>	getHeaderNames()
-	返回此请求包含的所有标头名称的枚举。
+java.util.Enumeration<java.lang.String>    getHeaderNames()
+    返回此请求包含的所有标头名称的枚举。
 
-java.util.Enumeration<java.lang.String>	getHeaders(java.lang.String name)
-	返回指定请求头作为的所有值 Enumeration的String对象。
+java.util.Enumeration<java.lang.String>    getHeaders(java.lang.String name)
+    返回指定请求头作为的所有值 Enumeration的String对象。
 
-default HttpServletMapping	getHttpServletMapping() 
+default HttpServletMapping    getHttpServletMapping() 
 
-int	getIntHeader(java.lang.String name)
-	返回指定的请求标头的值作为int。
+int    getIntHeader(java.lang.String name)
+    返回指定的请求标头的值作为int。
 
-java.lang.String	getMethod()
-	返回用于发出此请求的HTTP方法的名称，例如，GET，POST或PUT。
+java.lang.String    getMethod()
+    返回用于发出此请求的HTTP方法的名称，例如，GET，POST或PUT。
 
-Part	getPart(java.lang.String name)
-	获取命名的Part，如果Part不存在，则返回null。
+Part    getPart(java.lang.String name)
+    获取命名的Part，如果Part不存在，则返回null。
 
-java.util.Collection<Part>	getParts()
-	返回所有上传部分的集合。
+java.util.Collection<Part>    getParts()
+    返回所有上传部分的集合。
 
-java.lang.String	getPathInfo()
-	返回与客户端发出此请求时发送的URL关联的任何额外路径信息。
+java.lang.String    getPathInfo()
+    返回与客户端发出此请求时发送的URL关联的任何额外路径信息。
 
-java.lang.String	getPathTranslated()
-	返回servlet名称之后但查询字符串之前的任何额外路径信息，并将其转换为实际路径。
+java.lang.String    getPathTranslated()
+    返回servlet名称之后但查询字符串之前的任何额外路径信息，并将其转换为实际路径。
 
-java.lang.String	getQueryString()
-	返回路径后请求URL中包含的查询字符串。
+java.lang.String    getQueryString()
+    返回路径后请求URL中包含的查询字符串。
 
-java.lang.String	getRemoteUser()
-	如果用户已经过身份验证，或者null用户未经过身份验证，则返回发出此请求的用户的登录名。
+java.lang.String    getRemoteUser()
+    如果用户已经过身份验证，或者null用户未经过身份验证，则返回发出此请求的用户的登录名。
 
-java.lang.String	getRequestedSessionId()
-	返回客户端指定的会话ID。
+java.lang.String    getRequestedSessionId()
+    返回客户端指定的会话ID。
 
-java.lang.String	getRequestURI()
-	将此请求的URL部分从协议名称返回到HTTP请求第一行中的查询字符串。
+java.lang.String    getRequestURI()
+    将此请求的URL部分从协议名称返回到HTTP请求第一行中的查询字符串。
 
-java.lang.StringBuffer	getRequestURL()
-	重构客户端用于发出请求的URL。
+java.lang.StringBuffer    getRequestURL()
+    重构客户端用于发出请求的URL。
 
-java.lang.String	getServletPath()
-	返回此请求调用servlet的URL的一部分。
+java.lang.String    getServletPath()
+    返回此请求调用servlet的URL的一部分。
 
-HttpSession	getSession()
-	返回与此请求关联的当前会话，或者如果请求没有会话，则创建一个会话。
+HttpSession    getSession()
+    返回与此请求关联的当前会话，或者如果请求没有会话，则创建一个会话。
 
-HttpSession	getSession(boolean create)
-	返回HttpSession与此请求关联的当前值，如果没有当前会话且create为true，则返回新会话。
+HttpSession    getSession(boolean create)
+    返回HttpSession与此请求关联的当前值，如果没有当前会话且create为true，则返回新会话。
 
-default java.util.Map<java.lang.String,java.lang.String>	getTrailerFields()
-	获取请求对象未支持的预告片字段的映射。
+default java.util.Map<java.lang.String,java.lang.String>    getTrailerFields()
+    获取请求对象未支持的预告片字段的映射。
 
-java.security.Principal	getUserPrincipal()
-	返回java.security.Principal包含当前经过身份验证的用户的名称的对象。
+java.security.Principal    getUserPrincipal()
+    返回java.security.Principal包含当前经过身份验证的用户的名称的对象。
 
-boolean	isRequestedSessionIdFromCookie()
-	检查所请求的会话ID是否作为cookie进入。
+boolean    isRequestedSessionIdFromCookie()
+    检查所请求的会话ID是否作为cookie进入。
 
-boolean	isRequestedSessionIdFromUrl()
-	已过时。 从Java Servlet API的2.1版开始，请 isRequestedSessionIdFromURL()改用。
+boolean    isRequestedSessionIdFromUrl()
+    已过时。 从Java Servlet API的2.1版开始，请 isRequestedSessionIdFromURL()改用。
 
-boolean	isRequestedSessionIdFromURL()
-	检查请求的会话ID是否作为请求URL的一部分进入。
+boolean    isRequestedSessionIdFromURL()
+    检查请求的会话ID是否作为请求URL的一部分进入。
 
-boolean	isRequestedSessionIdValid()
-	检查请求的会话ID是否仍然有效。
+boolean    isRequestedSessionIdValid()
+    检查请求的会话ID是否仍然有效。
 
-default boolean	isTrailerFieldsReady()
-	拖车区域是否准备好被阅读（可能仍然没有预告片可供阅读）。
+default boolean    isTrailerFieldsReady()
+    拖车区域是否准备好被阅读（可能仍然没有预告片可供阅读）。
 
-boolean	isUserInRole(java.lang.String role)
-	返回一个布尔值，指示经过身份验证的用户是否包含在指定的逻辑“角色”中。
+boolean    isUserInRole(java.lang.String role)
+    返回一个布尔值，指示经过身份验证的用户是否包含在指定的逻辑“角色”中。
 
 login(java.lang.String username, java.lang.String password)
-	验证提供的用户名和密码，然后将经过身份验证的用户与请求相关联。
+    验证提供的用户名和密码，然后将经过身份验证的用户与请求相关联。
 
 logout()
-	从请求中删除任何经过身份验证的用户。
+    从请求中删除任何经过身份验证的用户。
 
-default PushBuilder	newPushBuilder()
-	获取用于生成推送请求的构建器。
+default PushBuilder    newPushBuilder()
+    获取用于生成推送请求的构建器。
 
-<T extends HttpUpgradeHandler>	upgrade(java.lang.Class<T> httpUpgradeHandlerClass)
-T	启动HTTP升级过程，并在当前请求/响应对完成处理后将连接传递给提供的协议处理程序。
+<T extends HttpUpgradeHandler>    upgrade(java.lang.Class<T> httpUpgradeHandlerClass)
+T    启动HTTP升级过程，并在当前请求/响应对完成处理后将连接传递给提供的协议处理程序。
 
 ```
 
@@ -377,73 +377,73 @@ HttpServletResponse：[javax.servlet.http.HttpServletResponse](http://tomcat.apa
 servlet容器创建一个HttpServletResponse对象，并将其作为一个参数传递给servlet的服务方法（doGet，doPost等）。
 
 addCookie(Cookie cookie)
-	将指定的cookie添加到响应中。
+    将指定的cookie添加到响应中。
 
 addDateHeader(java.lang.String name, long date)
-	添加具有给定名称和日期值的响应标头。
+    添加具有给定名称和日期值的响应标头。
 
 addHeader(java.lang.String name, java.lang.String value)
-	添加具有给定名称和值的响应标头。
+    添加具有给定名称和值的响应标头。
 
 addIntHeader(java.lang.String name, int value)
-	添加具有给定名称和整数值的响应标头。
+    添加具有给定名称和整数值的响应标头。
 
-boolean	containsHeader(java.lang.String name)
-	返回一个布尔值，指示是否已设置指定的响应头。
+boolean    containsHeader(java.lang.String name)
+    返回一个布尔值，指示是否已设置指定的响应头。
 
-java.lang.String	encodeRedirectUrl(java.lang.String url)
-	已过时。 从版本2.1开始，请使用encodeRedirectURL（String url）
+java.lang.String    encodeRedirectUrl(java.lang.String url)
+    已过时。 从版本2.1开始，请使用encodeRedirectURL（String url）
 
-java.lang.String	encodeRedirectURL(java.lang.String url)
-	对指定的URL进行编码以在sendRedirect方法中使用，或者，如果不需要编码，则返回URL不变。
+java.lang.String    encodeRedirectURL(java.lang.String url)
+    对指定的URL进行编码以在sendRedirect方法中使用，或者，如果不需要编码，则返回URL不变。
 
-java.lang.String	encodeUrl(java.lang.String url)
-	已过时。从2.1版开始，请使用encodeURL（String url）
+java.lang.String    encodeUrl(java.lang.String url)
+    已过时。从2.1版开始，请使用encodeURL（String url）
 
-java.lang.String	encodeURL(java.lang.String url)
-	通过在其中包含会话ID来对指定的URL进行编码，或者，如果不需要编码，则返回URL不变。
+java.lang.String    encodeURL(java.lang.String url)
+    通过在其中包含会话ID来对指定的URL进行编码，或者，如果不需要编码，则返回URL不变。
 
-java.lang.String	getHeader(java.lang.String name)
-	返回指定标头的值，或者null是否尚未设置此标头。
+java.lang.String    getHeader(java.lang.String name)
+    返回指定标头的值，或者null是否尚未设置此标头。
 
-java.util.Collection<java.lang.String>	getHeaderNames()
-	获取为此HTTP响应设置的标头名称。
+java.util.Collection<java.lang.String>    getHeaderNames()
+    获取为此HTTP响应设置的标头名称。
 
-java.util.Collection<java.lang.String>	getHeaders(java.lang.String name)
-	返回与指定标头名称关联的所有标头值的集合。
+java.util.Collection<java.lang.String>    getHeaders(java.lang.String name)
+    返回与指定标头名称关联的所有标头值的集合。
 
-int	getStatus()
-	获取此响应的HTTP状态代码。
+int    getStatus()
+    获取此响应的HTTP状态代码。
 
-default java.util.function.Supplier<java.util.Map<java.lang.String,java.lang.String>>	getTrailerFields()
-	获取拖车标题的供应商。
+default java.util.function.Supplier<java.util.Map<java.lang.String,java.lang.String>>    getTrailerFields()
+    获取拖车标题的供应商。
 
 sendError(int sc)
-	使用指定的状态代码向客户端发送错误响应并清除缓冲区。
+    使用指定的状态代码向客户端发送错误响应并清除缓冲区。
 
 sendError(int sc, java.lang.String msg)
-	使用指定的状态代码向客户端发送错误响应并清除输出缓冲区。
+    使用指定的状态代码向客户端发送错误响应并清除输出缓冲区。
 
 sendRedirect(java.lang.String location)
-	使用指定的重定向位置URL向客户端发送临时重定向响应。
+    使用指定的重定向位置URL向客户端发送临时重定向响应。
 
 setDateHeader(java.lang.String name, long date)
-	设置具有给定名称和日期值的响应标头。
+    设置具有给定名称和日期值的响应标头。
 
 setHeader(java.lang.String name, java.lang.String value)
-	设置具有给定名称和值的响应标头。
+    设置具有给定名称和值的响应标头。
 
 setIntHeader(java.lang.String name, int value)
-	设置具有给定名称和整数值的响应标头。
+    设置具有给定名称和整数值的响应标头。
 
 setStatus(int sc)
-	设置此响应的状态代码。
+    设置此响应的状态代码。
 
 setStatus(int sc, java.lang.String sm)
-	已过时。 从版本2.1开始，由于消息参数的含义模糊。要设置状态代码 setStatus(int)，请使用描述使用发送错误sendError(int, String)。
+    已过时。 从版本2.1开始，由于消息参数的含义模糊。要设置状态代码 setStatus(int)，请使用描述使用发送错误sendError(int, String)。
 
 setTrailerFields(java.util.function.Supplier<java.util.Map<java.lang.String,java.lang.String>> supplier)
-	配置拖标头的供应商。
+    配置拖标头的供应商。
 ```
 
 
@@ -463,93 +463,93 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/testControllerByMapping/")
 public class TestControllerByMapping {
-	/**
-	 * 请求参数的使用： 1、通过@RequestParam获取请求参数： 
-	 * 1.1、value字：请求URL中参数的绑定值：name
-	 * 1.2、method：指定请求方式：参考org.springframework.web.bind.annotation.RequestMethod
-	 * 1.3、required：参数是否必填（默认true）：true必填，false非必填。
-	 * 1.4、defaultValue：设置默认值。当请求URL无改参数时，生效
-	 * 1.5、produces：设置请求格式及编码格式
-	 * 2、通过@PathVariable获取请求URL中的参数 2.1、请求URL参数格式：{key}
-	 * 3、通过Servlet API:HttpServletRequest获取请求参数：
-	 */
+    /**
+     * 请求参数的使用： 1、通过@RequestParam获取请求参数： 
+     * 1.1、value字：请求URL中参数的绑定值：name
+     * 1.2、method：指定请求方式：参考org.springframework.web.bind.annotation.RequestMethod
+     * 1.3、required：参数是否必填（默认true）：true必填，false非必填。
+     * 1.4、defaultValue：设置默认值。当请求URL无改参数时，生效
+     * 1.5、produces：设置请求格式及编码格式
+     * 2、通过@PathVariable获取请求URL中的参数 2.1、请求URL参数格式：{key}
+     * 3、通过Servlet API:HttpServletRequest获取请求参数：
+     */
 
-	// 演示 @Controller + @RequestMapping + @ResponseBody访问接口
-	@RequestMapping(value = "testRequestMapping", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String testRequestMapping() {
-		StringBuffer val = new StringBuffer("1、演示 @Controller + @RequestMapping + @ResponseBody访问接口");
-		val.append("\n[Controller：使用@Controller。使用@RequestMapping(\"/testControllerByMapping/\")指定默认路径]");
-		val.append("\n[方法：使用@RequestMapping(value = \"testRequestMapping\")指定方法访问路径]");
-		val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
-		val.append("\n[请求方式：@RequestMapping支持多种请求方式如get/post/put]");
-		val.append("\n[参数信息：无参数]");
-		val.append("\n[返回类型：String]");
-		return val.toString();
-	}
-	// 演示 @RequestMapping 通过 @RequestParam 设置参数(默认参数必填)
-	@RequestMapping(value = "getRequestMapping", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String getRequestMapping(@RequestParam("name") String name) {
-		StringBuffer val = new StringBuffer("2、演示 @RequestMapping 通过 @RequestParam 设置参数(默认参数必填)");
-		val.append("\n[Controller：使用@Controller。使用@RequestMapping(\"/testControllerByMapping/\")指定默认路径]");
-		val.append(
-				"\n[方法：@RequestMapping(value = \"getRequestMapping\", method = RequestMethod.GET)指定方法访问路径，和访问方式GET]");
-		val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
-		val.append("\n[请求方式：RequestMethod.GET]");
-		val.append("\n[参数信息： @RequestParam(\"name\") String name)指定访问参数，默认为必填");
-		val.append("\n[参数值： name = " + name + "]");
-		val.append("\n[返回类型：String]");
-		return val.toString();
-	}
+    // 演示 @Controller + @RequestMapping + @ResponseBody访问接口
+    @RequestMapping(value = "testRequestMapping", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String testRequestMapping() {
+        StringBuffer val = new StringBuffer("1、演示 @Controller + @RequestMapping + @ResponseBody访问接口");
+        val.append("\n[Controller：使用@Controller。使用@RequestMapping(\"/testControllerByMapping/\")指定默认路径]");
+        val.append("\n[方法：使用@RequestMapping(value = \"testRequestMapping\")指定方法访问路径]");
+        val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
+        val.append("\n[请求方式：@RequestMapping支持多种请求方式如get/post/put]");
+        val.append("\n[参数信息：无参数]");
+        val.append("\n[返回类型：String]");
+        return val.toString();
+    }
+    // 演示 @RequestMapping 通过 @RequestParam 设置参数(默认参数必填)
+    @RequestMapping(value = "getRequestMapping", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getRequestMapping(@RequestParam("name") String name) {
+        StringBuffer val = new StringBuffer("2、演示 @RequestMapping 通过 @RequestParam 设置参数(默认参数必填)");
+        val.append("\n[Controller：使用@Controller。使用@RequestMapping(\"/testControllerByMapping/\")指定默认路径]");
+        val.append(
+                "\n[方法：@RequestMapping(value = \"getRequestMapping\", method = RequestMethod.GET)指定方法访问路径，和访问方式GET]");
+        val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
+        val.append("\n[请求方式：RequestMethod.GET]");
+        val.append("\n[参数信息： @RequestParam(\"name\") String name)指定访问参数，默认为必填");
+        val.append("\n[参数值： name = " + name + "]");
+        val.append("\n[返回类型：String]");
+        return val.toString();
+    }
 
-	// 演示 @RequestMapping 通过 required 设置参数非必填
-	@RequestMapping(value = "postRequestMapping", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String postRequestMapping(@RequestParam(value = "name", required = false) String name) {
-		StringBuffer val = new StringBuffer("3、演示 @RequestMapping 通过 required 设置参数非必填");
-		val.append("\n[Controller：使用@Controller。使用@RequestMapping(\"/testControllerByMapping/\")指定默认路径]");
-		val.append(
-				"\n[方法：@RequestMapping(value = \"postRequestMapping\", method = RequestMethod.POST)指定方法访问路径，和访问方式POST]");
-		val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
-		val.append("\n[请求方式：RequestMethod.POST]");
-		val.append("\n[参数信息： @RequestParam(value = \"name\", required = false) String name指定访问参数，required设置是否必填");
-		val.append("\n[参数值： name = " + name + "]");
-		val.append("\n[返回类型：String]");
-		return val.toString();
-	}
+    // 演示 @RequestMapping 通过 required 设置参数非必填
+    @RequestMapping(value = "postRequestMapping", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String postRequestMapping(@RequestParam(value = "name", required = false) String name) {
+        StringBuffer val = new StringBuffer("3、演示 @RequestMapping 通过 required 设置参数非必填");
+        val.append("\n[Controller：使用@Controller。使用@RequestMapping(\"/testControllerByMapping/\")指定默认路径]");
+        val.append(
+                "\n[方法：@RequestMapping(value = \"postRequestMapping\", method = RequestMethod.POST)指定方法访问路径，和访问方式POST]");
+        val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
+        val.append("\n[请求方式：RequestMethod.POST]");
+        val.append("\n[参数信息： @RequestParam(value = \"name\", required = false) String name指定访问参数，required设置是否必填");
+        val.append("\n[参数值： name = " + name + "]");
+        val.append("\n[返回类型：String]");
+        return val.toString();
+    }
 
-	// 演示 @GetMapping 通过 defaultValue 指定参数默认值
-	@GetMapping(value = "getMapping", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String getMapping(@RequestParam(value = "name", required = false, defaultValue = "admin") String name) {
-		StringBuffer val = new StringBuffer("5、演示 @GetMapping 通过 defaultValue 指定参数默认值");
-		val.append("\n[Controller：使用@Controller。使用@RequestMapping(\\\"/testControllerByMapping/\\\")指定默认路径]");
-		val.append("\n[方法：使用@GetMapping(\\\"getMapping\\\"))指定访问路径和请求方式GET]");
-		val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
-		val.append("\n[请求方式：RequestMethod.GET]");
-		val.append(
-				"\n[参数信息：@RequestParam(value = \"name\", required = false, defaultValue=\"admin\") String name 指定访问参数，required设置是否必填，defaultValue设置默认值");
-		val.append("\n[参数值： name = " + name + "]");
-		val.append("\n[返回类型：String]");
-		return val.toString();
-	}
+    // 演示 @GetMapping 通过 defaultValue 指定参数默认值
+    @GetMapping(value = "getMapping", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getMapping(@RequestParam(value = "name", required = false, defaultValue = "admin") String name) {
+        StringBuffer val = new StringBuffer("5、演示 @GetMapping 通过 defaultValue 指定参数默认值");
+        val.append("\n[Controller：使用@Controller。使用@RequestMapping(\\\"/testControllerByMapping/\\\")指定默认路径]");
+        val.append("\n[方法：使用@GetMapping(\\\"getMapping\\\"))指定访问路径和请求方式GET]");
+        val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
+        val.append("\n[请求方式：RequestMethod.GET]");
+        val.append(
+                "\n[参数信息：@RequestParam(value = \"name\", required = false, defaultValue=\"admin\") String name 指定访问参数，required设置是否必填，defaultValue设置默认值");
+        val.append("\n[参数值： name = " + name + "]");
+        val.append("\n[返回类型：String]");
+        return val.toString();
+    }
 
-	// 演示 @PostMapping 通过 @PathVariable 请求URL绑定参数
-	@PostMapping(value = "postMapping/{name}", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String postMapping(@PathVariable("name") String name) {
-		StringBuffer val = new StringBuffer("6、演示 @PostMapping 通过 @PathVariable 请求URL绑定参数");
-		val.append("\n[Controller：使用@Controller。使用@RequestMapping(\\\"/testControllerByMapping/\\\")指定默认路径]");
-		val.append("\n[方法：使用@PostMapping(\"postMapping/{key}\")指定访问路径和请求方式POST]");
-		val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
-		val.append("\n[请求方式：RequestMethod.POST]");
-		val.append("\n[参数信息：@PathVariable(\"key\") String name 获取请求URL中绑定的参数key]");
-		val.append("\n[参数值： name = " + name + "]");
-		val.append("\n[返回类型：String]");
-		val.append("\n[PS：spring 4.3的新特性@GetMapping @PostMapping @PutMapping @DeleteMapping 等注解可以直接指定具体的请求方式]");
-		return val.toString();
-	}
+    // 演示 @PostMapping 通过 @PathVariable 请求URL绑定参数
+    @PostMapping(value = "postMapping/{name}", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String postMapping(@PathVariable("name") String name) {
+        StringBuffer val = new StringBuffer("6、演示 @PostMapping 通过 @PathVariable 请求URL绑定参数");
+        val.append("\n[Controller：使用@Controller。使用@RequestMapping(\\\"/testControllerByMapping/\\\")指定默认路径]");
+        val.append("\n[方法：使用@PostMapping(\"postMapping/{key}\")指定访问路径和请求方式POST]");
+        val.append("\n[方法：使用@ResponseBody可以直接返回出去]");
+        val.append("\n[请求方式：RequestMethod.POST]");
+        val.append("\n[参数信息：@PathVariable(\"key\") String name 获取请求URL中绑定的参数key]");
+        val.append("\n[参数值： name = " + name + "]");
+        val.append("\n[返回类型：String]");
+        val.append("\n[PS：spring 4.3的新特性@GetMapping @PostMapping @PutMapping @DeleteMapping 等注解可以直接指定具体的请求方式]");
+        return val.toString();
+    }
 }
 ```
 
@@ -566,26 +566,26 @@ import com.mutistic.utils.HttpServletUtil;
 @RestController
 @RequestMapping("/testRestController/")
 public class TestRestController {
-	// 演示入参时注入servler的API：HttpServletRequest参数
-	@GetMapping(value = "showHttpServletRequest")
-	public String showRequest(HttpServletRequest request, HttpServletResponse response) { 
-		try {
-			request.setCharacterEncoding("UTF-8");
-			response.setCharacterEncoding("UTF-8");
-		} catch (Exception e) { }
-		
-		StringBuffer val = new StringBuffer("2、演示入参时注入servler的API：HttpServletRequest参数");
-		val.append("\n[Controller：使用@RestController。@RequestMapping(\"testRestController\") 指定默认访问路径]");
-		val.append("\n[方法：使用@GetMapping(\"showHttpServletRequest\"))指定访问路径和请求方式GET]");
-		val.append("\n[请求方式：RequestMethod.GET]");
-		val.append("\n[参数信息：javax.servlet.http.HttpServletRequest]");
-		val.append("\n[获取客户端IP："+ HttpServletUtil.getIPAddress(request) +"]");
-		val.append("\n[参数值："+ request.toString() +"]");
-		val.append("\n[HttpServletRequest:remoteHost："+ request.getRemoteHost() +"]");
-		val.append("\n[HttpServletRequest:localPort："+ request.getLocalPort() +"]");
-		val.append("\n[返回类型：String]");
-		return val.toString();
-	}
+    // 演示入参时注入servler的API：HttpServletRequest参数
+    @GetMapping(value = "showHttpServletRequest")
+    public String showRequest(HttpServletRequest request, HttpServletResponse response) { 
+        try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+        } catch (Exception e) { }
+        
+        StringBuffer val = new StringBuffer("2、演示入参时注入servler的API：HttpServletRequest参数");
+        val.append("\n[Controller：使用@RestController。@RequestMapping(\"testRestController\") 指定默认访问路径]");
+        val.append("\n[方法：使用@GetMapping(\"showHttpServletRequest\"))指定访问路径和请求方式GET]");
+        val.append("\n[请求方式：RequestMethod.GET]");
+        val.append("\n[参数信息：javax.servlet.http.HttpServletRequest]");
+        val.append("\n[获取客户端IP："+ HttpServletUtil.getIPAddress(request) +"]");
+        val.append("\n[参数值："+ request.toString() +"]");
+        val.append("\n[HttpServletRequest:remoteHost："+ request.getRemoteHost() +"]");
+        val.append("\n[HttpServletRequest:localPort："+ request.getLocalPort() +"]");
+        val.append("\n[返回类型：String]");
+        return val.toString();
+    }
 }
 ```
 
@@ -595,28 +595,28 @@ package com.mutistic.utils;
 import javax.servlet.http.HttpServletRequest;
 //  HttpServlet工具类
 public class HttpServletUtil {
-	// 获取客户端访问IP
-	public static String getIPAddress(HttpServletRequest request) {
-		String ip = null;
-		// X-Forwarded-For：Squid 服务代理
-		String ipAddresses = request.getHeader("X-Forwarded-For");
-		// Proxy-Client-IP：apache 服务代理
-		if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("Proxy-Client-IP");
-		// WL-Proxy-Client-IP：weblogic 服务代理
-		if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("WL-Proxy-Client-IP");
-		// HTTP_CLIENT_IP：有些代理服务器
-		if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("HTTP_CLIENT_IP");
-		// X-Real-IP：nginx服务代理
-		if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("X-Real-IP");
-		// 有些网络通过多层代理，那么获取到的ip就会有多个，一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP
-		if (!isEmpty(ipAddresses)) ip = ipAddresses.split(",")[0];
-		// 还是不能获取到，最后再通过request.getRemoteAddr();获取
-		if (isEmpty(ipAddresses)) ip = request.getRemoteAddr();
-		return ip;
-	}
-	private static boolean isEmpty(String ipAddresses) {
-		return ipAddresses == null || ipAddresses.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses);
-	}
+    // 获取客户端访问IP
+    public static String getIPAddress(HttpServletRequest request) {
+        String ip = null;
+        // X-Forwarded-For：Squid 服务代理
+        String ipAddresses = request.getHeader("X-Forwarded-For");
+        // Proxy-Client-IP：apache 服务代理
+        if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("Proxy-Client-IP");
+        // WL-Proxy-Client-IP：weblogic 服务代理
+        if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("WL-Proxy-Client-IP");
+        // HTTP_CLIENT_IP：有些代理服务器
+        if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("HTTP_CLIENT_IP");
+        // X-Real-IP：nginx服务代理
+        if (isEmpty(ipAddresses)) ipAddresses = request.getHeader("X-Real-IP");
+        // 有些网络通过多层代理，那么获取到的ip就会有多个，一般都是通过逗号（,）分割开来，并且第一个ip为客户端的真实IP
+        if (!isEmpty(ipAddresses)) ip = ipAddresses.split(",")[0];
+        // 还是不能获取到，最后再通过request.getRemoteAddr();获取
+        if (isEmpty(ipAddresses)) ip = request.getRemoteAddr();
+        return ip;
+    }
+    private static boolean isEmpty(String ipAddresses) {
+        return ipAddresses == null || ipAddresses.length() == 0 || "unknown".equalsIgnoreCase(ipAddresses);
+    }
 }
 ```
 
@@ -626,9 +626,9 @@ pom.xml：需要tomcat-embed-jasper依赖：
 ```xml
 <!-- 配合：TestControllerByJSP 演示返回jsp文件所需要的jsp组件: 用于编译jsp -->
 <dependency>
-	<groupId>org.apache.tomcat.embed</groupId>
-	<artifactId>tomcat-embed-jasper</artifactId>
-	<scope>provided</scope>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+    <scope>provided</scope>
 </dependency>
 ```
 
@@ -646,37 +646,37 @@ JSP视图的使用步骤：
 【PS4：属性配置 spring.mvc.view.prefix 可以执行返回view的前缀】
 【PS5：属性配置 spring.mvc.view.suffix 可以指定返回view的后缀】
 【PS6：pom.xml具体依赖:\n<!-- 配合：TestControllerByJSP 演示返回jsp文件所需要的jsp组件: 用于编译jsp -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency>】
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>】
 ```
 
 Model：[org.springframework.ui.Model](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/ui/Model.html)
 ```
 特定于Java-5的接口，用于定义模型属性的持有者。主要用于向模型添加属性。允许以java.util.Map。身份访问整个模型。
 
-Model	addAllAttributes(java.util.Collection<?> attributeValues)
-	使用每个元素的属性名称生成，将提供的所有属性复制Collection到此中 Map。
+Model    addAllAttributes(java.util.Collection<?> attributeValues)
+    使用每个元素的属性名称生成，将提供的所有属性复制Collection到此中 Map。
 
-Model	addAllAttributes(java.util.Map<java.lang.String,?> attributes)
-	将提供的所有属性复制Map到此中Map。
+Model    addAllAttributes(java.util.Map<java.lang.String,?> attributes)
+    将提供的所有属性复制Map到此中Map。
 
-Model	addAttribute(java.lang.Object attributeValue)
-	Map使用将提供的属性添加到此处generated name。
+Model    addAttribute(java.lang.Object attributeValue)
+    Map使用将提供的属性添加到此处generated name。
 
-Model	addAttribute(java.lang.String attributeName, java.lang.Object attributeValue)
-	在提供的名称下添加提供的属性。
+Model    addAttribute(java.lang.String attributeName, java.lang.Object attributeValue)
+    在提供的名称下添加提供的属性。
 
-java.util.Map<java.lang.String,java.lang.Object>	asMap()
-	将当前的模型属性集作为Map返回。
+java.util.Map<java.lang.String,java.lang.Object>    asMap()
+    将当前的模型属性集作为Map返回。
 
-boolean	containsAttribute(java.lang.String attributeName)
-	此模型是否包含给定名称的属性
+boolean    containsAttribute(java.lang.String attributeName)
+    此模型是否包含给定名称的属性
 
-Model	mergeAttributes(java.util.Map<java.lang.String,?> attributes)
-	将所提供的Map中的所有属性复制到这张Map中，使用相同名称的现有对象优先（即不被替换）。
+Model    mergeAttributes(java.util.Map<java.lang.String,?> attributes)
+    将所提供的Map中的所有属性复制到这张Map中，使用相同名称的现有对象优先（即不被替换）。
 ```
 
 TestControllerByJSP.java：
@@ -692,78 +692,78 @@ import com.mutistic.utils.ViewUtil;
 // 演示返回.JSP文件
 @Controller
 public class TestControllerByJSP {
-	/**
-	 * JSP使用：
-	 * 1、pom.xml：引入jasper插件：tomcat-embed-jasper
-	 * 2、配置jsp视图路径：src/main/webapp
-	 * 2.1、配置文件可以通过参数spring.freemarker.template-loader-path配置视图前缀
-	 * 3、Controller可以使用@Controller注解，不能使用@RestController注解，不建议使用@RequestMapping注解配置路径前缀
-	 * 4、接口方法不能使用 @ResponseBody注解 
-	 * 5、接口返回格式：文件路径/文件名.jsp   (字符串)
-	 * 5.1、返回格式前缀可以通过：参数：spring.mvc.view.prefix 指定
-	 * 5.2、返回格式后缀可以通过：参数：spring.mvc.view.suffix 指定
-	 */
-	
-	// 演示返回.JSP文件
-	@PostMapping(value = "/testControllerByJSP/showJSP", produces = "text/html;charset=UTF-8")
-	public String showJSP(@RequestParam(value = "userName", required = false) String userName,
-			@RequestParam(value = "passWord", required = false) String passWord) {
-		StringBuffer val = new StringBuffer("\n1、演示返回.JSP文件");
-		val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/testControllerByJSP/\")指定默认路径】");
-		val.append("\n【方法：@PostMapping(value = \"showJSP\")指定方法访问路径，和访问方式POST】");
-		val.append("\n【请求方式：RequestMethod.POST】");
-		val.append("\n【参数信息： @RequestParam()指定访问参数");
-		val.append("\n【参数值： userName = " + userName + ", passWord = " + passWord + "】");
-		val.append("\n【返回类型：JSP文件相对地址及文件名】");
-		val.append("\n【PS1：返回JSP文件时，类不能使用@RestController，方法不能使用 @ResponseBody注解】");
-		val.append("\n【PS2：pom.xml需要引入jsp相关的组件:tomcat-embed-jasper】");
-		val.append("\n【PS3：文件等资源默认路径在src/main/webapp下，需要新建webapp目录】");
-		val.append("\n【PS4：属性配置 pring.mvc.view.prefix 可以执行返回view的前缀】");
-		val.append("\n【PS5：属性配置 spring.mvc.view.suffix 可以指定返回view的后缀】");
-		val.append("\n【PS6：pom.xml具体依赖:\\n"
-				+ "<!-- 配合：TestControllerByJSP 演示返回jsp文件所需要的jsp组件: 用于编译jsp -->\r\n" + 
-				"		<dependency>\r\n" + 
-				"			<groupId>org.apache.tomcat.embed</groupId>\r\n" + 
-				"			<artifactId>tomcat-embed-jasper</artifactId>\r\n" + 
-				"			<scope>provided</scope>\r\n" + 
-				"		</dependency>】");
-		System.out.println(val.toString());
+    /**
+     * JSP使用：
+     * 1、pom.xml：引入jasper插件：tomcat-embed-jasper
+     * 2、配置jsp视图路径：src/main/webapp
+     * 2.1、配置文件可以通过参数spring.freemarker.template-loader-path配置视图前缀
+     * 3、Controller可以使用@Controller注解，不能使用@RestController注解，不建议使用@RequestMapping注解配置路径前缀
+     * 4、接口方法不能使用 @ResponseBody注解 
+     * 5、接口返回格式：文件路径/文件名.jsp   (字符串)
+     * 5.1、返回格式前缀可以通过：参数：spring.mvc.view.prefix 指定
+     * 5.2、返回格式后缀可以通过：参数：spring.mvc.view.suffix 指定
+     */
+    
+    // 演示返回.JSP文件
+    @PostMapping(value = "/testControllerByJSP/showJSP", produces = "text/html;charset=UTF-8")
+    public String showJSP(@RequestParam(value = "userName", required = false) String userName,
+            @RequestParam(value = "passWord", required = false) String passWord) {
+        StringBuffer val = new StringBuffer("\n1、演示返回.JSP文件");
+        val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/testControllerByJSP/\")指定默认路径】");
+        val.append("\n【方法：@PostMapping(value = \"showJSP\")指定方法访问路径，和访问方式POST】");
+        val.append("\n【请求方式：RequestMethod.POST】");
+        val.append("\n【参数信息： @RequestParam()指定访问参数");
+        val.append("\n【参数值： userName = " + userName + ", passWord = " + passWord + "】");
+        val.append("\n【返回类型：JSP文件相对地址及文件名】");
+        val.append("\n【PS1：返回JSP文件时，类不能使用@RestController，方法不能使用 @ResponseBody注解】");
+        val.append("\n【PS2：pom.xml需要引入jsp相关的组件:tomcat-embed-jasper】");
+        val.append("\n【PS3：文件等资源默认路径在src/main/webapp下，需要新建webapp目录】");
+        val.append("\n【PS4：属性配置 pring.mvc.view.prefix 可以执行返回view的前缀】");
+        val.append("\n【PS5：属性配置 spring.mvc.view.suffix 可以指定返回view的后缀】");
+        val.append("\n【PS6：pom.xml具体依赖:\\n"
+                + "<!-- 配合：TestControllerByJSP 演示返回jsp文件所需要的jsp组件: 用于编译jsp -->\r\n" + 
+                "        <dependency>\r\n" + 
+                "            <groupId>org.apache.tomcat.embed</groupId>\r\n" + 
+                "            <artifactId>tomcat-embed-jasper</artifactId>\r\n" + 
+                "            <scope>provided</scope>\r\n" + 
+                "        </dependency>】");
+        System.out.println(val.toString());
 
-		if ("root".equals(userName) && "root123".equals(passWord)) {
-			return ViewUtil.getViewJsp("ok");
-		}
-		return ViewUtil.getViewJsp("fault");
-	}
+        if ("root".equals(userName) && "root123".equals(passWord)) {
+            return ViewUtil.getViewJsp("ok");
+        }
+        return ViewUtil.getViewJsp("fault");
+    }
 
-	// 演示JSP界面使用 ${key}引入Model中变量
-	@GetMapping(value = "/testControllerByJSP/showMode", produces = "text/html;charset=UTF-8")
-	public String showMode(Model mode) {
-		StringBuffer val = new StringBuffer("\n2、演示JSP界面使用 ${key}引入Model中变量");
-		val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/testControllerByJSP/\")指定默认路径】");
-		val.append("\n【方法：@GetMapping(value = \"showMode\")】");
-		val.append("\n【请求方式：RequestMethod.GET】");
-		val.append("\n【参数信息： org.springframework.ui.Model:可以设置参数返回给页面调用");
-		val.append("\n【返回类型：JSP文件相对地址及文件名】");
-		System.out.println(val.toString());
+    // 演示JSP界面使用 ${key}引入Model中变量
+    @GetMapping(value = "/testControllerByJSP/showMode", produces = "text/html;charset=UTF-8")
+    public String showMode(Model mode) {
+        StringBuffer val = new StringBuffer("\n2、演示JSP界面使用 ${key}引入Model中变量");
+        val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/testControllerByJSP/\")指定默认路径】");
+        val.append("\n【方法：@GetMapping(value = \"showMode\")】");
+        val.append("\n【请求方式：RequestMethod.GET】");
+        val.append("\n【参数信息： org.springframework.ui.Model:可以设置参数返回给页面调用");
+        val.append("\n【返回类型：JSP文件相对地址及文件名】");
+        System.out.println(val.toString());
 
-		mode.addAttribute("print", val.toString());
-		return  ViewUtil.getViewJsp("index");
-	}
-	
-	// 演示JSP界面使用 ${key}引入HttpServletRequest中变量
-	@GetMapping(value = "/testControllerByJSP/showHttpServletRequest", produces = "text/html;charset=UTF-8")
-	public String showHttpServletRequest(HttpServletRequest request) {
-		StringBuffer val = new StringBuffer("\n2、演示JSP界面使用 ${key}引入HttpServletRequest中变量");
-		val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/testControllerByJSP/\")指定默认路径】");
-		val.append("\n【方法：@GetMapping(value = \"showHttpServletRequest\")】");
-		val.append("\n【请求方式：RequestMethod.GET】");
-		val.append("\n【参数信息： javax.servlet.http.HttpServletRequest:可以设置参数返回给页面调用");
-		val.append("\n【返回类型：JSP文件name】");
-		System.out.println(val.toString());
+        mode.addAttribute("print", val.toString());
+        return  ViewUtil.getViewJsp("index");
+    }
+    
+    // 演示JSP界面使用 ${key}引入HttpServletRequest中变量
+    @GetMapping(value = "/testControllerByJSP/showHttpServletRequest", produces = "text/html;charset=UTF-8")
+    public String showHttpServletRequest(HttpServletRequest request) {
+        StringBuffer val = new StringBuffer("\n2、演示JSP界面使用 ${key}引入HttpServletRequest中变量");
+        val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/testControllerByJSP/\")指定默认路径】");
+        val.append("\n【方法：@GetMapping(value = \"showHttpServletRequest\")】");
+        val.append("\n【请求方式：RequestMethod.GET】");
+        val.append("\n【参数信息： javax.servlet.http.HttpServletRequest:可以设置参数返回给页面调用");
+        val.append("\n【返回类型：JSP文件name】");
+        System.out.println(val.toString());
 
-		request.setAttribute("print", val.toString());
-		return  ViewUtil.getViewJsp("index");
-	}
+        request.setAttribute("print", val.toString());
+        return  ViewUtil.getViewJsp("index");
+    }
 }
 ```
 
@@ -771,11 +771,11 @@ ViewUtil.java：
 ```Java
 package com.mutistic.utils;
 public class ViewUtil {
-	public final static String VIEW_PREFIX_JSP = "/jsp/";
-	public final static String VIEW_SUFFIX_JSP = ".jsp";
-	public static String getViewJsp(String val) {
-		return VIEW_PREFIX_JSP + val + VIEW_SUFFIX_JSP;
-	}
+    public final static String VIEW_PREFIX_JSP = "/jsp/";
+    public final static String VIEW_SUFFIX_JSP = ".jsp";
+    public static String getViewJsp(String val) {
+        return VIEW_PREFIX_JSP + val + VIEW_SUFFIX_JSP;
+    }
 }
 ```
 
@@ -789,8 +789,8 @@ src/main/resources/webapp/jsp/index.jsp：
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>INDEX.JSP</h1>
-	<h2>${print}</h2>
+    <h1>INDEX.JSP</h1>
+    <h2>${print}</h2>
 </body>
 </html>
 ```
@@ -801,8 +801,8 @@ pom.xml：需要tomcat-embed-jasper依赖：
 ```xml
 <!-- 配合：TestControllerByFreemarker 演示返回ftl文件所需要的Freemarker组件-->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-freemarker</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-freemarker</artifactId>
 </dependency>
 ```
 
@@ -826,32 +826,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 //@RequestMapping("/testControllerByFreemarker/")
 public class TestControllerByFreemarker {
-	@GetMapping(value = "/testControllerByFreemarker/showFreemarker", produces = "text/html;charset=UTF-8")
-	public String showFreemarker(Model mode) {
-		StringBuffer val = new StringBuffer("\n1、演示返回Freemarker视图");
-		val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/showFreemarker/\")指定默认路径】");
-		val.append("\n【方法：@GetMapping(value = \"showJSP\")指定方法访问路径，和访问方式GET】");
-		val.append("\n【请求方式：RequestMethod.GET】");
-		val.append("\n【参数信息： @RequestParam()指定访问参数");
-		val.append("\n【参数值： 无参数】");
-		val.append("\n【返回类型：JSP文件相对地址及文件名】");
-		val.append("\n【PS1：返回JSP文件时，类不能使用@RestController，方法不能使用 @ResponseBody注解】");
-		val.append("\n【PS2：pom.xml需要引入freemarker相关的组件:spring-boot-starter-freemarker】");
-		val.append("\n【PS3：文件等资源默认路径在 classpath:/templates/(即:src/resources/templates下)】");
-		val.append("\n【PS4：默认路径:参考类的:org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties.DEFAULT_TEMPLATE_LOADER_PATH】");
-		val.append("\n【PS5：默认view前缀:参考FreeMarkerProperties.DEFAULT_PREFIX，默认view后缀:参考FreeMarkerProperties.DEFAULT_SUFFIX】");
-		val.append("\n【PS6：pom.xml具体依赖:\n"
-				+ "<!-- 配合：TestControllerByFreemarker 演示返回ftl文件所需要的Freemarker组件: 用于编译jsp -->\r\n" + 
-				"		<dependency>\r\n" + 
-				"			<groupId>org.springframework.boot</groupId>\r\n" + 
-				"			<artifactId>spring-boot-starter-freemarker</artifactId>\r\n" + 
-				"		</dependency>】");
-		
-		System.out.println(val.toString());
+    @GetMapping(value = "/testControllerByFreemarker/showFreemarker", produces = "text/html;charset=UTF-8")
+    public String showFreemarker(Model mode) {
+        StringBuffer val = new StringBuffer("\n1、演示返回Freemarker视图");
+        val.append("\n【Controller：使用@Controller。使用@RequestMapping(\"/showFreemarker/\")指定默认路径】");
+        val.append("\n【方法：@GetMapping(value = \"showJSP\")指定方法访问路径，和访问方式GET】");
+        val.append("\n【请求方式：RequestMethod.GET】");
+        val.append("\n【参数信息： @RequestParam()指定访问参数");
+        val.append("\n【参数值： 无参数】");
+        val.append("\n【返回类型：JSP文件相对地址及文件名】");
+        val.append("\n【PS1：返回JSP文件时，类不能使用@RestController，方法不能使用 @ResponseBody注解】");
+        val.append("\n【PS2：pom.xml需要引入freemarker相关的组件:spring-boot-starter-freemarker】");
+        val.append("\n【PS3：文件等资源默认路径在 classpath:/templates/(即:src/resources/templates下)】");
+        val.append("\n【PS4：默认路径:参考类的:org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties.DEFAULT_TEMPLATE_LOADER_PATH】");
+        val.append("\n【PS5：默认view前缀:参考FreeMarkerProperties.DEFAULT_PREFIX，默认view后缀:参考FreeMarkerProperties.DEFAULT_SUFFIX】");
+        val.append("\n【PS6：pom.xml具体依赖:\n"
+                + "<!-- 配合：TestControllerByFreemarker 演示返回ftl文件所需要的Freemarker组件: 用于编译jsp -->\r\n" + 
+                "        <dependency>\r\n" + 
+                "            <groupId>org.springframework.boot</groupId>\r\n" + 
+                "            <artifactId>spring-boot-starter-freemarker</artifactId>\r\n" + 
+                "        </dependency>】");
+        
+        System.out.println(val.toString());
 
-		mode.addAttribute("print", val.toString());
-		return "freemarker";
-	}
+        mode.addAttribute("print", val.toString());
+        return "freemarker";
+    }
 }
 ```
 
@@ -859,16 +859,16 @@ src/main/resources/templates/freemarker.ftl：
 ```Html
 <!DOCTYPE html>
 <html lang="ch">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
-	</head>
-	<body>
-		<h1>freemarker.ftl</h1>
-		<h2>
-		${print}
-		</h2>
-	</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Insert title here</title>
+    </head>
+    <body>
+        <h1>freemarker.ftl</h1>
+        <h2>
+        ${print}
+        </h2>
+    </body>
 </html>
 ```
 
@@ -879,37 +879,37 @@ ResourceProperties：[org.springframework.boot.autoconfigure.web.ResourcePropert
 用于配置资源处理的属性。
 
 嵌套类：
-static class 	ResourceProperties.Cache
-	缓存配置
-	
-static class 	ResourceProperties.Chain
-	Spring资源处理链的配置。
+static class     ResourceProperties.Cache
+    缓存配置
+    
+static class     ResourceProperties.Chain
+    Spring资源处理链的配置。
 
-static class 	ResourceProperties.Content
-	基于内容散列的版本策略。
+static class     ResourceProperties.Content
+    基于内容散列的版本策略。
 
-static class 	ResourceProperties.Fixed
-	基于固定版本字符串的版本策略。
+static class     ResourceProperties.Fixed
+    基于固定版本字符串的版本策略。
 
-static class 	ResourceProperties.Strategy
-	在URL路径中提取和嵌入资源版本的策略。
+static class     ResourceProperties.Strategy
+    在URL路径中提取和嵌入资源版本的策略。
 
 方法：
-ResourceProperties.Cache	getCache() 
+ResourceProperties.Cache    getCache() 
 
-ResourceProperties.Chain	getChain() 
+ResourceProperties.Chain    getChain() 
 
-String[]	getStaticLocations() 
+String[]    getStaticLocations() 
 
-boolean	isAddMappings() 
+boolean    isAddMappings() 
 
 setAddMappings(boolean addMappings) 
 
 setStaticLocations(String[] staticLocations) 
 
 private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-			"classpath:/META-INF/resources/", "classpath:/resources/",
-			"classpath:/static/", "classpath:/public/" };
+            "classpath:/META-INF/resources/", "classpath:/resources/",
+            "classpath:/static/", "classpath:/public/" };
 ```
 
 application.properties 通过参数配置默认资源路径spring.resources.static-locations
@@ -964,46 +964,46 @@ HttpServlet：[javax.servlet.http.HttpServlet](http://tomcat.apache.org/tomcat-9
 ```
 公共抽象类HttpServlet 扩展了GenericServlet
 提供一个抽象类，以创建适合于Web的HTTP servlet。HttpServlet的一个子类必须覆盖至少一种方法，通常是其中之一：
-	doGet，如果servlet支持HTTP GET请求
-	doPost，用于HTTP POST请求
-	doPut，用于HTTP PUT请求
-	doDelete, 用于HTTP删除请求
-	init and destroy,，以管理为servlet生命所持有的资源
-	getServletInfo, servlet用来提供关于自身的信息
+    doGet，如果servlet支持HTTP GET请求
+    doPost，用于HTTP POST请求
+    doPut，用于HTTP PUT请求
+    doDelete, 用于HTTP删除请求
+    init and destroy,，以管理为servlet生命所持有的资源
+    getServletInfo, servlet用来提供关于自身的信息
 几乎没有理由重写服务方法。服务处理标准HTTP请求，将它们分派给每个HTTP请求类型的处理程序方法（上面列出的doMethod方法）。
 同样，几乎没有理由去覆盖doOptions和doTrace方法。
 servlet通常在多线程服务器上运行，因此要注意servlet必须处理并发请求，并小心地同步对共享资源的访问。
 共享资源包括内存中的数据，比如实例或类变量，以及诸如文件、数据库连接和网络连接等外部对象。
 
 protected doDelete(HttpServletRequest req, HttpServletResponse resp)
-	由服务器调用（通过service方法）以允许servlet处理DELETE请求。
+    由服务器调用（通过service方法）以允许servlet处理DELETE请求。
 
 protected doGet(HttpServletRequest req, HttpServletResponse resp)
-	由服务器调用（通过service方法）以允许servlet处理GET请求。
+    由服务器调用（通过service方法）以允许servlet处理GET请求。
 
 protected doHead(HttpServletRequest req, HttpServletResponse resp)
-	从受保护service方法接收HTTP HEAD请求 并处理请求。
+    从受保护service方法接收HTTP HEAD请求 并处理请求。
 
 protected doOptions(HttpServletRequest req, HttpServletResponse resp)
-	由服务器调用（通过service方法）以允许servlet处理OPTIONS请求。
+    由服务器调用（通过service方法）以允许servlet处理OPTIONS请求。
 
 protected doPost(HttpServletRequest req, HttpServletResponse resp)
-	由服务器调用（通过service方法）以允许servlet处理POST请求。
+    由服务器调用（通过service方法）以允许servlet处理POST请求。
 
 protected doPut(HttpServletRequest req, HttpServletResponse resp)
-	由服务器调用（通过service方法）以允许servlet处理PUT请求。
+    由服务器调用（通过service方法）以允许servlet处理PUT请求。
 
 protected doTrace(HttpServletRequest req, HttpServletResponse resp)
-	由服务器调用（通过该service方法）以允许servlet处理TRACE请求。
+    由服务器调用（通过该service方法）以允许servlet处理TRACE请求。
 
-protected long	getLastModified(HttpServletRequest req)
-	返回HttpServletRequest 自上次修改对象的时间，以格林威治标准时间1970年1月1日午夜为单位，以毫秒为单位。
+protected long    getLastModified(HttpServletRequest req)
+    返回HttpServletRequest 自上次修改对象的时间，以格林威治标准时间1970年1月1日午夜为单位，以毫秒为单位。
 
 protected service(HttpServletRequest req, HttpServletResponse resp)
-	从public service方法接收标准HTTP请求， 并将它们分派给此类中定义的doMethod方法。
+    从public service方法接收标准HTTP请求， 并将它们分派给此类中定义的doMethod方法。
 
 service(ServletRequest req, ServletResponse res)
-	将客户端请求分派给受保护的 service方法。
+    将客户端请求分派给受保护的 service方法。
 ```
 
 6.2.1、通过注解方式实现Serlvet<br/>
@@ -1016,35 +1016,35 @@ service(ServletRequest req, ServletResponse res)
 声明此注解的类必须扩展 HttpServlet。
 
 
-boolean	asyncSupported 
-	此Servlet支持的异步操作
+boolean    asyncSupported 
+    此Servlet支持的异步操作
 
-java.lang.String	description 
-	此Servlet的描述（如果存在）
+java.lang.String    description 
+    此Servlet的描述（如果存在）
 
-java.lang.String	displayName 
-	显示此Servlet的名称（如果存在）
+java.lang.String    displayName 
+    显示此Servlet的名称（如果存在）
 
-WebInitParam[]	initParams 
-	此Servlet的初始化参数数组
+WebInitParam[]    initParams 
+    此Servlet的初始化参数数组
 
-java.lang.String	largeIcon 
-	此Servlet的大图标（如果存在）
+java.lang.String    largeIcon 
+    此Servlet的大图标（如果存在）
 
-int	loadOnStartup 
-	加载启动命令提示
+int    loadOnStartup 
+    加载启动命令提示
 
-java.lang.String	name 
-	Servlet的名称
+java.lang.String    name 
+    Servlet的名称
 
-java.lang.String	smallIcon 
-	此Servlet的小图标（如果存在）
+java.lang.String    smallIcon 
+    此Servlet的小图标（如果存在）
 
-java.lang.String[]	urlPatterns 
-	此Filter应用的URL模式数组
+java.lang.String[]    urlPatterns 
+    此Filter应用的URL模式数组
 
-java.lang.String[]	value
-	一种方便的方法，允许对类进行极其简单的注释。
+java.lang.String[]    value
+    一种方便的方法，允许对类进行极其简单的注释。
 ```
 
 启动 main方法时，要开启 @ServletComponentScan Servlet扫描注解，在 @SpringBootApplication之上：<br/>
@@ -1054,14 +1054,14 @@ java.lang.String[]	value
 典型地，中的一个value，basePackages或basePackageClasses 应指定控制包被扫描的部件。
 在他们不在的情况下，将使用注释从类的包中执行扫描
 
-Class<?>[]	basePackageClasses
-	类型安全的替代方法，basePackages()用于指定要扫描带注释的servlet组件的包。
+Class<?>[]    basePackageClasses
+    类型安全的替代方法，basePackages()用于指定要扫描带注释的servlet组件的包。
 
-String[]	basePackages
-	用于扫描带注释的servlet组件的基础包。
+String[]    basePackages
+    用于扫描带注释的servlet组件的基础包。
 
-String[]	value
-	basePackages()属性的别名。
+String[]    value
+    basePackages()属性的别名。
 ```
 
 TestControllerByServlet.java：
@@ -1078,54 +1078,54 @@ import javax.servlet.http.HttpServletResponse;
 //@WebServlet(urlPatterns="/testHttpServlet.do")
 //@WebServlet(name = "myServlet", urlPatterns="/testHttpServlet.do")
 public class TestControllerByServlet extends HttpServlet {
-	/**
-	 * 演示 HttpServlet - doGet方法
-	 * @param req
-	 * @param resp
-	 * @throws ServletException
-	 * @throws IOException
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		super.doGet(req, resp); //  使用 Servlet时 注意要删掉 super.doGet(req, resp);
-		
-		StringBuffer val = new StringBuffer("\n1、演示 HttpServlet - doGet方法");
-		val.append("\n【Servlet：继承 HttpServlet，实现 @WebServlet(\"/testHttpServlet.do\") 注解】");
-		val.append("\n【方法：重写HttpServlet的doGet()，指定访问方式 GET】");
-		val.append("\n【请求方式：GET】");
-		val.append("\n【参数信息：通过javax.servlet.http.HttpServletRequest 获取参数");
-		val.append("\n【返回类型：通过javax.servlet.http.HttpServletResponse 返回数据】");
-		val.append("\n【PS1：@WebServlet注解中 urlPatterns指定访问URL】");
-		val.append("\n【PS2：启动 main方法时，要开启 @ServletComponentScan Servlet扫描注解，在 @SpringBootApplication之上】");
-		val.append("\n【PS3：重写HttpServlet的doGet()方法时，要删除 super.doGet(req, resp); 】");
-		val.append("\n【PS4：请求方式有 doGet() doPost() doPut() doDelete() 等; 】");
-		
-		resp.getWriter().print(val.toString());
-	}
+    /**
+     * 演示 HttpServlet - doGet方法
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doGet(req, resp); //  使用 Servlet时 注意要删掉 super.doGet(req, resp);
+        
+        StringBuffer val = new StringBuffer("\n1、演示 HttpServlet - doGet方法");
+        val.append("\n【Servlet：继承 HttpServlet，实现 @WebServlet(\"/testHttpServlet.do\") 注解】");
+        val.append("\n【方法：重写HttpServlet的doGet()，指定访问方式 GET】");
+        val.append("\n【请求方式：GET】");
+        val.append("\n【参数信息：通过javax.servlet.http.HttpServletRequest 获取参数");
+        val.append("\n【返回类型：通过javax.servlet.http.HttpServletResponse 返回数据】");
+        val.append("\n【PS1：@WebServlet注解中 urlPatterns指定访问URL】");
+        val.append("\n【PS2：启动 main方法时，要开启 @ServletComponentScan Servlet扫描注解，在 @SpringBootApplication之上】");
+        val.append("\n【PS3：重写HttpServlet的doGet()方法时，要删除 super.doGet(req, resp); 】");
+        val.append("\n【PS4：请求方式有 doGet() doPost() doPut() doDelete() 等; 】");
+        
+        resp.getWriter().print(val.toString());
+    }
 
-	/**
-	 * 演示 HttpServlet - doPost方法
-	 * @param req
-	 * @param resp
-	 * @throws ServletException
-	 * @throws IOException
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		StringBuffer val = new StringBuffer("\n1、演示 HttpServlet - doGet方法");
-		val.append("\n【Servlet：继承 HttpServlet，实现 @WebServlet(\"/testHttpServlet.do\") 注解】");
-		val.append("\n【方法：重写HttpServlet的doPost()，指定访问方式 POST】");
-		val.append("\n【请求方式：POST】");
-		val.append("\n【参数信息：通过javax.servlet.http.HttpServletRequest 获取参数");
-		val.append("\n【返回类型：通过javax.servlet.http.HttpServletResponse 返回数据】");
-		val.append("\n【PS1：@WebServlet注解中 urlPatterns指定访问URL】");
-		val.append("\n【PS2：启动 main方法时，要开启 @ServletComponentScan Servlet扫描注解，在 @SpringBootApplication之上】");
-		val.append("\n【PS3：重写HttpServlet的doPost()方法时，要删除 super.doPost(req, resp); 】");
+    /**
+     * 演示 HttpServlet - doPost方法
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        StringBuffer val = new StringBuffer("\n1、演示 HttpServlet - doGet方法");
+        val.append("\n【Servlet：继承 HttpServlet，实现 @WebServlet(\"/testHttpServlet.do\") 注解】");
+        val.append("\n【方法：重写HttpServlet的doPost()，指定访问方式 POST】");
+        val.append("\n【请求方式：POST】");
+        val.append("\n【参数信息：通过javax.servlet.http.HttpServletRequest 获取参数");
+        val.append("\n【返回类型：通过javax.servlet.http.HttpServletResponse 返回数据】");
+        val.append("\n【PS1：@WebServlet注解中 urlPatterns指定访问URL】");
+        val.append("\n【PS2：启动 main方法时，要开启 @ServletComponentScan Servlet扫描注解，在 @SpringBootApplication之上】");
+        val.append("\n【PS3：重写HttpServlet的doPost()方法时，要删除 super.doPost(req, resp); 】");
 
-		resp.getWriter().print(val.toString());
-	}
+        resp.getWriter().print(val.toString());
+    }
 }
 ```
 
@@ -1138,9 +1138,9 @@ ServletContextListener：[javax.servlet.ServletContextListener](http://tomcat.ap
 
 
 contextDestroyed(ServletContextEvent sce)
-	Web应用程序初始化过程正在启动的通知。在初始化Web应用程序中的任何过滤器或servlet之前，将通知所有ServletContextListener上下文初始化。默认实现是NO-OP。
+    Web应用程序初始化过程正在启动的通知。在初始化Web应用程序中的任何过滤器或servlet之前，将通知所有ServletContextListener上下文初始化。默认实现是NO-OP。
 contextInitialized(ServletContextEvent sce)
-	通知servlet上下文即将关闭。在通知任何ServletContextListener上下文销毁之前，所有servlet和过滤器都已被destroy()编辑。默认实现是NO-OP。
+    通知servlet上下文即将关闭。在通知任何ServletContextListener上下文销毁之前，所有servlet和过滤器都已被destroy()编辑。默认实现是NO-OP。
 ```
 
 @WebListener：[javax.servlet.annotation.WebListener](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/annotation/WebListener.html)
@@ -1150,8 +1150,8 @@ contextInitialized(ServletContextEvent sce)
 下面的接口的类：HttpSessionAttributeListener， HttpSessionListener， ServletContextAttributeListener， ServletContextListener，  
 ServletRequestAttributeListener， ServletRequestListener或 例如HttpSessionIdListener 
 
-java.lang.String	value 
-	听众的描述，如果存在的话
+java.lang.String    value 
+    听众的描述，如果存在的话
 ```
 
 TestServletContextListener.java：
@@ -1164,19 +1164,19 @@ import com.mutistic.utils.CommonUtil;
 // Servlet3的 @WebListener 注解 实现ServletContextListener 监听器
 @WebListener
 public class TestServletContextListener implements ServletContextListener {
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		StringBuffer val = new StringBuffer("\n1、演示 ServletContextListener - contextInitialized方法");
-		val.append("\n【Listener：实现 ServletContextListener 接口，实现 @WebListener 注解】");
-		val.append("\n【方法：重写ServletContextListener的contextInitialized()】");
-		System.out.println(val.toString());
-		CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextInitialized()");
-	}
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        StringBuffer val = new StringBuffer("\n1、演示 ServletContextListener - contextInitialized方法");
+        val.append("\n【Listener：实现 ServletContextListener 接口，实现 @WebListener 注解】");
+        val.append("\n【方法：重写ServletContextListener的contextInitialized()】");
+        System.out.println(val.toString());
+        CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextInitialized()");
+    }
 
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextDestroyed()");
-	}
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        CommonUtil.printOne("执行：TestServletContextListener implements ServletContextListener.contextDestroyed()");
+    }
 }
 ```
 
@@ -1192,23 +1192,23 @@ import org.springframework.context.annotation.Bean;
 import com.mutistic.utils.CommonUtil;
 @SpringBootConfiguration
 public class TestServletConfiguration {
-	// 通过 ServletRegistrationBean 创建  Servlet bean
-	@Bean
-	public ServletRegistrationBean<TestControllerByConfig> createrTestHttpServletByConfig() {
-		CommonUtil.printOne("执行：创建 ServletRegistrationBean<TestControllerByConfig> bean");
-//		ServletRegistrationBean<TestHttpServletByConfig> reg = new ServletRegistrationBean<TestHttpServletByConfig>();
-//		reg.setServlet(new TestHttpServletByConfig()); // 配置 httpServlet类
-//		reg.addUrlMappings("/testHttpServletByConfig.do"); // 配置访问URL
-//		return reg;
-		return new ServletRegistrationBean<TestControllerByConfig>(new TestControllerByConfig(), "/testHttpServletByConfig.do");
-	}
-	
-	// 通过 ServletListenerRegistrationBean 创建ServletContextListener bean
-	@Bean
-	public ServletListenerRegistrationBean<TestServletContextListenerByConfig> createrTestServletContextListenerByConfig() {
-		CommonUtil.printOne("执行：创建 ServletListenerRegistrationBean<TestServletContextListenerByConfig> bean");
-		return new ServletListenerRegistrationBean<TestServletContextListenerByConfig>(new TestServletContextListenerByConfig());
-	}
+    // 通过 ServletRegistrationBean 创建  Servlet bean
+    @Bean
+    public ServletRegistrationBean<TestControllerByConfig> createrTestHttpServletByConfig() {
+        CommonUtil.printOne("执行：创建 ServletRegistrationBean<TestControllerByConfig> bean");
+//        ServletRegistrationBean<TestHttpServletByConfig> reg = new ServletRegistrationBean<TestHttpServletByConfig>();
+//        reg.setServlet(new TestHttpServletByConfig()); // 配置 httpServlet类
+//        reg.addUrlMappings("/testHttpServletByConfig.do"); // 配置访问URL
+//        return reg;
+        return new ServletRegistrationBean<TestControllerByConfig>(new TestControllerByConfig(), "/testHttpServletByConfig.do");
+    }
+    
+    // 通过 ServletListenerRegistrationBean 创建ServletContextListener bean
+    @Bean
+    public ServletListenerRegistrationBean<TestServletContextListenerByConfig> createrTestServletContextListenerByConfig() {
+        CommonUtil.printOne("执行：创建 ServletListenerRegistrationBean<TestServletContextListenerByConfig> bean");
+        return new ServletListenerRegistrationBean<TestServletContextListenerByConfig>(new TestServletContextListenerByConfig());
+    }
 }
 ```
 
@@ -1220,41 +1220,41 @@ ServletRegistrationBean：[org.springframework.boot.web.servlet.ServletRegistrat
 setUrlMappings(java.util.Collection<java.lang.String>)映射到'/ *'时可以使用或省略URL映射（除非 alwaysMapUrl设置为 false）。
 如果未指定，将推导出servlet名称。
 
-protected javax.servlet.ServletRegistration.Dynamic	addRegistration(String description, javax.servlet.ServletContext servletContext) 
-	在servlet注册ServletContext中
+protected javax.servlet.ServletRegistration.Dynamic    addRegistration(String description, javax.servlet.ServletContext servletContext) 
+    在servlet注册ServletContext中
 
 addUrlMappings(String... urlMappings)
-	为Servlet添加Servlet规范中定义的URL映射。
+    为Servlet添加Servlet规范中定义的URL映射。
 
 protected configure(javax.servlet.ServletRegistration.Dynamic registration)
-	配置注册设置。
+    配置注册设置。
 
-protected String	getDescription()
-	返回注册说明。
+protected String    getDescription()
+    返回注册说明。
 
-javax.servlet.MultipartConfigElement	getMultipartConfig()
-	返回multi-part configuration要应用的或null。
+javax.servlet.MultipartConfigElement    getMultipartConfig()
+    返回multi-part configuration要应用的或null。
 
-T	getServlet()
-	返回正在注册的servlet。
+T    getServlet()
+    返回正在注册的servlet。
 
-String	getServletName()
-	返回将要注册的servlet名称。
+String    getServletName()
+    返回将要注册的servlet名称。
 
-Collection<String>	getUrlMappings()
-	返回servlet规范中定义的URL映射的可变集合，如Servlet规范中所定义。
+Collection<String>    getUrlMappings()
+    返回servlet规范中定义的URL映射的可变集合，如Servlet规范中所定义。
 
 setLoadOnStartup(int loadOnStartup)
-	设置loadOnStartup优先级。
+    设置loadOnStartup优先级。
 
 setMultipartConfig(javax.servlet.MultipartConfigElement multipartConfig)
-	设置multi-part configuration。
+    设置multi-part configuration。
 
 setServlet(T servlet)
-	设置要注册的servlet。	
+    设置要注册的servlet。    
 
 setUrlMappings(Collection<String> urlMappings)
-	设置servlet的URL映射。
+    设置servlet的URL映射。
 ```
 
 6.3.2、<a href="#a_filter">7.2、通过 FilterRegistrationBean 注册Filter</a><br/>
@@ -1263,30 +1263,30 @@ setUrlMappings(Collection<String> urlMappings)
 ServletListenerRegistrationBean：[org.springframework.boot.web.servlet.ServletListenerRegistrationBean](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/servlet/ServletListenerRegistrationBean.html)
 ```
 在Servlet 3.0+容器中ServletContextInitializer注册EventListeners。类似于Spring Bean友好设计registration提供的功能ServletContext。此bean可用于注册以下类型的侦听器：
-	ServletContextAttributeListener
-	ServletRequestListener
-	ServletRequestAttributeListener
-	HttpSessionAttributeListener
-	HttpSessionListener
-	ServletContextListener
+    ServletContextAttributeListener
+    ServletRequestListener
+    ServletRequestAttributeListener
+    HttpSessionAttributeListener
+    HttpSessionListener
+    ServletContextListener
 
-protected String	getDescription()
-	返回注册说明。
+protected String    getDescription()
+    返回注册说明。
 
-T	getListener()
-	返回要注册的监听器。
+T    getListener()
+    返回要注册的监听器。
 
-static Set<Class<?>>	getSupportedTypes()
-	返回此注册支持的类型。
+static Set<Class<?>>    getSupportedTypes()
+    返回此注册支持的类型。
 
-static boolean	isSupportedType(EventListener listener)
-	true如果指定的侦听器是受支持的类型之一，则返回。
+static boolean    isSupportedType(EventListener listener)
+    true如果指定的侦听器是受支持的类型之一，则返回。
 
 protected register(String description, javax.servlet.ServletContext servletContext)
-	使用servlet上下文注册此bean。
-	
+    使用servlet上下文注册此bean。
+    
 setListener(T listener)
-	设置要注册的侦听器。
+    设置要注册的侦听器。
 ```
 
 ---
@@ -1298,36 +1298,36 @@ Filter：[javax.servlet.Filter](http://tomcat.apache.org/tomcat-9.0-doc/servleta
 过滤器在doFilter方法中执行过滤。每个Filter都可以访问FilterConfig对象，从该对象可以获取其初始化参数，即可以使用的ServletContext引用，例如，加载过滤任务所需的资源。
 过滤器在Web应用程序的部署描述符中配置
 已为此设计确定的示例包括：
-	1）验证过滤器
-	2）日志记录和审核过滤器
-	3）图像转换过滤器
-	4）数据压缩过滤器
-	5）加密过滤器
-	6）令牌过滤器
-	7）触发资源访问事件的过滤器
-	8）XSL / T过滤器
-	9）Mime型链式过滤器
+    1）验证过滤器
+    2）日志记录和审核过滤器
+    3）图像转换过滤器
+    4）数据压缩过滤器
+    5）加密过滤器
+    6）令牌过滤器
+    7）触发资源访问事件的过滤器
+    8）XSL / T过滤器
+    9）Mime型链式过滤器
 
 destroy()
-	由Web容器调用以向过滤器指示它正在投入使用。在实例化过滤器之后，servlet容器只调用一次init方法。在要求过滤器执行任何过滤工作之前，init方法必须成功完成。
-	如果使用init方法，则Web容器无法将过滤器置于服务中：抛出ServletException  不在Web容器定义的时间段内返回 
-	默认实现是NO-OP
+    由Web容器调用以向过滤器指示它正在投入使用。在实例化过滤器之后，servlet容器只调用一次init方法。在要求过滤器执行任何过滤工作之前，init方法必须成功完成。
+    如果使用init方法，则Web容器无法将过滤器置于服务中：抛出ServletException  不在Web容器定义的时间段内返回 
+    默认实现是NO-OP
 
 doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	doFilter每次由于客户端请求链末端的资源而请求/响应对通过链时，容器都会调用Filter 的方法。
-	传递给此方法的FilterChain允许Filter将请求和响应传递给链中的下一个实体。
-	此方法的典型实现将遵循以下模式： 
-	1.检查请求
-	2.可选地使用自定义实现包装请求对象以过滤用于输入过滤的内容或标头
-	3.可选地使用自定义实现来包装响应对象以进行过滤内容或标题为输出滤波
-	4.）要么调用链中的使用FilterChain对象（下一个实体chain.doFilter()），
-	4.1）中或没有在请求/响应对传递到下一个实体在过滤器链，以阻止请求处理
-	5.在调用过滤器链中的下一个实体后，直接在响应上设置标头。
+    doFilter每次由于客户端请求链末端的资源而请求/响应对通过链时，容器都会调用Filter 的方法。
+    传递给此方法的FilterChain允许Filter将请求和响应传递给链中的下一个实体。
+    此方法的典型实现将遵循以下模式： 
+    1.检查请求
+    2.可选地使用自定义实现包装请求对象以过滤用于输入过滤的内容或标头
+    3.可选地使用自定义实现来包装响应对象以进行过滤内容或标题为输出滤波
+    4.）要么调用链中的使用FilterChain对象（下一个实体chain.doFilter()），
+    4.1）中或没有在请求/响应对传递到下一个实体在过滤器链，以阻止请求处理
+    5.在调用过滤器链中的下一个实体后，直接在响应上设置标头。
 
 init(FilterConfig filterConfig)
-	由Web容器调用以向过滤器指示它正在停止服务。只有在过滤器的doFilter方法中的所有线程都已退出或超时时间过后，才会调用此方法。
-	在Web容器调用此方法之后，它不会在此筛选器实例上再次调用doFilter方法。
-	此方法使过滤器有机会清除所有正在保留的资源（例如，内存，文件句柄，线程），并确保任何持久状态与过滤器在内存中的当前状态同步。默认实现是NO-OP。
+    由Web容器调用以向过滤器指示它正在停止服务。只有在过滤器的doFilter方法中的所有线程都已退出或超时时间过后，才会调用此方法。
+    在Web容器调用此方法之后，它不会在此筛选器实例上再次调用doFilter方法。
+    此方法使过滤器有机会清除所有正在保留的资源（例如，内存，文件句柄，线程），并确保任何持久状态与过滤器在内存中的当前状态同步。默认实现是NO-OP。
 ```
 
 @WebFilter：[javax.servlet.annotation.WebFilter](http://tomcat.apache.org/tomcat-9.0-doc/servletapi/javax/servlet/annotation/WebFilter.html)
@@ -1356,32 +1356,32 @@ import com.mutistic.utils.CommonUtil;
 //@WebFilter("/*") // 过滤所有请求
 @WebFilter("/testHttpServlet.do")
 public class TestFilter implements Filter {
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		CommonUtil.printOne("执行：TestFilter implements Filter.init()");
-	}
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        CommonUtil.printOne("执行：TestFilter implements Filter.init()");
+    }
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		CommonUtil.printOne("执行：TestFilter implements Filter.doFilter()");
-		
-		StringBuffer val = new StringBuffer("\n1、演示 javax.servlet.Filter - doFilter方法");
-		val.append("\n【Filter：实现 javax.servlet.Filter 接口，实现 @WebFilter(\"/*.do\") 注解配置过滤请求】");
-		val.append("\n【方法：重写Filter的doFilter()】");
-		val.append("\n【PS1：@WebFilter可以指定具体请求的过滤】");
-		val.append("\n【PS2：配置过滤器后，要嗲用chain.doFilter(request, response) 防止无法请求的访问】");
-		System.out.println(val.toString());
-		
-		request.setCharacterEncoding(CommonUtil.UTF8);
-		response.setCharacterEncoding(CommonUtil.UTF8);
-		chain.doFilter(request, response);
-	}
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        CommonUtil.printOne("执行：TestFilter implements Filter.doFilter()");
+        
+        StringBuffer val = new StringBuffer("\n1、演示 javax.servlet.Filter - doFilter方法");
+        val.append("\n【Filter：实现 javax.servlet.Filter 接口，实现 @WebFilter(\"/*.do\") 注解配置过滤请求】");
+        val.append("\n【方法：重写Filter的doFilter()】");
+        val.append("\n【PS1：@WebFilter可以指定具体请求的过滤】");
+        val.append("\n【PS2：配置过滤器后，要嗲用chain.doFilter(request, response) 防止无法请求的访问】");
+        System.out.println(val.toString());
+        
+        request.setCharacterEncoding(CommonUtil.UTF8);
+        response.setCharacterEncoding(CommonUtil.UTF8);
+        chain.doFilter(request, response);
+    }
 
-	@Override
-	public void destroy() {
-		CommonUtil.printOne("执行：TestFilter implements Filter.destroy()");
-	}
+    @Override
+    public void destroy() {
+        CommonUtil.printOne("执行：TestFilter implements Filter.destroy()");
+    }
 }
 ```
 
@@ -1393,11 +1393,11 @@ FilterRegistrationBean：[org.springframework.boot.web.servlet.FilterRegistratio
 （通过name或通过ServletRegistrationBeans。当没有指定URL模式或servlet时，过滤器将与'/ *'相关联。
 如果未指定，将推断过滤器名称。
 
-T	getFilter()
-	返回Filter要注册。
+T    getFilter()
+    返回Filter要注册。
 
 setFilter(T filter)
-	设置要注册的过滤器。
+    设置要注册的过滤器。
 ```
 
 TestServletConfiguration.java：
@@ -1410,17 +1410,17 @@ import org.springframework.context.annotation.Bean;
 import com.mutistic.utils.CommonUtil;
 @SpringBootConfiguration
 public class TestServletConfiguration {
-	// 通过 FilterRegistrationBean 创建  Filter bean
-	@Bean
-	public FilterRegistrationBean<TestFilterByConfig> createrTestFilterByConfig() {
-		CommonUtil.printOne("执行：创建 FilterRegistrationBean<TestFilterByConfig> bean");
-		
-		FilterRegistrationBean<TestFilterByConfig> filter = new FilterRegistrationBean<TestFilterByConfig>();
-		filter.setFilter(new TestFilterByConfig()); // 配置 Filter类
-//		filter.setServletRegistrationBeans(Arrays.asList(createrTestHttpServletByConfig()));
-		filter.setUrlPatterns(Arrays.asList("/testHttpServletByConfig.do")); //配置过滤URL
-		return filter;
-	}
+    // 通过 FilterRegistrationBean 创建  Filter bean
+    @Bean
+    public FilterRegistrationBean<TestFilterByConfig> createrTestFilterByConfig() {
+        CommonUtil.printOne("执行：创建 FilterRegistrationBean<TestFilterByConfig> bean");
+        
+        FilterRegistrationBean<TestFilterByConfig> filter = new FilterRegistrationBean<TestFilterByConfig>();
+        filter.setFilter(new TestFilterByConfig()); // 配置 Filter类
+//        filter.setServletRegistrationBeans(Arrays.asList(createrTestHttpServletByConfig()));
+        filter.setUrlPatterns(Arrays.asList("/testHttpServletByConfig.do")); //配置过滤URL
+        return filter;
+    }
 }
 ```
 
@@ -1463,23 +1463,23 @@ HandlerInterceptor基本上类似于Servlet过滤器，但与后者相反，它�
 另一方面，过滤器非常适合请求内容和视图内容处理，如多部分表单和GZIP压缩。这通常表示何时需要将过滤器映射到某些内容类型（例如图像）或所有请求
 
 afterCompletion(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler, java.lang.Exception ex)
-	拦截处理程序的执行。在HandlerMapping确定适当的处理程序对象之后调用，但在HandlerAdapter调用处理程序之前。
-	DispatcherServlet处理执行链中的处理程序，该处理程序由任意数量的拦截器组成，最后处理程序本身。
-		使用此方法，每个拦截器可以决定中止执行链，通常发送HTTP错误或编写自定义响应。
-	注意：特殊注意事项适用于异步请求处理
+    拦截处理程序的执行。在HandlerMapping确定适当的处理程序对象之后调用，但在HandlerAdapter调用处理程序之前。
+    DispatcherServlet处理执行链中的处理程序，该处理程序由任意数量的拦截器组成，最后处理程序本身。
+        使用此方法，每个拦截器可以决定中止执行链，通常发送HTTP错误或编写自定义响应。
+    注意：特殊注意事项适用于异步请求处理
 
 postHandle(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler, ModelAndView modelAndView)
-	拦截处理程序的执行。在HandlerAdapter实际调用处理程序之后调用，但在DispatcherServlet呈现视图之前调用。
-		可以通过给定的ModelAndView将其他模型对象公开给视图。
-	DispatcherServlet处理执行链中的处理程序，该处理程序由任意数量的拦截器组成，最后处理程序本身。
-		使用此方法，每个拦截器可以对执行进行后处理，以执行链的相反顺序应用。
-	注意：特殊注意事项适用于异步请求处理
+    拦截处理程序的执行。在HandlerAdapter实际调用处理程序之后调用，但在DispatcherServlet呈现视图之前调用。
+        可以通过给定的ModelAndView将其他模型对象公开给视图。
+    DispatcherServlet处理执行链中的处理程序，该处理程序由任意数量的拦截器组成，最后处理程序本身。
+        使用此方法，每个拦截器可以对执行进行后处理，以执行链的相反顺序应用。
+    注意：特殊注意事项适用于异步请求处理
 
-default boolean	preHandle(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler)
-	完成请求处理后回调，即渲染视图后回调。将调用处理程序执行的任何结果，从而允许适当的资源清理。
-	注意：只有在拦截器的preHandle 方法成功完成并返回时才会被调用true！
-	与该postHandle方法一样，该方法将以相反的顺序在链中的每个拦截器上调用，因此第一个拦截器将是最后一个被调用的拦截器。
-	注意：特殊注意事项适用于异步请求处理
+default boolean    preHandle(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler)
+    完成请求处理后回调，即渲染视图后回调。将调用处理程序执行的任何结果，从而允许适当的资源清理。
+    注意：只有在拦截器的preHandle 方法成功完成并返回时才会被调用true！
+    与该postHandle方法一样，该方法将以相反的顺序在链中的每个拦截器上调用，因此第一个拦截器将是最后一个被调用的拦截器。
+    注意：特殊注意事项适用于异步请求处理
 ```
 
 AsyncHandlerInterceptor：[org.springframework.web.servlet.AsyncHandlerInterceptor](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/AsyncHandlerInterceptor.html)
@@ -1500,8 +1500,8 @@ afterConcurrentHandlingStarted(javax.servlet.http.HttpServletRequest, javax.serv
 方法跟踪异步请求WebAsyncManager.preHandle无论是否将启动异步请求处理，都可以主动对每个请求执行此操作
 
 afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, java.lang.Object handler)
-	调用而不是postHandle和afterCompletion 处理程序同时执行时。
-	实现可以使用提供的请求和响应，但应避免以与处理程序的并发执行冲突的方式修改它们。此方法的典型用法是清理线程局部变量
+    调用而不是postHandle和afterCompletion 处理程序同时执行时。
+    实现可以使用提供的请求和响应，但应避免以与处理程序的并发执行冲突的方式修改它们。此方法的典型用法是清理线程局部变量
 ```
 
 TestHandlerInterceptor.java：
@@ -1514,56 +1514,56 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mutistic.utils.CommonUtil;
 // 实现 HandlerInterceptor 接口 定制拦截器
 public class TestHandlerInterceptor implements HandlerInterceptor {
-	/**
-	 * 在Controller请求之前触发（一般用于登陆验证）
-	 * @param request
-	 * @param response
-	 * @param handler
-	 * @return
-	 * @throws Exception
-	 * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object)
-	 */
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.preHandle()[在请求之前触发（一般用于登陆验证）]" + handler);
-		return true;
-	}
+    /**
+     * 在Controller请求之前触发（一般用于登陆验证）
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse, java.lang.Object)
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
+        CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.preHandle()[在请求之前触发（一般用于登陆验证）]" + handler);
+        return true;
+    }
 
-	/**
-	 * 在Controller请求之后，页面未渲染时触发（一般用于业务逻辑等）
-	 * @param request
-	 * @param response
-	 * @param handler
-	 * @param modelAndView
-	 * @throws Exception
-	 * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      org.springframework.web.servlet.ModelAndView)
-	 */
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.postHandle()[在请求之后，页面未渲染时触发（一般用于业务逻辑等）]");
-	}
+    /**
+     * 在Controller请求之后，页面未渲染时触发（一般用于业务逻辑等）
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+     *      org.springframework.web.servlet.ModelAndView)
+     */
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+            ModelAndView modelAndView) throws Exception {
+        CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.postHandle()[在请求之后，页面未渲染时触发（一般用于业务逻辑等）]");
+    }
 
-	/**
-	 * Controller请求完毕，页面渲染完成触发（一般用于清理资源）
-	 * @param request
-	 * @param response
-	 * @param handler
-	 * @param ex
-	 * @throws Exception
-	 * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest,
-	 *      javax.servlet.http.HttpServletResponse, java.lang.Object,
-	 *      java.lang.Exception)
-	 */
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.afterCompletion()[请求完毕，页面渲染完成触发（一般用于清理资源）]");
-	}
+    /**
+     * Controller请求完毕，页面渲染完成触发（一般用于清理资源）
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse, java.lang.Object,
+     *      java.lang.Exception)
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
+        CommonUtil.printOne("执行：TestHandlerInterceptor implements HandlerInterceptor.afterCompletion()[请求完毕，页面渲染完成触发（一般用于清理资源）]");
+    }
 }
 ```
 
@@ -1575,58 +1575,58 @@ WebMvcConfigurer：[org.springframework.web.servlet.config.annotation.WebMvcConf
 
 
 addArgumentResolvers(java.util.List<HandlerMethodArgumentResolver> resolvers)
-	添加解析器以支持自定义控制器方法参数类型。
+    添加解析器以支持自定义控制器方法参数类型。
 
 addCorsMappings(CorsRegistry registry)
-	配置跨源请求处理。
+    配置跨源请求处理。
 
 addFormatters(FormatterRegistry registry)
-	在默认情况下添加Converters和Formatters。
+    在默认情况下添加Converters和Formatters。
 
 addInterceptors(InterceptorRegistry registry)
-	添加Spring MVC生命周期拦截器，用于控制器方法调用的预处理和后处理。
+    添加Spring MVC生命周期拦截器，用于控制器方法调用的预处理和后处理。
 
 addResourceHandlers(ResourceHandlerRegistry registry)
-	添加处理程序以提供静态资源，例如来自Web应用程序根目录下的特定位置的图像，js和css文件，类路径等。
+    添加处理程序以提供静态资源，例如来自Web应用程序根目录下的特定位置的图像，js和css文件，类路径等。
 
 addReturnValueHandlers(java.util.List<HandlerMethodReturnValueHandler> handlers)
-	添加处理程序以支持自定义控制器方法返回值类型。
+    添加处理程序以支持自定义控制器方法返回值类型。
 
 addViewControllers(ViewControllerRegistry registry)
-	配置预先配置了响应状态代码的简单自动控制器和/或视图以呈现响应主体。
+    配置预先配置了响应状态代码的简单自动控制器和/或视图以呈现响应主体。
 
 configureAsyncSupport(AsyncSupportConfigurer configurer)
-	配置异步请求处理选项。
+    配置异步请求处理选项。
 
 configureContentNegotiation(ContentNegotiationConfigurer configurer)
-	配置内容协商选项。
+    配置内容协商选项。
 
 configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
-	配置处理程序以通过转发到Servlet容器的“默认”servlet来委派未处理的请求。
+    配置处理程序以通过转发到Servlet容器的“默认”servlet来委派未处理的请求。
 
 configureHandlerExceptionResolvers(java.util.List<HandlerExceptionResolver> resolvers)
-	配置异常解析器。
+    配置异常解析器。
 
 configureMessageConverters(java.util.List<HttpMessageConverter<?>> converters)
-	配置HttpMessageConverters用于读取或写入请求或响应的正文。
+    配置HttpMessageConverters用于读取或写入请求或响应的正文。
 
 configurePathMatch(PathMatchConfigurer configurer)
-	帮助配置HandlerMappings路径匹配选项，例如尾部斜杠匹配，后缀注册，路径匹配器和路径助手。
+    帮助配置HandlerMappings路径匹配选项，例如尾部斜杠匹配，后缀注册，路径匹配器和路径助手。
 
 configureViewResolvers(ViewResolverRegistry registry)
-	配置视图解析器以将从控制器返回的基于字符串的视图名称转换为具体View 实现以执行渲染。
+    配置视图解析器以将从控制器返回的基于字符串的视图名称转换为具体View 实现以执行渲染。
 
 extendHandlerExceptionResolvers(java.util.List<HandlerExceptionResolver> resolvers)
-	扩展或修改默认配置的异常解析器列表。
+    扩展或修改默认配置的异常解析器列表。
 
 extendMessageConverters(java.util.List<HttpMessageConverter<?>> converters)
-	用于在配置转换器列表后扩展或修改转换器列表的挂钩。
+    用于在配置转换器列表后扩展或修改转换器列表的挂钩。
 
-default MessageCodesResolver	getMessageCodesResolver()
-	提供MessageCodesResolver用于根据数据绑定和验证错误代码构建消息代码的自定义。
+default MessageCodesResolver    getMessageCodesResolver()
+    提供MessageCodesResolver用于根据数据绑定和验证错误代码构建消息代码的自定义。
 
-default Validator	getValidator()
-	提供自定义Validator而不是默认创建的自定义。
+default Validator    getValidator()
+    提供自定义Validator而不是默认创建的自定义。
 ```
 
 WebMvcConfigurerAdapter：[org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/WebMvcConfigurerAdapter.html)
@@ -1641,75 +1641,75 @@ WebMvcConfigurationSupport：[org.springframework.web.servlet.config.annotation.
 另一个更高级的选项是直接从此类扩展并根据需要覆盖方法，记住添加@Configuration到子类和@Bean重写@Bean方法。
 
 该类注册以下内容HandlerMappings：
-	RequestMappingHandlerMapping 在0处排序，用于将请求映射到带注释的控制器方法。
-	HandlerMapping 从1开始，将URL路径直接映射到视图名称。
-	BeanNameUrlHandlerMapping 在2处排序以将URL路径映射到控制器bean名称。
-	HandlerMapping 命令at Integer.MAX_VALUE-1来提供静态资源请求。
-	HandlerMapping 命令Integer.MAX_VALUE将请求转发到默认servlet。
+    RequestMappingHandlerMapping 在0处排序，用于将请求映射到带注释的控制器方法。
+    HandlerMapping 从1开始，将URL路径直接映射到视图名称。
+    BeanNameUrlHandlerMapping 在2处排序以将URL路径映射到控制器bean名称。
+    HandlerMapping 命令at Integer.MAX_VALUE-1来提供静态资源请求。
+    HandlerMapping 命令Integer.MAX_VALUE将请求转发到默认servlet。
 
 注册这些HandlerAdapters：
-	RequestMappingHandlerAdapter 用于使用带注释的控制器方法处理请求。
-	HttpRequestHandlerAdapter 用于处理请求HttpRequestHandlers。
-	SimpleControllerHandlerAdapter 用于处理基于接口的请求Controllers。
-	HandlerExceptionResolverComposite使用此链接的异常解析器注册a ：
-	ExceptionHandlerExceptionResolver通过ExceptionHandler方法处理异常 。
-	ResponseStatusExceptionResolver用于注释的例外 ResponseStatus。
-	DefaultHandlerExceptionResolver 用于解析已知的Spring异常类型
+    RequestMappingHandlerAdapter 用于使用带注释的控制器方法处理请求。
+    HttpRequestHandlerAdapter 用于处理请求HttpRequestHandlers。
+    SimpleControllerHandlerAdapter 用于处理基于接口的请求Controllers。
+    HandlerExceptionResolverComposite使用此链接的异常解析器注册a ：
+    ExceptionHandlerExceptionResolver通过ExceptionHandler方法处理异常 。
+    ResponseStatusExceptionResolver用于注释的例外 ResponseStatus。
+    DefaultHandlerExceptionResolver 用于解析已知的Spring异常类型
 
 注册AntPathMatcher和a UrlPathHelper 用于：
-	的RequestMappingHandlerMapping，
-	在HandlerMapping对ViewControllers
-	和HandlerMapping服务资源
+    的RequestMappingHandlerMapping，
+    在HandlerMapping对ViewControllers
+    和HandlerMapping服务资源
 
 注意，这些bean可以配置一个PathMatchConfigurer。
-	无论是RequestMappingHandlerAdapter和 ExceptionHandlerExceptionResolver与默认情况下，以下的默认实例配置：
-	一个 ContentNegotiationManager
-	一个 DefaultFormattingConversionService
-	OptionalValidatorFactoryBean 如果类路径上有JSR-303实现可用
-	一系列HttpMessageConverters取决于类路径上可用的第三方库。
+    无论是RequestMappingHandlerAdapter和 ExceptionHandlerExceptionResolver与默认情况下，以下的默认实例配置：
+    一个 ContentNegotiationManager
+    一个 DefaultFormattingConversionService
+    OptionalValidatorFactoryBean 如果类路径上有JSR-303实现可用
+    一系列HttpMessageConverters取决于类路径上可用的第三方库。
 ```
 
 @EnableWebMvc：[org.springframework.web.servlet.config.annotation.EnableWebMvc](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/EnableWebMvc.html)
 ```
 将此批注添加到@Configuration类中可导入Spring MVC配置WebMvcConfigurationSupport
-	@Configuration
-	@EnableWebMvc
-	@ComponentScan(basePackageClasses = MyConfiguration.class)
-	public class MyConfiguration {
-	}
+    @Configuration
+    @EnableWebMvc
+    @ComponentScan(basePackageClasses = MyConfiguration.class)
+    public class MyConfiguration {
+    }
 
 要自定义导入的配置，请实现接口 WebMvcConfigurer并覆盖单个方法，例如：
-	@Configuration
-	@EnableWebMvc
-	@ComponentScan(basePackageClasses = MyConfiguration.class)
-	public class MyConfiguration implements WebMvcConfigurer {
-	       @Override
-	       public void addFormatters(FormatterRegistry formatterRegistry) {
-	     		formatterRegistry.addConverter(new MyConverter());
-	       }
-	       @Override
-	       public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-	    		 converters.add(new MyHttpMessageConverter());
-	       }
-	}
+    @Configuration
+    @EnableWebMvc
+    @ComponentScan(basePackageClasses = MyConfiguration.class)
+    public class MyConfiguration implements WebMvcConfigurer {
+           @Override
+           public void addFormatters(FormatterRegistry formatterRegistry) {
+                 formatterRegistry.addConverter(new MyConverter());
+           }
+           @Override
+           public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+                 converters.add(new MyHttpMessageConverter());
+           }
+    }
 
 
 注意：只有一个@Configuration类可以具有@EnableWebMvc导入Spring Web MVC配置的 注释。但是，可以有多个@Configuration类来实现WebMvcConfigurer，以便自定义提供的配置。
 如果WebMvcConfigurer没有公开需要配置​​的更高级设置，请考虑删除@EnableWebMvc 
 注释并直接从WebMvcConfigurationSupport 或扩展DelegatingWebMvcConfiguration，例如：
-	@Configuration
-	@ComponentScan(basePackageClasses = { MyConfiguration.class })
-	public class MyConfiguration extends WebMvcConfigurationSupport {
-	   @Override
-	   public void addFormatters(FormatterRegistry formatterRegistry) {
-			 formatterRegistry.addConverter(new MyConverter());
-	   }
-	   @Bean
-	   public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
-			 // Create or delegate to "super" to create and
-			 // customize properties of RequestMappingHandlerAdapter
-	   }
-	}
+    @Configuration
+    @ComponentScan(basePackageClasses = { MyConfiguration.class })
+    public class MyConfiguration extends WebMvcConfigurationSupport {
+       @Override
+       public void addFormatters(FormatterRegistry formatterRegistry) {
+             formatterRegistry.addConverter(new MyConverter());
+       }
+       @Bean
+       public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
+             // Create or delegate to "super" to create and
+             // customize properties of RequestMappingHandlerAdapter
+       }
+    }
 ```
 
 TestConfigurationByHI.java：
@@ -1724,22 +1724,22 @@ import com.mutistic.utils.CommonUtil;
 //public class TestConfigurationByHI extends WebMvcConfigurationSupport { // 屏蔽Spring Boot的@EnableAutoConfiguration中的设置，需要自定义所有的配置
 //public class TestConfigurationByHI extends WebMvcConfigurerAdapter { // SpringBoot2.0及Spring 5.0 WebMvcConfigurerAdapter已过期
 public class TestConfigurationByHI implements WebMvcConfigurer { // 源接口类 使用 WebMvcConfigurer 代替过期的 WebMvcConfigurerAdapter
-	/**
-	 * 拦截器的使用方式：
-	 * WebMvcConfigurationSupport：https://www.cnblogs.com/deng720/p/8989388.html
-	 * WebMvcConfigurerAdapter：https://blog.csdn.net/u012129558/article/details/79006253
-	 * WebMvcConfigurer：http://412887952-qq-com.iteye.com/blog/2398639
-	 */
-	/**
-	 * 添加拦截器
-	 * @param registry
-	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
-	 */
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		CommonUtil.printOne("执行：TestConfigurationByHI implements WebMvcConfigurer.addInterceptors()");
-		registry.addInterceptor(new TestHandlerInterceptor()).addPathPatterns("/testControllerByHI/*");
-	}
+    /**
+     * 拦截器的使用方式：
+     * WebMvcConfigurationSupport：https://www.cnblogs.com/deng720/p/8989388.html
+     * WebMvcConfigurerAdapter：https://blog.csdn.net/u012129558/article/details/79006253
+     * WebMvcConfigurer：http://412887952-qq-com.iteye.com/blog/2398639
+     */
+    /**
+     * 添加拦截器
+     * @param registry
+     * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#addInterceptors(org.springframework.web.servlet.config.annotation.InterceptorRegistry)
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        CommonUtil.printOne("执行：TestConfigurationByHI implements WebMvcConfigurer.addInterceptors()");
+        registry.addInterceptor(new TestHandlerInterceptor()).addPathPatterns("/testControllerByHI/*");
+    }
 }
 ```
 
@@ -1754,10 +1754,10 @@ import com.mutistic.utils.CommonUtil;
 @RestController
 @RequestMapping("/testControllerByHI/")
 public class TestControllerByHI {
-	@GetMapping(value = "showHandlerInterceptor", produces = "text/html;charset=UTF-8")
-	public String showHandlerInterceptor() {
-		return CommonUtil.printTwo("Controller请求 演示 HandlerInterceptor拦截器", "showHandlerInterceptor");
-	}
+    @GetMapping(value = "showHandlerInterceptor", produces = "text/html;charset=UTF-8")
+    public String showHandlerInterceptor() {
+        return CommonUtil.printTwo("Controller请求 演示 HandlerInterceptor拦截器", "showHandlerInterceptor");
+    }
 }
 ```
 
@@ -1765,12 +1765,12 @@ public class TestControllerByHI {
 pom.xml添加fastjson依赖：
 ```xml
 <dependency>
-	<groupId>com.alibaba</groupId>
-	<artifactId>fastjson</artifactId>
-	<version>1.2.47</version>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.47</version>
 </dependency>
 ```
-		
+        
 FastJsonAdapter.java：
 ```Java
 package com.mutistic.fastjson;
@@ -1786,33 +1786,33 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 // 添加FastJSON 转换适配器
 @SpringBootConfiguration
 public class FastJsonAdapter extends WebMvcConfigurerAdapter {
-	//  方式一：使用创建HttpMessageConverters bean
-	@Bean
-	public HttpMessageConverters fastJsonHttpMessageConverter () {
-		// 1、定义一个 convert转换类
-		FastJsonHttpMessageConverter convert = new FastJsonHttpMessageConverter();
-		// 2、添加 fastJson 配置信息，比如是否要格式化返回的json数据
-		FastJsonConfig config = new FastJsonConfig();
-		config.setSerializerFeatures(SerializerFeature.PrettyFormat);
-		// 3、在 convert种添加 config配置信息
-		convert.setFastJsonConfig(config);
-		/// 4、将 convert转换类添加到 HttpMessageConverters转换类集合中
-		return new HttpMessageConverters(convert);
-	}
-	
-	/**
-	 * 方式一：使用WebMvcConfigurerAdapter方式实现数据转换
-	 * @param converters
-	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureMessageConverters(java.util.List)
-	 */
-	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		FastJsonHttpMessageConverter convert = new FastJsonHttpMessageConverter();
-		FastJsonConfig config = new FastJsonConfig();
-		config.setSerializerFeatures(SerializerFeature.PrettyFormat);
-		convert.setFastJsonConfig(config);
-		converters.add(convert);
-	}
+    //  方式一：使用创建HttpMessageConverters bean
+    @Bean
+    public HttpMessageConverters fastJsonHttpMessageConverter () {
+        // 1、定义一个 convert转换类
+        FastJsonHttpMessageConverter convert = new FastJsonHttpMessageConverter();
+        // 2、添加 fastJson 配置信息，比如是否要格式化返回的json数据
+        FastJsonConfig config = new FastJsonConfig();
+        config.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        // 3、在 convert种添加 config配置信息
+        convert.setFastJsonConfig(config);
+        /// 4、将 convert转换类添加到 HttpMessageConverters转换类集合中
+        return new HttpMessageConverters(convert);
+    }
+    
+    /**
+     * 方式一：使用WebMvcConfigurerAdapter方式实现数据转换
+     * @param converters
+     * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureMessageConverters(java.util.List)
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter convert = new FastJsonHttpMessageConverter();
+        FastJsonConfig config = new FastJsonConfig();
+        config.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        convert.setFastJsonConfig(config);
+        converters.add(convert);
+    }
 }
 ```
 
@@ -1824,30 +1824,30 @@ ErrorPageRegistrar：[org.springframework.boot.web.server.ErrorPageRegistrar](ht
 这是一个功能接口，因此可以用作lambda表达式或方法引用的赋值目标。
 
 registerErrorPages(ErrorPageRegistry registry)
-	根据给定注册表的要求注册页面。
+    根据给定注册表的要求注册页面。
 ```
 
 ErrorPage：[org.springframework.boot.web.server.ErrorPage](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/web/server/ErrorPage.html)
 ```
 简单的与服务器无关的错误页面抽象。大致相当于<error-page> 传统上在web.xml中找到的元素。
 
-Class<? extends Throwable>	getException()
-	返回异常类型（或者null按状态匹配的页面）。
+Class<? extends Throwable>    getException()
+    返回异常类型（或者null按状态匹配的页面）。
 
-String	getExceptionName()
-	异常类型名称。
+String    getExceptionName()
+    异常类型名称。
 
-String	getPath()
-	渲染路径（通常实现为向前），以“/”开头。
+String    getPath()
+    渲染路径（通常实现为向前），以“/”开头。
 
-org.springframework.http.HttpStatus	getStatus()
-	此错误页面匹配的HTTP状态值（或null对于按例外匹配的页面）。
+org.springframework.http.HttpStatus    getStatus()
+    此错误页面匹配的HTTP状态值（或null对于按例外匹配的页面）。
 
-int	getStatusCode()
-	此错误页面匹配的HTTP状态值。
+int    getStatusCode()
+    此错误页面匹配的HTTP状态值。
 
-boolean	isGlobal()
-	如果此错误页面是全局错误页面，则返回（匹配所有不匹配的状态和异常类型）。
+boolean    isGlobal()
+    如果此错误页面是全局错误页面，则返回（匹配所有不匹配的状态和异常类型）。
 ```
 
 ErrorPageRegistrar的使用步骤：
@@ -1871,15 +1871,15 @@ import org.springframework.stereotype.Component;
 // 自定义异常错误界面 
 @Component
 public class ErrorPageConfig implements ErrorPageRegistrar {
-	@Override
-	public void registerErrorPages(ErrorPageRegistry registry) {
-		ErrorPage[] pageArray = new ErrorPage[3];
-		pageArray[0] = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404.html"); // 配置404错误状态码，跳转的界面
-		pageArray[1] = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500.html"); // 配置500错误状态码，跳转的界面
-		pageArray[2] = new ErrorPage(IllegalArgumentException.class, "/error/args.html"); // 配置404错误状态码，跳转的界面
-		
-		registry.addErrorPages(pageArray); 
-	}
+    @Override
+    public void registerErrorPages(ErrorPageRegistry registry) {
+        ErrorPage[] pageArray = new ErrorPage[3];
+        pageArray[0] = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404.html"); // 配置404错误状态码，跳转的界面
+        pageArray[1] = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500.html"); // 配置500错误状态码，跳转的界面
+        pageArray[2] = new ErrorPage(IllegalArgumentException.class, "/error/args.html"); // 配置404错误状态码，跳转的界面
+        
+        registry.addErrorPages(pageArray); 
+    }
 }
 ```
 
@@ -1892,14 +1892,14 @@ src/main/resources/html/error/404.html：
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>自定义400异常-错误页面</h1>
-	自定义错误页面的使用：
-	<br /> 1、实现 ErrorPageRegistrar 接口
-	<br />2、重写 registerErrorPages() 方法：
-	<br />3、通过 ErrorPageRegistry.addErrorPages() 方法添加 ErrorPage 错误界面
-	<br />3.1、错误界面配置默认路径：src/main/resourece下
-	<br />3.2、ErrorPage可以通过 HttpStatus：错误状态码配置错误界面
-	<br />3.3、ErrorPage可以通过 Throwable：异常类配置错误界面
+    <h1>自定义400异常-错误页面</h1>
+    自定义错误页面的使用：
+    <br /> 1、实现 ErrorPageRegistrar 接口
+    <br />2、重写 registerErrorPages() 方法：
+    <br />3、通过 ErrorPageRegistry.addErrorPages() 方法添加 ErrorPage 错误界面
+    <br />3.1、错误界面配置默认路径：src/main/resourece下
+    <br />3.2、ErrorPage可以通过 HttpStatus：错误状态码配置错误界面
+    <br />3.3、ErrorPage可以通过 Throwable：异常类配置错误界面
 </body>
 </html>
 ```
@@ -1910,31 +1910,31 @@ ExceptionHandler：[org.springframework.web.bind.annotation.ExceptionHandler](ht
 用于处理特定处理程序类和/或处理程序方法中的异常的注释。
 
 使用此注释注释的处理程序方法允许具有非常灵活的签名。它们可以按任意顺序具有以下类型的参数：
-	异常参数：声明为一般异常或更具体的异常。如果注释本身不通过它缩小异常类型，这也可以作为映射提示value()。
-	请求和/或响应对象（通常来自Servlet API）。您可以选择任何特定的请求/响应类型，例如 ServletRequest/ HttpServletRequest。
-	会话对象：通常HttpSession。此类型的参数将强制存在相应的会话。因此，这样的论证永远不会null。 请注意，会话访问可能不是线程安全的，特别是在Servlet环境中："synchronizeOnSession"如果允许多个请求同时访问会话，请考虑将标志切换 为“true”。
-	WebRequest或 NativeWebRequest。允许通用请求参数访问以及请求/会话属性访问，而不与本机Servlet API绑定。
-	Locale对于当前请求区域设置（由最可用的区域设置解析程序确定，即LocaleResolver 在Servlet环境中配置）。
-	InputStream/ Reader用于访问请求的内容。这将是Servlet API公开的原始InputStream / Reader。
-	OutputStream/ Writer用于生成响应的内容。这将是Servlet API公开的原始OutputStream / Writer。
-	Model作为从处理程序方法返回模型映射的替代方法。请注意，提供的模型不预先填充常规模型属性，因此始终为空，以便为特定于异常的视图准备模型。
+    异常参数：声明为一般异常或更具体的异常。如果注释本身不通过它缩小异常类型，这也可以作为映射提示value()。
+    请求和/或响应对象（通常来自Servlet API）。您可以选择任何特定的请求/响应类型，例如 ServletRequest/ HttpServletRequest。
+    会话对象：通常HttpSession。此类型的参数将强制存在相应的会话。因此，这样的论证永远不会null。 请注意，会话访问可能不是线程安全的，特别是在Servlet环境中："synchronizeOnSession"如果允许多个请求同时访问会话，请考虑将标志切换 为“true”。
+    WebRequest或 NativeWebRequest。允许通用请求参数访问以及请求/会话属性访问，而不与本机Servlet API绑定。
+    Locale对于当前请求区域设置（由最可用的区域设置解析程序确定，即LocaleResolver 在Servlet环境中配置）。
+    InputStream/ Reader用于访问请求的内容。这将是Servlet API公开的原始InputStream / Reader。
+    OutputStream/ Writer用于生成响应的内容。这将是Servlet API公开的原始OutputStream / Writer。
+    Model作为从处理程序方法返回模型映射的替代方法。请注意，提供的模型不预先填充常规模型属性，因此始终为空，以便为特定于异常的视图准备模型。
 
 处理程序方法支持以下返回类型：
-	一个ModelAndView对象（来自Servlet MVC）。
-	一个Model对象，视图名称通过一个隐式确定RequestToViewNameTranslator。
-	甲Map用于曝光模式，与视图名称对象隐含地通过确定 RequestToViewNameTranslator。
-	一个View对象。
-	一个String值，它被解释为视图名称。
-	@ResponseBody带注释的方法（仅限Servlet）来设置响应内容。返回值将使用消息转换器转换为响应流 。
-	一个HttpEntity<?>或 一个ResponseEntity<?>对象（仅限Servlet）来设置响应头和内容。ResponseEntity主体将使用消息转换器进行转换并写入响应流 。
-	void如果方法处理响应本身（通过直接编写响应内容 ，为此目的声明类型ServletResponse/ 的参数 HttpServletResponse）
-		或者是否应该通过RequestToViewNameTranslator （不在处理程序方法签名中声明响应参数）隐式确定视图名称。
+    一个ModelAndView对象（来自Servlet MVC）。
+    一个Model对象，视图名称通过一个隐式确定RequestToViewNameTranslator。
+    甲Map用于曝光模式，与视图名称对象隐含地通过确定 RequestToViewNameTranslator。
+    一个View对象。
+    一个String值，它被解释为视图名称。
+    @ResponseBody带注释的方法（仅限Servlet）来设置响应内容。返回值将使用消息转换器转换为响应流 。
+    一个HttpEntity<?>或 一个ResponseEntity<?>对象（仅限Servlet）来设置响应头和内容。ResponseEntity主体将使用消息转换器进行转换并写入响应流 。
+    void如果方法处理响应本身（通过直接编写响应内容 ，为此目的声明类型ServletResponse/ 的参数 HttpServletResponse）
+        或者是否应该通过RequestToViewNameTranslator （不在处理程序方法签名中声明响应参数）隐式确定视图名称。
 
 可以将ExceptionHandler注释与 @ResponseStatus特定HTTP错误状态组合使用。
 
 
-java.lang.Class<? extends java.lang.Throwable>[]	value
-	注释方法处理的异常。
+java.lang.Class<? extends java.lang.Throwable>[]    value
+    注释方法处理的异常。
 ```
 
 TestControllerByEH.java：
@@ -1950,24 +1950,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/testControllerByEH/")
 public class TestControllerByEH {
-	// 通过 @ExceptionHandler 处理当前Controller异常
-	@ExceptionHandler(value = NullPointerException.class)
-	@ResponseBody
-	public String error(NullPointerException e) {
-		return "\n通过 @ExceptionHandler 处理当前Controller异常:" + e.getMessage();
-	}
-	// 通过 @ExceptionHandler 处理当前Controller异常
-	@GetMapping(value = "showExceptionHandler1")
-	public void showErrorView() throws Exception {
-		StringBuffer val = new StringBuffer("\n1、通过 @ExceptionHandler 处理当前Controller异常");
-		val.append("\n[Controller：声明一个方法实现 @ExceptionHandler 注解]");
-		val.append("\n[ExceptionHandler.value：拦截指定异常：value = Exception.class]");
-		val.append("\n[PS1：@ExceptionHandler 只对当前Controller生效]");
-		val.append("\n[PS2： @ExceptionHandler 会导致返回中文是乱码，需要对HttpServletRequest，HttpServletResponse 重新设置 CharacterEncoding 编码]");
-		val.append("\n[PS3： @ExceptionHandler 优先级比 ErrorPageRegistrar配置的 低（可以声明多个）]");
-		System.out.println(val.toString());
-		throw new NullPointerException(val.toString());
-	}
+    // 通过 @ExceptionHandler 处理当前Controller异常
+    @ExceptionHandler(value = NullPointerException.class)
+    @ResponseBody
+    public String error(NullPointerException e) {
+        return "\n通过 @ExceptionHandler 处理当前Controller异常:" + e.getMessage();
+    }
+    // 通过 @ExceptionHandler 处理当前Controller异常
+    @GetMapping(value = "showExceptionHandler1")
+    public void showErrorView() throws Exception {
+        StringBuffer val = new StringBuffer("\n1、通过 @ExceptionHandler 处理当前Controller异常");
+        val.append("\n[Controller：声明一个方法实现 @ExceptionHandler 注解]");
+        val.append("\n[ExceptionHandler.value：拦截指定异常：value = Exception.class]");
+        val.append("\n[PS1：@ExceptionHandler 只对当前Controller生效]");
+        val.append("\n[PS2： @ExceptionHandler 会导致返回中文是乱码，需要对HttpServletRequest，HttpServletResponse 重新设置 CharacterEncoding 编码]");
+        val.append("\n[PS3： @ExceptionHandler 优先级比 ErrorPageRegistrar配置的 低（可以声明多个）]");
+        System.out.println(val.toString());
+        throw new NullPointerException(val.toString());
+    }
 }
 ```
 
@@ -1990,20 +1990,20 @@ basePackageClasses()和basePackages()（或其别名 value()）来定义更窄�
 如果声明了多个选择器，则应用OR逻辑，这意味着所选控制器应匹配至少一个选择器。
 请注意，选择器检查是在运行时执行的，因此添加许多选择器可能会对性能产生负面影响并增加复杂性。
 
-java.lang.Class<? extends java.lang.annotation.Annotation>[]	annotations
-	注释数组。
+java.lang.Class<? extends java.lang.annotation.Annotation>[]    annotations
+    注释数组。
 
-java.lang.Class<?>[]	assignableTypes
-	类的数组。
+java.lang.Class<?>[]    assignableTypes
+    类的数组。
 
-java.lang.Class<?>[]	basePackageClasses
-	类型安全的替代方法，value()用于指定包以选择由@ControllerAdvice 注释类辅助的控制器。
+java.lang.Class<?>[]    basePackageClasses
+    类型安全的替代方法，value()用于指定包以选择由@ControllerAdvice 注释类辅助的控制器。
 
-java.lang.String[]	basePackages
-	基础包的数组。
+java.lang.String[]    basePackages
+    基础包的数组。
 
-java.lang.String[]	value
-	basePackages()属性的别名。
+java.lang.String[]    value
+    basePackages()属性的别名。
 ```
 
 GlobalExceptionHandler.java：
@@ -2019,26 +2019,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mutistic.utils.CommonUtil;
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	// 通过 @ExceptionHandler 声明全局异常处理
-	@ExceptionHandler(value = FileNotFoundException.class)
-	@ResponseBody
-	public String error(Exception e, HttpServletRequest request, HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding(CommonUtil.UTF8);
-			response.setCharacterEncoding(CommonUtil.UTF8);
-		} catch (UnsupportedEncodingException e1) { }
-		
+    // 通过 @ExceptionHandler 声明全局异常处理
+    @ExceptionHandler(value = FileNotFoundException.class)
+    @ResponseBody
+    public String error(Exception e, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.setCharacterEncoding(CommonUtil.UTF8);
+            response.setCharacterEncoding(CommonUtil.UTF8);
+        } catch (UnsupportedEncodingException e1) { }
+        
 
-		StringBuffer val = new StringBuffer("\n通过@ControllerAdvice +  @ExceptionHandler 处理全局异常");
-		val.append("\n[Class：声明一个类实现 @ControllerAdvice 注解]");
-		val.append("\n[Method：声明一个方法实现 @ExceptionHandler 注解，同时实现 @ResponseBody注解]");
-		val.append("\n[ExceptionHandler.value：拦截指定异常：value = FileNotFoundException.class]");
-		val.append("\n[PS1： @ExceptionHandler 会导致返回中文是乱码，需要对HttpServletRequest，HttpServletResponse 重新设置 CharacterEncoding 编码]");
-		val.append("\n[PS2： 全局的@ExceptionHandler 优先级比 具体Controller的ExceptionHandler 低 （可以声明多个）]");
-		val.append("\n[PS3： @ExceptionHandler 优先级比 ErrorPageRegistrar配置的 低]");
+        StringBuffer val = new StringBuffer("\n通过@ControllerAdvice +  @ExceptionHandler 处理全局异常");
+        val.append("\n[Class：声明一个类实现 @ControllerAdvice 注解]");
+        val.append("\n[Method：声明一个方法实现 @ExceptionHandler 注解，同时实现 @ResponseBody注解]");
+        val.append("\n[ExceptionHandler.value：拦截指定异常：value = FileNotFoundException.class]");
+        val.append("\n[PS1： @ExceptionHandler 会导致返回中文是乱码，需要对HttpServletRequest，HttpServletResponse 重新设置 CharacterEncoding 编码]");
+        val.append("\n[PS2： 全局的@ExceptionHandler 优先级比 具体Controller的ExceptionHandler 低 （可以声明多个）]");
+        val.append("\n[PS3： @ExceptionHandler 优先级比 ErrorPageRegistrar配置的 低]");
 
-		return "通过 @ExceptionHandler 声明全局异常处理:" + e.getMessage();
-	}
+        return "通过 @ExceptionHandler 声明全局异常处理:" + e.getMessage();
+    }
 }
 ```
 
@@ -2048,8 +2048,8 @@ public class GlobalExceptionHandler {
 pom.xml添加spring-boot-starter-jdbc依赖
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-jdbc</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
 </dependency>
 ```
 
@@ -2058,8 +2058,8 @@ pom.xml添加mysql-connector-java依赖
 ```xml
 <!-- 添加mysql数据库驱动 -->
 <dependency>
-	<groupId>mysql</groupId>
-	<artifactId>mysql-connector-java</artifactId>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
 </dependency>
 ```
 application.properties配置datasource信息：
@@ -2096,112 +2096,112 @@ JdbcTemplate：[org.springframework.jdbc.core.JdbcTemplate](https://docs.spring.
 注意：配置后，此类的实例是线程安全的。
 
 
-protected void	applyStatementSettings(java.sql.Statement stmt)
-	准备给定的JDBC语句（或PreparedStatement或CallableStatement），应用语句设置，如获取大小，最大行数和查询超时。
-int[]	batchUpdate(java.lang.String... sql)
-	使用批处理在单个JDBC语句上发出多个SQL更新。
+protected void    applyStatementSettings(java.sql.Statement stmt)
+    准备给定的JDBC语句（或PreparedStatement或CallableStatement），应用语句设置，如获取大小，最大行数和查询超时。
+int[]    batchUpdate(java.lang.String... sql)
+    使用批处理在单个JDBC语句上发出多个SQL更新。
 
-java.util.Map<java.lang.String,java.lang.Object>	call(CallableStatementCreator csc, java.util.List<SqlParameter> declaredParameters)
-	使用CallableStatementCreator执行SQL调用以提供SQL和任何所需的参数。
+java.util.Map<java.lang.String,java.lang.Object>    call(CallableStatementCreator csc, java.util.List<SqlParameter> declaredParameters)
+    使用CallableStatementCreator执行SQL调用以提供SQL和任何所需的参数。
 
-protected java.sql.Connection	createConnectionProxy(java.sql.Connection con)
-	为给定的JDBC连接创建一个关闭抑制代理。
+protected java.sql.Connection    createConnectionProxy(java.sql.Connection con)
+    为给定的JDBC连接创建一个关闭抑制代理。
 
-protected java.util.Map<java.lang.String,java.lang.Object>	createResultsMap()
-	创建要用作结果映射的Map实例。
+protected java.util.Map<java.lang.String,java.lang.Object>    createResultsMap()
+    创建要用作结果映射的Map实例。
 
-<T> T	execute(CallableStatementCreator csc, CallableStatementCallback<T> action)
-	执行JDBC数据访问操作，实现为处理JDBC CallableStatement的回调操作。
+<T> T    execute(CallableStatementCreator csc, CallableStatementCallback<T> action)
+    执行JDBC数据访问操作，实现为处理JDBC CallableStatement的回调操作。
 
-protected java.util.Map<java.lang.String,java.lang.Object>	extractOutputParameters(java.sql.CallableStatement cs, java.util.List<SqlParameter> parameters)
-	从完成的存储过程中提取输出参数。
+protected java.util.Map<java.lang.String,java.lang.Object>    extractOutputParameters(java.sql.CallableStatement cs, java.util.List<SqlParameter> parameters)
+    从完成的存储过程中提取输出参数。
 
-protected java.util.Map<java.lang.String,java.lang.Object>	extractReturnedResults(java.sql.CallableStatement cs, java.util.List<SqlParameter> updateCountParameters, java.util.List<SqlParameter> resultSetParameters, int updateCount)
-	从完成的存储过程中提取返回的ResultSet。
+protected java.util.Map<java.lang.String,java.lang.Object>    extractReturnedResults(java.sql.CallableStatement cs, java.util.List<SqlParameter> updateCountParameters, java.util.List<SqlParameter> resultSetParameters, int updateCount)
+    从完成的存储过程中提取返回的ResultSet。
 
-protected RowMapper<java.util.Map<java.lang.String,java.lang.Object>>	getColumnMapRowMapper()
-	创建一个新的RowMapper，用于将列作为键值对读取。
+protected RowMapper<java.util.Map<java.lang.String,java.lang.Object>>    getColumnMapRowMapper()
+    创建一个新的RowMapper，用于将列作为键值对读取。
 
-int	getFetchSize()
-	返回为此JdbcTemplate指定的获取大小。
+int    getFetchSize()
+    返回为此JdbcTemplate指定的获取大小。
 
-int	getMaxRows()
-	返回为此JdbcTemplate指定的最大行数。
+int    getMaxRows()
+    返回为此JdbcTemplate指定的最大行数。
 
-int	getQueryTimeout()
-	返回此JdbcTemplate执行的语句的查询超时。
+int    getQueryTimeout()
+    返回此JdbcTemplate执行的语句的查询超时。
 
-protected <T> RowMapper<T>	getSingleColumnRowMapper(java.lang.Class<T> requiredType)
-	创建一个新的RowMapper，用于从单个列读取结果对象。
+protected <T> RowMapper<T>    getSingleColumnRowMapper(java.lang.Class<T> requiredType)
+    创建一个新的RowMapper，用于从单个列读取结果对象。
 
-protected void	handleWarnings(java.sql.SQLWarning warning)
-	如果遇到实际警告，则抛出SQLWarningException。
+protected void    handleWarnings(java.sql.SQLWarning warning)
+    如果遇到实际警告，则抛出SQLWarningException。
 
-protected void	handleWarnings(java.sql.Statement stmt)
-	如果我们不忽略警告，则抛出SQLWarningException，否则记录警告（在调试级别）。
+protected void    handleWarnings(java.sql.Statement stmt)
+    如果我们不忽略警告，则抛出SQLWarningException，否则记录警告（在调试级别）。
 
-boolean	isIgnoreWarnings()
-	返回我们是否忽略SQLWarnings。
+boolean    isIgnoreWarnings()
+    返回我们是否忽略SQLWarnings。
 
-boolean	isResultsMapCaseInsensitive()
-	返回CallableStatement的执行是否会在使用参数的不区分大小写的名称的Map中返回结果。
+boolean    isResultsMapCaseInsensitive()
+    返回CallableStatement的执行是否会在使用参数的不区分大小写的名称的Map中返回结果。
 
-boolean	isSkipResultsProcessing()
-	返回是否应跳过结果处理。
+boolean    isSkipResultsProcessing()
+    返回是否应跳过结果处理。
 
-boolean	isSkipUndeclaredResults()
-	返回是否应跳过未声明的结果。
+boolean    isSkipUndeclaredResults()
+    返回是否应跳过未声明的结果。
 
-protected PreparedStatementSetter	newArgPreparedStatementSetter(java.lang.Object[] args)
-	使用传入的args创建一个新的基于arg的PreparedStatementSetter。
+protected PreparedStatementSetter    newArgPreparedStatementSetter(java.lang.Object[] args)
+    使用传入的args创建一个新的基于arg的PreparedStatementSetter。
 
-protected PreparedStatementSetter	newArgTypePreparedStatementSetter(java.lang.Object[] args, int[] argTypes)
-	使用传入的args和类型创建一个新的基于arg-type的PreparedStatementSetter。
+protected PreparedStatementSetter    newArgTypePreparedStatementSetter(java.lang.Object[] args, int[] argTypes)
+    使用传入的args和类型创建一个新的基于arg-type的PreparedStatementSetter。
 
-protected java.util.Map<java.lang.String,java.lang.Object>	processResultSet(java.sql.ResultSet rs, ResultSetSupportingSqlParameter param)
-	从存储过程处理给定的ResultSet。
+protected java.util.Map<java.lang.String,java.lang.Object>    processResultSet(java.sql.ResultSet rs, ResultSetSupportingSqlParameter param)
+    从存储过程处理给定的ResultSet。
 
-<T> T	query(PreparedStatementCreator psc, PreparedStatementSetter pss, ResultSetExtractor<T> rse)
-	使用预准备语句进行查询，允许PreparedStatementCreator和PreparedStatementSetter。等其他重载方法
+<T> T    query(PreparedStatementCreator psc, PreparedStatementSetter pss, ResultSetExtractor<T> rse)
+    使用预准备语句进行查询，允许PreparedStatementCreator和PreparedStatementSetter。等其他重载方法
 
-java.util.List<java.util.Map<java.lang.String,java.lang.Object>>	queryForList(java.lang.String sql)
-	给定静态SQL，执行结果列表的查询。等其他重载方法
+java.util.List<java.util.Map<java.lang.String,java.lang.Object>>    queryForList(java.lang.String sql)
+    给定静态SQL，执行结果列表的查询。等其他重载方法
 
-java.util.Map<java.lang.String,java.lang.Object>	queryForMap(java.lang.String sql)
-	给定静态SQL，对结果Map执行查询。等其他重载方法
+java.util.Map<java.lang.String,java.lang.Object>    queryForMap(java.lang.String sql)
+    给定静态SQL，对结果Map执行查询。等其他重载方法
 
-<T> T	queryForObject(java.lang.String sql, java.lang.Class<T> requiredType)
-	给定静态SQL，对结果对象执行查询。等其他重载方法
+<T> T    queryForObject(java.lang.String sql, java.lang.Class<T> requiredType)
+    给定静态SQL，对结果对象执行查询。等其他重载方法
 
-SqlRowSet	queryForRowSet(java.lang.String sql)
-	给定静态SQL，执行SqlRowSet的查询。
+SqlRowSet    queryForRowSet(java.lang.String sql)
+    给定静态SQL，执行SqlRowSet的查询。
 
-void	setFetchSize(int fetchSize)
-	设置此JdbcTemplate的获取大小。
+void    setFetchSize(int fetchSize)
+    设置此JdbcTemplate的获取大小。
 
-void	setIgnoreWarnings(boolean ignoreWarnings)
-	设置我们是否要忽略SQLWarnings。
+void    setIgnoreWarnings(boolean ignoreWarnings)
+    设置我们是否要忽略SQLWarnings。
 
-void	setMaxRows(int maxRows)
-	设置此JdbcTemplate的最大行数。
+void    setMaxRows(int maxRows)
+    设置此JdbcTemplate的最大行数。
 
-void	setQueryTimeout(int queryTimeout)
-	为此JdbcTemplate执行的语句设置查询超时。
+void    setQueryTimeout(int queryTimeout)
+    为此JdbcTemplate执行的语句设置查询超时。
 
-void	setResultsMapCaseInsensitive(boolean resultsMapCaseInsensitive)
-	设置Call​​ableStatement的执行是否将在使用参数的不区分大小写的名称的Map中返回结果。
+void    setResultsMapCaseInsensitive(boolean resultsMapCaseInsensitive)
+    设置Call​​ableStatement的执行是否将在使用参数的不区分大小写的名称的Map中返回结果。
 
-void	setSkipResultsProcessing(boolean skipResultsProcessing)
-	设置是否应跳过结果处理。
+void    setSkipResultsProcessing(boolean skipResultsProcessing)
+    设置是否应跳过结果处理。
 
-void	setSkipUndeclaredResults(boolean skipUndeclaredResults)
-	设置是否应跳过未声明的结果。
+void    setSkipUndeclaredResults(boolean skipUndeclaredResults)
+    设置是否应跳过未声明的结果。
 
-protected DataAccessException	translateException(java.lang.String task, java.lang.String sql, java.sql.SQLException ex)
-	将给定SQLException转换为通用DataAccessException。
+protected DataAccessException    translateException(java.lang.String task, java.lang.String sql, java.sql.SQLException ex)
+    将给定SQLException转换为通用DataAccessException。
 
-int	update(PreparedStatementCreator psc)
-	使用PreparedStatementCreator发出单个SQL更新操作（例如insert，update或delete语句）以提供SQL和任何必需的参数。等其他重载方法
+int    update(PreparedStatementCreator psc)
+    使用PreparedStatementCreator发出单个SQL更新操作（例如insert，update或delete语句）以提供SQL和任何必需的参数。等其他重载方法
 ```
 
 MyTestDao.java：
@@ -2212,13 +2212,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 @Repository
 public class MyTestDao {
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	public String insert(Long id, String name) {
-		String sql = "INSERT INTO mytest VALUES ('" + id + "', '" + name + "');";
-		jdbcTemplate.execute(sql);
-		return sql;
-	}
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    public String insert(Long id, String name) {
+        String sql = "INSERT INTO mytest VALUES ('" + id + "', '" + name + "');";
+        jdbcTemplate.execute(sql);
+        return sql;
+    }
 }
 ```
 
@@ -2233,17 +2233,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/myTestController/")
 public class MyTestController {
-	@Autowired
-	private MyTestDao myTestDao;
-	// 演示使用 JdbcTemplate 实现数据插入
-	@PostMapping(value = "insertByTemplate", produces = "text/html;charset=UTF-8")
-	public String insertByJdbc(@RequestParam("id") Long id, @RequestParam("name") String name) {
-		StringBuffer val = new StringBuffer("\n演示使用 JdbcTemplate 实现数据插入 ");
-		val.append("\n[使用 JdbcTemplate通过execute() 方法执行sql语句完成数据插入]");
-		val.append("\n[执行sql：" + myTestDao.insert(id, name) + "]");
-		System.out.println(val.toString());
-		return val.toString();
-	}
+    @Autowired
+    private MyTestDao myTestDao;
+    // 演示使用 JdbcTemplate 实现数据插入
+    @PostMapping(value = "insertByTemplate", produces = "text/html;charset=UTF-8")
+    public String insertByJdbc(@RequestParam("id") Long id, @RequestParam("name") String name) {
+        StringBuffer val = new StringBuffer("\n演示使用 JdbcTemplate 实现数据插入 ");
+        val.append("\n[使用 JdbcTemplate通过execute() 方法执行sql语句完成数据插入]");
+        val.append("\n[执行sql：" + myTestDao.insert(id, name) + "]");
+        System.out.println(val.toString());
+        return val.toString();
+    }
 }
 ```
 
@@ -2324,35 +2324,35 @@ public class AppConfig implements TransactionManagementConfigurer {
 这个注释类型通常可以直接与Spring的RuleBasedTransactionAttribute 类相媲美 ，实际上它AnnotationTransactionAttributeSource会直接将数据转换为后一类，因此Spring的事务支持代码不必知道注释。
 如果没有规则相关的例外，它会像对待 DefaultTransactionAttribute （回滚上RuntimeException和Error，但不会对检查的异常）。
 
-Isolation	isolation
-	事务隔离级别。
+Isolation    isolation
+    事务隔离级别。
 
-java.lang.Class<? extends java.lang.Throwable>[]	noRollbackFor
-	定义零（0）或更多异常Classes，它必须是子类Throwable，指示哪些异常类型 不得导致事务回滚。
+java.lang.Class<? extends java.lang.Throwable>[]    noRollbackFor
+    定义零（0）或更多异常Classes，它必须是子类Throwable，指示哪些异常类型 不得导致事务回滚。
 
-java.lang.String[]	noRollbackForClassName
-	定义零（0）或更多异常名称（对于必须是其子类的Throwable异常），指示哪些异常类型不得 导致事务回滚。
+java.lang.String[]    noRollbackForClassName
+    定义零（0）或更多异常名称（对于必须是其子类的Throwable异常），指示哪些异常类型不得 导致事务回滚。
 
-Propagation	propagation
-	事务传播类型。
+Propagation    propagation
+    事务传播类型。
 
-boolean	readOnly
-	true如果事务实际上是只读的，则可以设置为布尔标志，允许在运行时进行相应的优化。
+boolean    readOnly
+    true如果事务实际上是只读的，则可以设置为布尔标志，允许在运行时进行相应的优化。
 
-java.lang.Class<? extends java.lang.Throwable>[]	rollbackFor
-	定义零（0）或更多异常classes，它必须是子类Throwable，指示哪些异常类型必须导致事务回滚。
+java.lang.Class<? extends java.lang.Throwable>[]    rollbackFor
+    定义零（0）或更多异常classes，它必须是子类Throwable，指示哪些异常类型必须导致事务回滚。
 
-java.lang.String[]	rollbackForClassName
-	定义零（0）或更多异常名称（对于必须是其子类的Throwable异常），指示哪些异常类型必须导致事务回滚。
+java.lang.String[]    rollbackForClassName
+    定义零（0）或更多异常名称（对于必须是其子类的Throwable异常），指示哪些异常类型必须导致事务回滚。
 
-int	timeout
-	此事务的超时。
+int    timeout
+    此事务的超时。
 
-java.lang.String	transactionManager
-	指定事务的限定符值。
+java.lang.String    transactionManager
+    指定事务的限定符值。
 
-java.lang.String	value
-	别名为transactionManager()。
+java.lang.String    value
+    别名为transactionManager()。
 ```
 
 Isolation：[org.springframework.transaction.annotation.Isolation](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/transaction/annotation/Isolation.html)
@@ -2415,30 +2415,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/myTestController/")
 @EnableTransactionManagement // 开启事务
 public class MyTestController {
-	@Autowired
-	private MyTestDao myTestDao;
-	// 演示使用 @EnableTransactionManagement 开启事务
-	@PostMapping(value = "insertByException", produces = "text/html;charset=UTF-8")
-	@Transactional(rollbackFor = Exception.class, noRollbackFor = NullPointerException.class)
-	public String insertByException(@RequestParam("id") Long id, @RequestParam("name") String name) {
-		StringBuffer val = new StringBuffer("\n演示使用 @EnableTransactionManagement 开启事务 ");
-		val.append("\n[Controller类或者@SpringBootApplication类 实现  @EnableTransactionManagement 开启事务]");
-		val.append("\n[方法上：实现@Transactional添加事务]");
-		val.append("\n[执行sql：" + myTestDao.insert(id, name) + "]");
-		val.append("\n[PS1：@EnableTransactionManagement默认对运行时异常即：RuntimeException进行回滚，其他异常不触发回滚]");
-		val.append("\n[PS2：方法可以无需抛出 throws Exception]");
-		val.append("\n[PS3：@Transactional rollbackFor可以指定那些异常回滚，默认是运行时异常，还有其他参数设置是否回滚的异常信息]");
-		val.append("\n[PS4：@Transactional noRollbackFor可以指定那些异常不回滚]");
-		val.append("\n[PS5：@Transactional 必须声明在初始调用的public方法上，参考事务的传播机制]");
-		val.append("\n[PS6：@Transactional 要保证数据库是支持事务]");
-		System.out.println(val.toString());
-		
-		if("Exception".equals(name)) {
-			throw new RuntimeException(val.toString());
-		}
-		
-		return val.toString();
-	}
+    @Autowired
+    private MyTestDao myTestDao;
+    // 演示使用 @EnableTransactionManagement 开启事务
+    @PostMapping(value = "insertByException", produces = "text/html;charset=UTF-8")
+    @Transactional(rollbackFor = Exception.class, noRollbackFor = NullPointerException.class)
+    public String insertByException(@RequestParam("id") Long id, @RequestParam("name") String name) {
+        StringBuffer val = new StringBuffer("\n演示使用 @EnableTransactionManagement 开启事务 ");
+        val.append("\n[Controller类或者@SpringBootApplication类 实现  @EnableTransactionManagement 开启事务]");
+        val.append("\n[方法上：实现@Transactional添加事务]");
+        val.append("\n[执行sql：" + myTestDao.insert(id, name) + "]");
+        val.append("\n[PS1：@EnableTransactionManagement默认对运行时异常即：RuntimeException进行回滚，其他异常不触发回滚]");
+        val.append("\n[PS2：方法可以无需抛出 throws Exception]");
+        val.append("\n[PS3：@Transactional rollbackFor可以指定那些异常回滚，默认是运行时异常，还有其他参数设置是否回滚的异常信息]");
+        val.append("\n[PS4：@Transactional noRollbackFor可以指定那些异常不回滚]");
+        val.append("\n[PS5：@Transactional 必须声明在初始调用的public方法上，参考事务的传播机制]");
+        val.append("\n[PS6：@Transactional 要保证数据库是支持事务]");
+        System.out.println(val.toString());
+        
+        if("Exception".equals(name)) {
+            throw new RuntimeException(val.toString());
+        }
+        
+        return val.toString();
+    }
 }
 ```
 
@@ -2447,8 +2447,8 @@ public class MyTestController {
 pom.xml添加AOP依赖：
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-aop</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
 
 <!-- 实际上是使用aspectjweaver依赖-->
@@ -2464,8 +2464,8 @@ AOP的使用步骤：
 ```
 [pom.xml：添加AOP依赖，默认开启AOP功能：
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-aop</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
 </dependency>
 实际上是使用aspectjweaver依赖：
 <dependency>
@@ -2565,99 +2565,99 @@ import org.springframework.stereotype.Component;
 @Aspect // 定义切面
 @Component // 纳入到Spring容器中
 public class TestAspect {
-	// 定义通知方式-@Before：前置通知
-	//  execution(<修饰符模式>?<返回类型模式><方法名模式>(<参数模式>)<异常模式>?)
-	@Before(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))") // execution 定义切入点：如xx包的xx方法
-	public void before(JoinPoint joinPoint) {
-		StringBuffer val = new StringBuffer("\n\n\n------------------");
-		val.append("\n[@Before：前置通知]");
-		val.append("\n[前置通知：在目标 方法开始之前进行执行的通知]");
-		val.append("\n[前置通知：使用 @Before 注解, 并将切入点表达式的值作为注解值]");
-		val.append("\n[value属性值：切入点表达式，匹配与之对应的目标。利用【*】可以进行那匹配不同的目标，参数只需要传入类型即可]");
-		val.append("\n[方法体JoinPoint 参数：用来连接当前连接点的连接细节，一般包括方法名和参数值。【org.aspectj.lang.JoinPoint】包]");
-		val.append("\n[JoinPoint：]");
-//		joinPoint.getSignature().getDeclaringTypeName(); // 获取签名类名称
-//		joinPoint.getTarget().getClass(); // 获取签名类
-//		joinPoint.getSignature().getName(); // 获取签名方法
-//		joinPoint.getArgs(); // 获取签名入参
-//		AopContext.currentProxy().getClass(); //获取代理对象
-		val.append("\n[通过JoinPoint.getSignature()获取签名信息：" + joinPoint.getSignature().getDeclaringTypeName()
-				+ "." + joinPoint.getSignature().getName() + "]");
-		val.append("\n[通过JoinPoint.getArgs()获取参数：" + Arrays.asList(joinPoint.getArgs()) + "]");
-		
-		System.out.println(val.toString());
-	}
-	// 定义通知方式-@After：后置通知
-	@After(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))")
-	public void after(JoinPoint joinPoint) {
-		StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
-		val.append("\n[@After：后置通知]");
-		val.append("\n[后置通知： 在目标方法执行之后，无论是否发生异常，都进行执行的通知]");
-		val.append("\n[后置通知：使用@After注解, 并将切入点表达式的值作为注解值]");
-		val.append("\n[在后置通知中，不能访问目标方法的执行结果。原因可能在执行过程中发生异常而无法得到结果]");
-		val.append("\n[方法体JoinPoint 参数：用来连接当前连接点的连接细节，一般包括方法名和参数值。【org.aspectj.lang.JoinPoint】包]");
-		val.append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "]");
-		
-		System.out.println(val.toString());
-	}
-	// 定义通知方式-@AfterReturning：返回通知
-	@AfterReturning(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))", returning = "result")
-	public void afterReturning(JoinPoint joinPoint, Object result) {
-		StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
-		val.append("\n[@AfterReturning：返回通知]");
-		val.append("\n[返回通知： 在目标方法正常结束时，才执行的通知]");
-		val.append("\n[返回通知：使用@AfterReturning注解，并将切入点表达式的值作为注解值]");
-		val.append("\n[返回通知：可以访问到方法的返回值]");
-		val.append("\n[returning属性值：声明该方法可以存在返回值，该属性的值即为用来传入返回值的参数名称]");
-		val.append("\n[方法体Object参数 ：需要使用与returning同名参数名称，用来接收方法的返回值]");
-		val.append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "]");
-		
-		System.out.println(val.toString());
-	}
-	// 定义通知方式-@AfterThrowing：异常通知
-	@AfterThrowing(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))", throwing = "ex")
-	public void afterthrowing(JoinPoint joinPoint, Exception ex) {
-		StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
-		val.append("\n[@AfterThrowing：异常通知]");
-		val.append("\n[异常通知 ：在目标方法出现异常时才会进行执行的代码]");
-		val.append("\n[异常通知 ：使用@AfterThrowing注解，并将切入点表达式的值作为注解值]");
-		val.append("\n[throwing属性：访问连接点抛出的异常]");
-		val.append("\n[returning属性值：声明该方法可以存在返回值，该属性的值即为用来传入返回值的参数名称]");
-		val.append("\n[方法体Exception参数：用来接收连接点抛出的异常。Exception类匹配所有的异常，可以指定为特定的异常]");
-		val.append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "]");
-		
-		System.out.println(val.toString());
-	}
-	// 定义通知方式-@Around：环绕通知
-	@Around(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))")
-	public Object around(ProceedingJoinPoint pjd) {
-		StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
-		val.append("\n[@Around：环绕通知]");
-		val.append("\n[环绕通知：是所有通知类型中功能最为强大的， 能够全面地控制连接点。甚至可以控制是否执行连接点。类似于动态代理]");
-		val.append("\n[环绕通知：连接点的参数类型必须是 ProceedingJoinPoint ，它是 JoinPoint 的子接口,，允许控制何时执行， 是否执行连接点]");
-		val.append("\n[环绕通知：中需要明确调用 ProceedingJoinPoint 的 proceed()]");
-		val.append("\n[方法来执行被代理的方法，如果忘记这样做就会导致通知被执行了，但目标方法没有被执行。]");
-		val.append("\n[环绕通知：的方法需要有返回值，返回目标方法执行之后的结果， 即调用 joinPoint.proceed() 的返回值, 否则会出现空指针异常]");
-		val.append("\n[环绕通知：虽然功能最为强大的，但是一般我们都不使用这个]");
-		
-		String allName = pjd.getSignature().getDeclaringTypeName() + "." + pjd.getSignature().getName();
-		Object result = null;
-		try {
-			List<Object> args = Arrays.asList(pjd.getArgs() + "]");
-			result = pjd.proceed();
-			val.append("\n[@Around：前置通知" + allName + args + "]");
-			val.append("\n[@Around：返回通知" + allName + " return：" + result + "]");
-		} catch (Throwable e) {
-			val.append("\n[@Around：异常通知" + allName + " excetion：" + e + "]");
+    // 定义通知方式-@Before：前置通知
+    //  execution(<修饰符模式>?<返回类型模式><方法名模式>(<参数模式>)<异常模式>?)
+    @Before(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))") // execution 定义切入点：如xx包的xx方法
+    public void before(JoinPoint joinPoint) {
+        StringBuffer val = new StringBuffer("\n\n\n------------------");
+        val.append("\n[@Before：前置通知]");
+        val.append("\n[前置通知：在目标 方法开始之前进行执行的通知]");
+        val.append("\n[前置通知：使用 @Before 注解, 并将切入点表达式的值作为注解值]");
+        val.append("\n[value属性值：切入点表达式，匹配与之对应的目标。利用【*】可以进行那匹配不同的目标，参数只需要传入类型即可]");
+        val.append("\n[方法体JoinPoint 参数：用来连接当前连接点的连接细节，一般包括方法名和参数值。【org.aspectj.lang.JoinPoint】包]");
+        val.append("\n[JoinPoint：]");
+//        joinPoint.getSignature().getDeclaringTypeName(); // 获取签名类名称
+//        joinPoint.getTarget().getClass(); // 获取签名类
+//        joinPoint.getSignature().getName(); // 获取签名方法
+//        joinPoint.getArgs(); // 获取签名入参
+//        AopContext.currentProxy().getClass(); //获取代理对象
+        val.append("\n[通过JoinPoint.getSignature()获取签名信息：" + joinPoint.getSignature().getDeclaringTypeName()
+                + "." + joinPoint.getSignature().getName() + "]");
+        val.append("\n[通过JoinPoint.getArgs()获取参数：" + Arrays.asList(joinPoint.getArgs()) + "]");
+        
+        System.out.println(val.toString());
+    }
+    // 定义通知方式-@After：后置通知
+    @After(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))")
+    public void after(JoinPoint joinPoint) {
+        StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
+        val.append("\n[@After：后置通知]");
+        val.append("\n[后置通知： 在目标方法执行之后，无论是否发生异常，都进行执行的通知]");
+        val.append("\n[后置通知：使用@After注解, 并将切入点表达式的值作为注解值]");
+        val.append("\n[在后置通知中，不能访问目标方法的执行结果。原因可能在执行过程中发生异常而无法得到结果]");
+        val.append("\n[方法体JoinPoint 参数：用来连接当前连接点的连接细节，一般包括方法名和参数值。【org.aspectj.lang.JoinPoint】包]");
+        val.append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "]");
+        
+        System.out.println(val.toString());
+    }
+    // 定义通知方式-@AfterReturning：返回通知
+    @AfterReturning(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))", returning = "result")
+    public void afterReturning(JoinPoint joinPoint, Object result) {
+        StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
+        val.append("\n[@AfterReturning：返回通知]");
+        val.append("\n[返回通知： 在目标方法正常结束时，才执行的通知]");
+        val.append("\n[返回通知：使用@AfterReturning注解，并将切入点表达式的值作为注解值]");
+        val.append("\n[返回通知：可以访问到方法的返回值]");
+        val.append("\n[returning属性值：声明该方法可以存在返回值，该属性的值即为用来传入返回值的参数名称]");
+        val.append("\n[方法体Object参数 ：需要使用与returning同名参数名称，用来接收方法的返回值]");
+        val.append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "]");
+        
+        System.out.println(val.toString());
+    }
+    // 定义通知方式-@AfterThrowing：异常通知
+    @AfterThrowing(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))", throwing = "ex")
+    public void afterthrowing(JoinPoint joinPoint, Exception ex) {
+        StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
+        val.append("\n[@AfterThrowing：异常通知]");
+        val.append("\n[异常通知 ：在目标方法出现异常时才会进行执行的代码]");
+        val.append("\n[异常通知 ：使用@AfterThrowing注解，并将切入点表达式的值作为注解值]");
+        val.append("\n[throwing属性：访问连接点抛出的异常]");
+        val.append("\n[returning属性值：声明该方法可以存在返回值，该属性的值即为用来传入返回值的参数名称]");
+        val.append("\n[方法体Exception参数：用来接收连接点抛出的异常。Exception类匹配所有的异常，可以指定为特定的异常]");
+        val.append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName() + "]");
+        
+        System.out.println(val.toString());
+    }
+    // 定义通知方式-@Around：环绕通知
+    @Around(value = "execution(* com.mutistic.aop.TestControllerByAop.*(..))")
+    public Object around(ProceedingJoinPoint pjd) {
+        StringBuffer val = new StringBuffer("\n\n\n-----------------------------------");
+        val.append("\n[@Around：环绕通知]");
+        val.append("\n[环绕通知：是所有通知类型中功能最为强大的， 能够全面地控制连接点。甚至可以控制是否执行连接点。类似于动态代理]");
+        val.append("\n[环绕通知：连接点的参数类型必须是 ProceedingJoinPoint ，它是 JoinPoint 的子接口,，允许控制何时执行， 是否执行连接点]");
+        val.append("\n[环绕通知：中需要明确调用 ProceedingJoinPoint 的 proceed()]");
+        val.append("\n[方法来执行被代理的方法，如果忘记这样做就会导致通知被执行了，但目标方法没有被执行。]");
+        val.append("\n[环绕通知：的方法需要有返回值，返回目标方法执行之后的结果， 即调用 joinPoint.proceed() 的返回值, 否则会出现空指针异常]");
+        val.append("\n[环绕通知：虽然功能最为强大的，但是一般我们都不使用这个]");
+        
+        String allName = pjd.getSignature().getDeclaringTypeName() + "." + pjd.getSignature().getName();
+        Object result = null;
+        try {
+            List<Object> args = Arrays.asList(pjd.getArgs() + "]");
+            result = pjd.proceed();
+            val.append("\n[@Around：前置通知" + allName + args + "]");
+            val.append("\n[@Around：返回通知" + allName + " return：" + result + "]");
+        } catch (Throwable e) {
+            val.append("\n[@Around：异常通知" + allName + " excetion：" + e + "]");
 
-			e.printStackTrace();
-		}
-		// 后置通知
-		val.append("\n[@Around：后置通知" + allName + "]");
-		
-		System.out.println(val.toString());
-		return result;
-	}
+            e.printStackTrace();
+        }
+        // 后置通知
+        val.append("\n[@Around：后置通知" + allName + "]");
+        
+        System.out.println(val.toString());
+        return result;
+    }
 }
 ```
 
@@ -2667,7 +2667,7 @@ public class TestAspect {
 ```
 [1、starter项目pom.xml：建议创建maven项目，此项目演示redis配置，故需要引入jedis依赖：
 <dependency>
-	<groupId>redis.clients</groupId>
+    <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
 </dependency>]
 [2、创建properties类（RedisProperties）：可实现@ConfigurationProperties注解，指定prefix，eg:prefix="redis"]，定义属性及get/set方法
@@ -2681,11 +2681,11 @@ public class RedisConfiguration { } ]
 [4、configuration类创建Jedis bean（jedis）：1、入参RedisProperties
 2、创建Jedis实例传入 host和port信息
 3、通过@ConditionalOnMissingBean 配置 Jedis 优化bean的创建
-	@Bean
-	@ConditionalOnMissingBean
-	public Jedis jedis(RedisProperties properties) {
-		return new Jedis(properties.getHost(), properties.getPort());
-	}]
+    @Bean
+    @ConditionalOnMissingBean
+    public Jedis jedis(RedisProperties properties) {
+        return new Jedis(properties.getHost(), properties.getPort());
+    }]
 [5、starter项目启动configuration类：
 5.1、通过@Import实现开启configuration类(@EnableRedis)：@Import导入RedisAutoConfiguration类，然后@SpringBootApplication类实现@EnableRedis注解
 @Target(ElementType.TYPE)
@@ -2696,9 +2696,9 @@ public @interface EnableRedis { }5.2、可以通过resoureces/META-INF/spring.fa
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.mutistic.starter.RedisConfiguration]
 [6、引用方pom.xml：引用创建redis-starter的项目：eg：
 <dependency>
-	<groupId>com.mutistic</groupId>
-	<artifactId>com.mutistic.boot.web.redis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>com.mutistic</groupId>
+    <artifactId>com.mutistic.boot.web.redis</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 </dependency>]
 [7、引用方properties：可以配置redis.host，redis.port的信息，是可以传递给redis-starter的RedisProperties]
 [8、引用方就可以获取Jedis完成redis功能]
@@ -2713,24 +2713,24 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "redis")
 public class RedisProperties {
 
-	private String host;
-	private Integer port;
+    private String host;
+    private Integer port;
 
-	public String getHost() {
-		return host;
-	}
+    public String getHost() {
+        return host;
+    }
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+    public void setHost(String host) {
+        this.host = host;
+    }
 
-	public Integer getPort() {
-		return port;
-	}
+    public Integer getPort() {
+        return port;
+    }
 
-	public void setPort(Integer port) {
-		this.port = port;
-	}
+    public void setPort(Integer port) {
+        this.port = port;
+    }
 }
 ```
 RedisConfiguration.java：
@@ -2747,11 +2747,11 @@ import redis.clients.jedis.Jedis;
 @EnableConfigurationProperties
 @ConditionalOnClass(Jedis.class)
 public class RedisConfiguration {
-	@Bean
-	@ConditionalOnMissingBean
-	public Jedis jedis(RedisProperties properties) {
-		return new Jedis(properties.getHost(), properties.getPort());
-	}
+    @Bean
+    @ConditionalOnMissingBean
+    public Jedis jedis(RedisProperties properties) {
+        return new Jedis(properties.getHost(), properties.getPort());
+    }
 }
 ```
 RedisConfiguration.java：
@@ -2789,8 +2789,8 @@ LogbackLoggingSystem：[org.springframework.boot.logging.logback.LogbackLoggingS
 </dependency>]
 [1.1、如果使用slf4j具体的依赖配置：需要排除 spring-boot-starter-logging 默认日志依赖
 <dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-log4j12</artifactId>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
 </dependency>]
 
 [2、Logger：private static final Logger log = LoggerFactory.getLogger(TestControllerByLog.class);]
@@ -2809,60 +2809,60 @@ logging.level.root=DEBUG]
 [4.4.1、logging.pattern.console：设置控制台日志输出格式：eg：logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss.sss} [%p][%t] [%c:%L] - %m%n]
 [4.4.1、logging.pattern.file：设置文件日志输出格式]
 [4.4.3、日志格式参数说明：
-	%m 输出代码中指定的消息
-	%p	输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL
-	%r	输出自应用启动到输出该log信息耗费的毫秒数
-	%c	输出所属的类目，通常就是所在类的全名
-	%t	输出产生该日志事件的线程名
-	%n	输出一个回车换行符，Windows平台为“\r\n”，Unix平台为“\n”
-	%d	输出日志时间点的日期或时间，默认格式为ISO-8601，也可以在其后指定格式，比如：%d{yyy MMM dd HH:mm:ss.SSS}，
-	%l	输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)]
+    %m 输出代码中指定的消息
+    %p    输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL
+    %r    输出自应用启动到输出该log信息耗费的毫秒数
+    %c    输出所属的类目，通常就是所在类的全名
+    %t    输出产生该日志事件的线程名
+    %n    输出一个回车换行符，Windows平台为“\r\n”，Unix平台为“\n”
+    %d    输出日志时间点的日期或时间，默认格式为ISO-8601，也可以在其后指定格式，比如：%d{yyy MMM dd HH:mm:ss.SSS}，
+    %l    输出日志事件的发生位置，包括类目名、发生的线程，以及在代码中的行数。举例：Testlog4.main(TestLog4.java:10)]
 
 [5、spring boot 默认是使用logback.xml或logback-spring.xml文件设置日志信息，默认位置 src/resources，spring 推荐使用：logback-spring.xml]
 [5.1、logback.xml配置参考：https://logback.qos.ch/manual/configuration.html]
 [5.2、logback.xml或logback-spring.xml简单配置实例：
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<!-- 日志输出到文件的配置：使用ch.qos.logback.core.ConsoleAppender 适配器-->
-	<appender name="fileLog" class="ch.qos.logback.core.FileAppender">
-		<!-- 配置输出文件位置及文件名:默认在项目目录下 -->
-		<file>logs/catalina.log</file>
-		<!-- 配置输出格式 -->
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n
-			</pattern>
-		</encoder>
-	</appender>
-	<!-- 日志输出到控制台的配置 -->
-	<appender name="consoleLog"
-		class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n</pattern>
-		</encoder>
-	</appender>
+    <!-- 日志输出到文件的配置：使用ch.qos.logback.core.ConsoleAppender 适配器-->
+    <appender name="fileLog" class="ch.qos.logback.core.FileAppender">
+        <!-- 配置输出文件位置及文件名:默认在项目目录下 -->
+        <file>logs/catalina.log</file>
+        <!-- 配置输出格式 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- 日志输出到控制台的配置 -->
+    <appender name="consoleLog"
+        class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n</pattern>
+        </encoder>
+    </appender>
 
-	<root level="INFO">
-		<appender-ref ref="fileLog" />
-		<appender-ref ref="consoleLog" />
-	</root>
+    <root level="INFO">
+        <appender-ref ref="fileLog" />
+        <appender-ref ref="consoleLog" />
+    </root>
 </configuration>]
 [5.3、日志文件默认大小为10M，不可修改]
 
 [6、选用其他日志组件的配pom.xml配置：需要先排除掉默认logger依赖：以log4j2日志为例:
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
-	<exclusions>
-		<exclusion>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</exclusion>
-	</exclusions>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+    </exclusions>
 </dependency>
 <!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖-->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-log4j2</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-log4j2</artifactId>
 </dependency>]
 [6.1、log4j2默认的日志配置文件名是log4j2.xml或log4j2-spring.xml：配置信息参考logback.xml]
 ```
@@ -2871,25 +2871,25 @@ pom.xml添加slf4j-log4j12依赖：
 ```xml
 <!-- 添加web项目依赖 -->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
-	<!-- 引入其他log 需要排除spring-boot-starter-logging -->
-	<exclusions>
-		<exclusion>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</exclusion>
-	</exclusions>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <!-- 引入其他log 需要排除spring-boot-starter-logging -->
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+    </exclusions>
 </dependency>
 <!-- 添加 log4j2 日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
 <!-- <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-log4j2</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-log4j2</artifactId>
 </dependency> -->
 <!-- 添加slf4j日志依赖：需要排除 spring-boot-starter-logging 默认日志依赖 -->
 <dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-log4j12</artifactId>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
 </dependency>
 ```
 
@@ -2897,36 +2897,36 @@ src/main/resources/logback.xml日志配置参考：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<!-- 日志输出到文件的配置：使用ch.qos.logback.core.ConsoleAppender 适配器
-		参考配置位置：org.springframework.boot.logging.logback.file-appender.xml-->
-	<appender name="fileLog" class="ch.qos.logback.core.FileAppender">
-		<!-- 配置输出文件位置及文件名：默认在项目目录下 -->
-		<file>logs/catalina.out</file>
-		<!-- 配置回滚信息 -->
-		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<fileNamePattern>logs/catalina.%d{yyyy-MM-dd}.%i.out</fileNamePattern>
-			<maxFileSize>10MB</maxFileSize>
-			<maxHistory>30</maxHistory>
-		</rollingPolicy> -->
-		<!-- 配置输出格式 -->
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n
-			</pattern>
-		</encoder>
-	</appender>
+    <!-- 日志输出到文件的配置：使用ch.qos.logback.core.ConsoleAppender 适配器
+        参考配置位置：org.springframework.boot.logging.logback.file-appender.xml-->
+    <appender name="fileLog" class="ch.qos.logback.core.FileAppender">
+        <!-- 配置输出文件位置及文件名：默认在项目目录下 -->
+        <file>logs/catalina.out</file>
+        <!-- 配置回滚信息 -->
+        <!-- <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/catalina.%d{yyyy-MM-dd}.%i.out</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy> -->
+        <!-- 配置输出格式 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n
+            </pattern>
+        </encoder>
+    </appender>
 
-	<!-- 日志输出到控制台的配置：使用ch.qos.logback.core.ConsoleAppender 适配器
-		参考配置位置：org.springframework.boot.logging.logback.console-appender.xml -->
-	<appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n</pattern>
-		</encoder>
-	</appender>
+    <!-- 日志输出到控制台的配置：使用ch.qos.logback.core.ConsoleAppender 适配器
+        参考配置位置：org.springframework.boot.logging.logback.console-appender.xml -->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%p][%t] [%c:%L] - %m%n</pattern>
+        </encoder>
+    </appender>
 
-	<root level="INFO">
-		<appender-ref ref="fileLog" />
-		<appender-ref ref="consoleLog" />
-	</root>
+    <root level="INFO">
+        <appender-ref ref="fileLog" />
+        <appender-ref ref="consoleLog" />
+    </root>
 </configuration>
 ```
 
@@ -2936,8 +2936,8 @@ src/main/resources/logback.xml日志配置参考：
 ```
 [1、pom.xml添加actuator依赖：
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-actuator</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-actuator</artifactId>
 </dependency>]
 
 [2、浏览器访问日志打印的actuator开放的端口信息：http://127.0.0.1:8080/actuator 下]
@@ -2974,8 +2974,8 @@ pom.xml添加spring-boot-actuator依赖：
 ```xml
 <!-- 添加监控和度量依赖 -->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-actuator</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-actuator</artifactId>
 </dependency>
 ```
 
@@ -2984,9 +2984,9 @@ pom.xml添加spring-boot-actuator依赖：
 pom.xml添加spring-boot-starter-test依赖：
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-test</artifactId>
-	<scope>test</scope>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
 </dependency>
 ```
 @RunWith：org.junit.runner.RunWith
@@ -3011,28 +3011,28 @@ import com.mutistic.jdbc.MyTestDao;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JdbcTemplateTests {
-	@Autowired
-	private MyTestDao myTestDao;
-	@Test
-	public void testInsert() {
-		StringBuffer val = new StringBuffer("\n\n\n----------------------");
-		val.append("使用  @SpringBootTest 测试JdbcTemplate：");
-		val.append("\n[1、pom.xml添加test依赖：\n"
-				+ "<dependency>\n" + 
-				"			<groupId>org.springframework.boot</groupId>\n" + 
-				"			<artifactId>spring-boot-starter-test</artifactId>\n" + 
-				"			<scope>test</scope>\n" + 
-				"		</dependency>]");
-		
-		val.append("\n[2、Test类：实现 @RunWith(SpringRunner.class) 注解，并且实现@SpringBootTest注解]");
-		val.append("\n[3、方法：实现@Test注解]");
-		val.append("\n[PS1：test包下的在正式环境是会被忽略掉的]");
-		
-		val.append("========以下是JdbcTemplate信息=========");
-		val.append("\n[使用 JdbcTemplate通过execute() 方法执行sql语句完成数据插入]");
-		val.append("\n[执行sql：" + myTestDao.insert(2l, "test") + "]");
-		System.out.println(val.toString());
-	}
+    @Autowired
+    private MyTestDao myTestDao;
+    @Test
+    public void testInsert() {
+        StringBuffer val = new StringBuffer("\n\n\n----------------------");
+        val.append("使用  @SpringBootTest 测试JdbcTemplate：");
+        val.append("\n[1、pom.xml添加test依赖：\n"
+                + "<dependency>\n" + 
+                "            <groupId>org.springframework.boot</groupId>\n" + 
+                "            <artifactId>spring-boot-starter-test</artifactId>\n" + 
+                "            <scope>test</scope>\n" + 
+                "        </dependency>]");
+        
+        val.append("\n[2、Test类：实现 @RunWith(SpringRunner.class) 注解，并且实现@SpringBootTest注解]");
+        val.append("\n[3、方法：实现@Test注解]");
+        val.append("\n[PS1：test包下的在正式环境是会被忽略掉的]");
+        
+        val.append("========以下是JdbcTemplate信息=========");
+        val.append("\n[使用 JdbcTemplate通过execute() 方法执行sql语句完成数据插入]");
+        val.append("\n[执行sql：" + myTestDao.insert(2l, "test") + "]");
+        System.out.println(val.toString());
+    }
 }
 ```
 
@@ -3054,33 +3054,33 @@ import org.springframework.test.context.junit4.SpringRunner;
 // @SpringBootTest
 @SpringBootTest(properties = { "app.version=1.0.0" })
 public class EnvironmentTests {
-	@Autowired
-	private ConfigurableEnvironment env;
-	@Before
-	public void initProperties() {
-		EnvironmentTestUtils.addEnvironment(env, "app.name=spring boot web test");
-	}
+    @Autowired
+    private ConfigurableEnvironment env;
+    @Before
+    public void initProperties() {
+        EnvironmentTestUtils.addEnvironment(env, "app.name=spring boot web test");
+    }
 
-	@Test
-	public void testShowValue() {
-		StringBuffer val = new StringBuffer("\n\n\n----------------------");	
-		val.append("使用 EnvironmentTestUtils 配置测试环境生效的属性信息：");
-		val.append("\n[1、@SpringBootTest类：注入org.springframework.core.env.Environment]");
-		val.append("\n[2、Test默认有限取test下的配置文件，取不到后会取主目录下的配置文件]");
-		val.append("\n[3、可以通过@SpringBootTest的properties属性 配置参数]");
-		val.append("\n[4、可以通过EnvironmentTestUtils添加配置参数：\n"
-				+ "4.1、声明一个方法，实现org.junit.Before注解\n"
-				+ "4.2、通过EnvironmentTestUtils.addEnvironment() 方法添加属性：\n"
-				+ "EnvironmentTestUtils.addEnvironment(env, \"app.name=spring boot web test\")"
-				+ "4.3、env类型为：org.springframework.core.env.ConfigurableEnvironment]");
+    @Test
+    public void testShowValue() {
+        StringBuffer val = new StringBuffer("\n\n\n----------------------");    
+        val.append("使用 EnvironmentTestUtils 配置测试环境生效的属性信息：");
+        val.append("\n[1、@SpringBootTest类：注入org.springframework.core.env.Environment]");
+        val.append("\n[2、Test默认有限取test下的配置文件，取不到后会取主目录下的配置文件]");
+        val.append("\n[3、可以通过@SpringBootTest的properties属性 配置参数]");
+        val.append("\n[4、可以通过EnvironmentTestUtils添加配置参数：\n"
+                + "4.1、声明一个方法，实现org.junit.Before注解\n"
+                + "4.2、通过EnvironmentTestUtils.addEnvironment() 方法添加属性：\n"
+                + "EnvironmentTestUtils.addEnvironment(env, \"app.name=spring boot web test\")"
+                + "4.3、env类型为：org.springframework.core.env.ConfigurableEnvironment]");
 
-		val.append("========以下是ConfigurableEnvironment获取properties信息=========");
-		val.append("\n[获取配置参数server.port：" + env.getProperty("server.port") + "]");
-		val.append("\n[获取@SpringBootTest配置的属性app.version：" + env.getProperty("app.version") + "]");
-		val.append("\n[获取EnvironmentTestUtils.addEnvironment()添加的属性app.name：" + env.getProperty("app.name") + "]");
-		System.out.println(val.toString());
+        val.append("========以下是ConfigurableEnvironment获取properties信息=========");
+        val.append("\n[获取配置参数server.port：" + env.getProperty("server.port") + "]");
+        val.append("\n[获取@SpringBootTest配置的属性app.version：" + env.getProperty("app.version") + "]");
+        val.append("\n[获取EnvironmentTestUtils.addEnvironment()添加的属性app.name：" + env.getProperty("app.name") + "]");
+        System.out.println(val.toString());
 
-	}
+    }
 }
 ```
 
@@ -3094,8 +3094,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 @TestConfiguration
 public class ConfigurationTests {
-	@Bean
-	public Runnable createrRunnable() { return () -> {}; }
+    @Bean
+    public Runnable createrRunnable() { return () -> {}; }
 }
 ```
 
@@ -3113,21 +3113,21 @@ import com.mutistic.jdbc.MyTestDao;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ConfigurationTests.class)
 public class ApplicationContextTests {
-	@Autowired
-	private ApplicationContext context;
-	@Test
-	public void testShowTestBean() {
-		StringBuffer val = new StringBuffer("\n\n\n----------------------");
-		val.append("使用 @TestConfiguration 配置测试环境生效的配置信息：");
-		val.append("\n[1、Configuration类：实现 @TestConfiguration注解，注意不能使用@Configuration或@SpringBootConfiguration注解配置类]");
-		val.append("\n[2、@SpringBootTest类：通过classes属性配置Configuration类，否者@TestConfiguration不会生效：\n"
-				+ "@SpringBootTest(classes = ConfigurationTests.class)]");
+    @Autowired
+    private ApplicationContext context;
+    @Test
+    public void testShowTestBean() {
+        StringBuffer val = new StringBuffer("\n\n\n----------------------");
+        val.append("使用 @TestConfiguration 配置测试环境生效的配置信息：");
+        val.append("\n[1、Configuration类：实现 @TestConfiguration注解，注意不能使用@Configuration或@SpringBootConfiguration注解配置类]");
+        val.append("\n[2、@SpringBootTest类：通过classes属性配置Configuration类，否者@TestConfiguration不会生效：\n"
+                + "@SpringBootTest(classes = ConfigurationTests.class)]");
 
-		val.append("========以下是ApplicationContext获取bean信息=========");
-		val.append("\n[输出正常测试bean：" + context.getBeansOfType(MyTestDao.class) + "]");
-		val.append("\n[输出测试环境bean：" + context.getBeansOfType(Runnable.class) + "]");
-		System.out.println(val.toString());
-	}
+        val.append("========以下是ApplicationContext获取bean信息=========");
+        val.append("\n[输出正常测试bean：" + context.getBeansOfType(MyTestDao.class) + "]");
+        val.append("\n[输出测试环境bean：" + context.getBeansOfType(Runnable.class) + "]");
+        System.out.println(val.toString());
+    }
 }
 ```
 
@@ -3162,65 +3162,65 @@ import com.mutistic.utils.CommonUtil;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MockTests {
-	// 使用@MockBean创建测试bean
-	@MockBean
-	private MockUserMapper mockUserMapper;
-	//  在执行测试之前需要的前置通知 
-	@Before
-	public void craterMockit() {
-		BDDMockito.given(mockUserMapper.createrUser("mutistic")).willReturn(999);
-		CommonUtil.printTwo("使用@Before 添加预测传入mutistic，返回结果为999：", "BDDMockito.given(mockUserMapper.createrUser(\"mutistic\")).willReturn(999);");
-	}
-	
-	@Test(expected = NullPointerException.class)
-	public void testCreater() {
-		StringBuffer val = new StringBuffer("\n\n\n----------------------");	
-		val.append("使用 @MockBean 创建bean用来做预测接口方法的测试：");
-		val.append("\n[1、使用 @MockBean(org.springframework.boot.test.mock.mockito.MockBean)注解 创建bean]");
-		val.append("\n[1.1、MockBean："+ mockUserMapper.getClass() +"]");
-		val.append("\n[2、使用 org.mockito.BDDMockito.given()：调用接口方法]");
-		val.append("\n[3、使用BDDMockito.given().willReturn()：预测接口的返回值]");
-		val.append("\n[4、使用BDDMockito.given().willThrow()：预测接口抛出异常]");
-		val.append("\n[4.1、预测接口抛出异常时需要，@Test注解通过 expected 字段 设置异常类型]");
-		val.append("\n[5、预测信息也可以通过@Before(org.junit.Before)注解的方法配置]");
-		System.out.println(val.toString());
-		
-		
-		CommonUtil.printOne("以下时预测和断言信息：");
-		// 调用接口，预测返回结果
-		BDDMockito.given(mockUserMapper.createrUser("")).willReturn(0); // 预测传入空字符串，返回0
-		CommonUtil.printTwo("预测传入空字符串，返回结果为0：", "BDDMockito.given(mockUserMapper.createrUser(\"\")).willReturn(0);");
-		
-		BDDMockito.given(mockUserMapper.createrUser("admin")).willReturn(1); // 预测传入admin，返回1
-		CommonUtil.printThree("预测传入admin，返回结果为1：", "BDDMockito.given(mockUserMapper.createrUser(\"admin\")).willReturn(1);");
-		
-		BDDMockito.given(mockUserMapper.createrUser(null)).willThrow(NullPointerException.class); // 预测传入null，抛出  NullPointerException异常
-		CommonUtil.printThree("预测传入null，抛出  NullPointerException异常：", "BDDMockito.given(mockUserMapper.createrUser(null)).willThrow(NullPointerException.class);");
-		
-		
-		// 断言接口
-		Assert.assertEquals(Integer.valueOf(0), mockUserMapper.createrUser("")); // 断言调用接口传入"" 结果为0
-		CommonUtil.printTwo("断言调用接口传入\"\" 结果为0：断言成功：", "Assert.assertEquals(Integer.valueOf(0), mockUserMapper.createrUser(\"\"));");
+    // 使用@MockBean创建测试bean
+    @MockBean
+    private MockUserMapper mockUserMapper;
+    //  在执行测试之前需要的前置通知 
+    @Before
+    public void craterMockit() {
+        BDDMockito.given(mockUserMapper.createrUser("mutistic")).willReturn(999);
+        CommonUtil.printTwo("使用@Before 添加预测传入mutistic，返回结果为999：", "BDDMockito.given(mockUserMapper.createrUser(\"mutistic\")).willReturn(999);");
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testCreater() {
+        StringBuffer val = new StringBuffer("\n\n\n----------------------");    
+        val.append("使用 @MockBean 创建bean用来做预测接口方法的测试：");
+        val.append("\n[1、使用 @MockBean(org.springframework.boot.test.mock.mockito.MockBean)注解 创建bean]");
+        val.append("\n[1.1、MockBean："+ mockUserMapper.getClass() +"]");
+        val.append("\n[2、使用 org.mockito.BDDMockito.given()：调用接口方法]");
+        val.append("\n[3、使用BDDMockito.given().willReturn()：预测接口的返回值]");
+        val.append("\n[4、使用BDDMockito.given().willThrow()：预测接口抛出异常]");
+        val.append("\n[4.1、预测接口抛出异常时需要，@Test注解通过 expected 字段 设置异常类型]");
+        val.append("\n[5、预测信息也可以通过@Before(org.junit.Before)注解的方法配置]");
+        System.out.println(val.toString());
+        
+        
+        CommonUtil.printOne("以下时预测和断言信息：");
+        // 调用接口，预测返回结果
+        BDDMockito.given(mockUserMapper.createrUser("")).willReturn(0); // 预测传入空字符串，返回0
+        CommonUtil.printTwo("预测传入空字符串，返回结果为0：", "BDDMockito.given(mockUserMapper.createrUser(\"\")).willReturn(0);");
+        
+        BDDMockito.given(mockUserMapper.createrUser("admin")).willReturn(1); // 预测传入admin，返回1
+        CommonUtil.printThree("预测传入admin，返回结果为1：", "BDDMockito.given(mockUserMapper.createrUser(\"admin\")).willReturn(1);");
+        
+        BDDMockito.given(mockUserMapper.createrUser(null)).willThrow(NullPointerException.class); // 预测传入null，抛出  NullPointerException异常
+        CommonUtil.printThree("预测传入null，抛出  NullPointerException异常：", "BDDMockito.given(mockUserMapper.createrUser(null)).willThrow(NullPointerException.class);");
+        
+        
+        // 断言接口
+        Assert.assertEquals(Integer.valueOf(0), mockUserMapper.createrUser("")); // 断言调用接口传入"" 结果为0
+        CommonUtil.printTwo("断言调用接口传入\"\" 结果为0：断言成功：", "Assert.assertEquals(Integer.valueOf(0), mockUserMapper.createrUser(\"\"));");
 
-		Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser("admin")); // 断言调用接口传入admin 结果为1
-		CommonUtil.printThree("断言调用接口传入admin 结果为1：断言成功：", "Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser(\"admin\"));");
-		
-		Assert.assertEquals(Integer.valueOf(999), mockUserMapper.createrUser("mutistic")); // 断言调用接口传入预测不存在的信息
-		CommonUtil.printThree("断言调用接口传入mutistic 结果为999：断言成功：", "Assert.assertEquals(Integer.valueOf(999), mockUserMapper.createrUser(\"mutistic\"));");
-	
-		Assert.assertEquals(Integer.valueOf(11), mockUserMapper.createrUser(null)); // 断言调用接口传入null, 结果抛出NullPointerException异常
-		CommonUtil.printThree("断言调用接口传入null, 结果抛出NullPointerException异常：断言成功：", "Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser(null));");
+        Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser("admin")); // 断言调用接口传入admin 结果为1
+        CommonUtil.printThree("断言调用接口传入admin 结果为1：断言成功：", "Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser(\"admin\"));");
+        
+        Assert.assertEquals(Integer.valueOf(999), mockUserMapper.createrUser("mutistic")); // 断言调用接口传入预测不存在的信息
+        CommonUtil.printThree("断言调用接口传入mutistic 结果为999：断言成功：", "Assert.assertEquals(Integer.valueOf(999), mockUserMapper.createrUser(\"mutistic\"));");
+    
+        Assert.assertEquals(Integer.valueOf(11), mockUserMapper.createrUser(null)); // 断言调用接口传入null, 结果抛出NullPointerException异常
+        CommonUtil.printThree("断言调用接口传入null, 结果抛出NullPointerException异常：断言成功：", "Assert.assertEquals(Integer.valueOf(1), mockUserMapper.createrUser(null));");
 
-//		Assert.assertEquals(Integer.valueOf(11), mockUserMapper.createrUser("not exists")); // 断言调用接口传入预测不存在的信息
-		CommonUtil.printThree("断言调用接口传入不存在的信息 结果为11，：断言成功：", "Assert.assertEquals(Integer.valueOf(111), mockUserMapper.createrUser(\"not exists\"));");
-	}
+//        Assert.assertEquals(Integer.valueOf(11), mockUserMapper.createrUser("not exists")); // 断言调用接口传入预测不存在的信息
+        CommonUtil.printThree("断言调用接口传入不存在的信息 结果为11，：断言成功：", "Assert.assertEquals(Integer.valueOf(111), mockUserMapper.createrUser(\"not exists\"));");
+    }
 }
 ```
 MockUserMapper.java：
 ```
 package com.mutistic.test.mok;
 public interface MockUserMapper {
-	public Integer createrUser(String userName);
+    public Integer createrUser(String userName);
 }
 ```
 
@@ -3241,29 +3241,29 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ControllerTestsByTempleate {
-	@Autowired
-	private TestRestTemplate testRestTemplate;
-	@Test
-	public void testShowTest() {
-		StringBuffer val = new StringBuffer("\n\n\n----------------------");
-		val.append("使用 TestRestTemplate 测试Controller：");
-		val.append("\n[1、@SpringBootTest注解类：使用webEnvironment属性配置为WebEnvironment.RANDOM_PORT：随机接口]");
-		val.append("\n[2、注入TestRestTemplate(org.springframework.boot.test.web.client.TestRestTemplate) bean]");
-		val.append("\n[3、TestRestTemplate.getForObject()：方法模拟请求Controller接口]");
-		val.append("\n[4、getForObject()为Controller接口返回值]");
-		val.append("\n[PS1、TestRestTemplate 需要在web环境下，才能注入进来]");
-		System.out.println(val.toString());
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+    @Test
+    public void testShowTest() {
+        StringBuffer val = new StringBuffer("\n\n\n----------------------");
+        val.append("使用 TestRestTemplate 测试Controller：");
+        val.append("\n[1、@SpringBootTest注解类：使用webEnvironment属性配置为WebEnvironment.RANDOM_PORT：随机接口]");
+        val.append("\n[2、注入TestRestTemplate(org.springframework.boot.test.web.client.TestRestTemplate) bean]");
+        val.append("\n[3、TestRestTemplate.getForObject()：方法模拟请求Controller接口]");
+        val.append("\n[4、getForObject()为Controller接口返回值]");
+        val.append("\n[PS1、TestRestTemplate 需要在web环境下，才能注入进来]");
+        System.out.println(val.toString());
 
-		String context = testRestTemplate.getForObject("/testsController/showTest", String.class);
-		Assert.assertEquals("TestsController.showTest", context);
-	}
-	@Test
-	public void testShowByParams() {
-		System.out.println("Get请求可以在请求路径上直接传参： url?key=value");
-		Long id = 100l;
-		String context = testRestTemplate.getForObject("/testsController/showByParams?id=" + id, String.class);
-		Assert.assertEquals("TestsController.showByParams" + id, context);
-	}
+        String context = testRestTemplate.getForObject("/testsController/showTest", String.class);
+        Assert.assertEquals("TestsController.showTest", context);
+    }
+    @Test
+    public void testShowByParams() {
+        System.out.println("Get请求可以在请求路径上直接传参： url?key=value");
+        Long id = 100l;
+        String context = testRestTemplate.getForObject("/testsController/showByParams?id=" + id, String.class);
+        Assert.assertEquals("TestsController.showByParams" + id, context);
+    }
 }
 
 ```
@@ -3286,46 +3286,46 @@ import com.mutistic.tests.TestsController;
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = TestsController.class)
 public class ControllerTestsByMockMvc {
-	@Autowired
-	private MockMvc mockMvc;
-	@Test
-	public void testShowTest() throws Exception {
-		StringBuffer val = new StringBuffer("\n\n\n----------------------");
-		val.append("使用 TestRestTemplate 测试Controller：");
-		val.append("\n[1、类：实现@WebMvcTest注解，通过 controllers指定需要测试的Controller类]");
-		val.append("\n[2、注入MockMvc(org.springframework.test.web.servlet.MockMvc) bean]");
-		val.append("\n[3、MockMvc.perform()：调用接口：入参：MockMvcRequestBuilders]");
-		val.append("\n[4、MockMvcRequestBuilders.get()：设置调用URL和请求方式，还有post()等请求方式]");
-		val.append("\n[5、MockMvc.perform().andExpect()：设置预测返回结果]");
-		val.append("\n[6、MockMvcResultMatchers.status().isOk()：预测接口访问成功：isOk() = HttpStatus.OK = 200]");
-		val.append("\n[7、MockMvcResultMatchers.content().string(value)：设置预测返回结果类型为String且值为value]");
-		val.append("\n[PS1：	@WebMvcTest不需要运行在Web环境下，但是需要自行执定Controller]");
-		val.append("\n[PS2：	@WebMvcTest和@SpringBootTest不能同时使用]");
-		val.append("\n[PS3：	@WebMvcTest不会加载整个spring bean，@SpringBootTest可以加载整个spring bean]");
-		val.append("\n[PS4：	@SpringBootTest + @AutoConfigureMockMvc 可以注入 MockMvc bean]");
-		System.out.println(val.toString());
+    @Autowired
+    private MockMvc mockMvc;
+    @Test
+    public void testShowTest() throws Exception {
+        StringBuffer val = new StringBuffer("\n\n\n----------------------");
+        val.append("使用 TestRestTemplate 测试Controller：");
+        val.append("\n[1、类：实现@WebMvcTest注解，通过 controllers指定需要测试的Controller类]");
+        val.append("\n[2、注入MockMvc(org.springframework.test.web.servlet.MockMvc) bean]");
+        val.append("\n[3、MockMvc.perform()：调用接口：入参：MockMvcRequestBuilders]");
+        val.append("\n[4、MockMvcRequestBuilders.get()：设置调用URL和请求方式，还有post()等请求方式]");
+        val.append("\n[5、MockMvc.perform().andExpect()：设置预测返回结果]");
+        val.append("\n[6、MockMvcResultMatchers.status().isOk()：预测接口访问成功：isOk() = HttpStatus.OK = 200]");
+        val.append("\n[7、MockMvcResultMatchers.content().string(value)：设置预测返回结果类型为String且值为value]");
+        val.append("\n[PS1：    @WebMvcTest不需要运行在Web环境下，但是需要自行执定Controller]");
+        val.append("\n[PS2：    @WebMvcTest和@SpringBootTest不能同时使用]");
+        val.append("\n[PS3：    @WebMvcTest不会加载整个spring bean，@SpringBootTest可以加载整个spring bean]");
+        val.append("\n[PS4：    @SpringBootTest + @AutoConfigureMockMvc 可以注入 MockMvc bean]");
+        System.out.println(val.toString());
 
-		// 预测接口调用成功 isOk() = HttpStatus.OK = 200
-		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showTest"))
-				.andExpect(MockMvcResultMatchers.status().isOk()); // 预测结果是能够访问成功
+        // 预测接口调用成功 isOk() = HttpStatus.OK = 200
+        mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showTest"))
+                .andExpect(MockMvcResultMatchers.status().isOk()); // 预测结果是能够访问成功
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showTest"))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.content().string("TestsController.showTest")); // 预测接口返回
-	}
+        mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showTest"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("TestsController.showTest")); // 预测接口返回
+    }
 
-	@Test
-	public void testShowByParams() throws Exception {
-		System.out.println("MockMvcRequestBuilders.get().param()：添加参数");
-		Long id = 400l;
-		// 预测接口调用成功 isOk() = HttpStatus.OK = 200
-		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showByParams").param("id", id + ""))
-				.andExpect(MockMvcResultMatchers.status().isOk()); // 预测结果是能够访问成功
+    @Test
+    public void testShowByParams() throws Exception {
+        System.out.println("MockMvcRequestBuilders.get().param()：添加参数");
+        Long id = 400l;
+        // 预测接口调用成功 isOk() = HttpStatus.OK = 200
+        mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showByParams").param("id", id + ""))
+                .andExpect(MockMvcResultMatchers.status().isOk()); // 预测结果是能够访问成功
 
-		// 预测接口调用成功 isOk() = HttpStatus.OK = 200
-		mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showByParams").param("id", id + ""))
-				.andExpect(MockMvcResultMatchers.content().string("TestsController.showByParams" + id)); // 预测结果是能够访问成功
-	}
+        // 预测接口调用成功 isOk() = HttpStatus.OK = 200
+        mockMvc.perform(MockMvcRequestBuilders.get("/testsController/showByParams").param("id", id + ""))
+                .andExpect(MockMvcResultMatchers.content().string("TestsController.showByParams" + id)); // 预测结果是能够访问成功
+    }
 }
 ```
 
@@ -3336,69 +3336,69 @@ pom.xml：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mutistic</groupId>
-	<artifactId>com.mutistic.boot.server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <groupId>com.mutistic</groupId>
+    <artifactId>com.mutistic.boot.server</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-	<name>com.mutistic.boot.server</name>
-	<description>server</description>
+    <name>com.mutistic.boot.server</name>
+    <description>server</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-		<relativePath />
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.RELEASE</version>
+        <relativePath />
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-		<!-- fastjson依赖 -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.47</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <!-- fastjson依赖 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 ```
 
@@ -3439,39 +3439,39 @@ import com.mutistic.mapper.BookMapper;
 import com.mutistic.utils.CommonUtil;
 @SpringBootApplication
 public class Application {
-	public static void main(String[] args) {
-		ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
-		testBookMapper(ctx);
-	}
+    public static void main(String[] args) {
+        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
+        testBookMapper(ctx);
+    }
 
-	private static void testBookMapper(ConfigurableApplicationContext ctx) {
-		CommonUtil.printOne("获取BookMapper bean："+ ctx.getBean(BookMapper.class));
-		
-		BookMapper mapper = ctx.getBean(BookMapper.class);
-		
-		CommonUtil.printOne("测试BookMapper.insert()方法:");
-		BookEntity insert = new BookEntity();
-		insert.setBookId((new Date()).getTime());
-		insert.setTitle("test title");
-		insert.setAuthor("test author");
-		insert.setRemark("test remark");
-		insert.setCreaterTime(new Date());
-		CommonUtil.printThree("新增结果：", mapper.insert(insert));
-		
-		CommonUtil.printOne("测试BookMapper.queryAllList()方法:");
-		CommonUtil.printThree("查询结果：", mapper.queryAllList());
-		
-		CommonUtil.printOne("测试BookMapper.queryById()方法:");
-		BookEntity query = mapper.queryById(insert.getBookId());
-		CommonUtil.printThree("查询结果：", query == null ? null : query.toString());
-		
-		CommonUtil.printOne("测试BookMapper.update()方法:");
-		query.setCreaterTime(new Date());
-		CommonUtil.printThree("更新结果：", mapper.update(query));
-		
-		CommonUtil.printOne("测试BookMapper.delete()方法:");
-		CommonUtil.printThree("删除结果：", mapper.delete(insert.getBookId()));
-	}
+    private static void testBookMapper(ConfigurableApplicationContext ctx) {
+        CommonUtil.printOne("获取BookMapper bean："+ ctx.getBean(BookMapper.class));
+        
+        BookMapper mapper = ctx.getBean(BookMapper.class);
+        
+        CommonUtil.printOne("测试BookMapper.insert()方法:");
+        BookEntity insert = new BookEntity();
+        insert.setBookId((new Date()).getTime());
+        insert.setTitle("test title");
+        insert.setAuthor("test author");
+        insert.setRemark("test remark");
+        insert.setCreaterTime(new Date());
+        CommonUtil.printThree("新增结果：", mapper.insert(insert));
+        
+        CommonUtil.printOne("测试BookMapper.queryAllList()方法:");
+        CommonUtil.printThree("查询结果：", mapper.queryAllList());
+        
+        CommonUtil.printOne("测试BookMapper.queryById()方法:");
+        BookEntity query = mapper.queryById(insert.getBookId());
+        CommonUtil.printThree("查询结果：", query == null ? null : query.toString());
+        
+        CommonUtil.printOne("测试BookMapper.update()方法:");
+        query.setCreaterTime(new Date());
+        CommonUtil.printThree("更新结果：", mapper.update(query));
+        
+        CommonUtil.printOne("测试BookMapper.delete()方法:");
+        CommonUtil.printThree("删除结果：", mapper.delete(insert.getBookId()));
+    }
 }
 ```
 
@@ -3482,29 +3482,29 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 // book 实体 
 public class BookEntity {
-	private Long bookId;
-	private String title;
-	private String author;
-	private String remark;
-//	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GTM+8") // 字符串(格式为yyyy-MM-dd HH:mm:ss)转换为日期java.util.Date
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date createrTime;
-	
-	public Long getBookId() { return bookId; }
-	public void setBookId(Long bookId) { this.bookId = bookId; }
-	public String getTitle() { return title; }
-	public void setTitle(String title) { this.title = title; }
-	public String getAuthor() { return author; }
-	public void setAuthor(String author) { this.author = author;}
-	public String getRemark() {	return remark;}
-	public void setRemark(String remark) {this.remark = remark;	}
-	public Date getCreaterTime() {return createrTime;}
-	public void setCreaterTime(Date createrTime) {this.createrTime = createrTime;	}
-	@Override
-	public String toString() {
-		return "BookEntity [bookId=" + bookId + ", title=" + title + ", author=" + author + ", remark=" + remark
-				+ ", createrTime=" + createrTime + "]";
-	}
+    private Long bookId;
+    private String title;
+    private String author;
+    private String remark;
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GTM+8") // 字符串(格式为yyyy-MM-dd HH:mm:ss)转换为日期java.util.Date
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date createrTime;
+    
+    public Long getBookId() { return bookId; }
+    public void setBookId(Long bookId) { this.bookId = bookId; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author;}
+    public String getRemark() {    return remark;}
+    public void setRemark(String remark) {this.remark = remark;    }
+    public Date getCreaterTime() {return createrTime;}
+    public void setCreaterTime(Date createrTime) {this.createrTime = createrTime;    }
+    @Override
+    public String toString() {
+        return "BookEntity [bookId=" + bookId + ", title=" + title + ", author=" + author + ", remark=" + remark
+                + ", createrTime=" + createrTime + "]";
+    }
 }
 ```
 
@@ -3520,20 +3520,20 @@ import org.apache.ibatis.annotations.Update;
 import com.mutistic.entity.BookEntity;
 @Mapper
 public interface BookMapper {
-	@Insert("INSERT INTO book (bookId, title, author, remark, createrTime) VALUES (#{bookId}, #{title}, #{author}, #{remark}, #{createrTime}) ")
-	Integer insert(BookEntity entity);
-	
-	@Select("SELECT bookId, title, author, remark, createrTime FROM book")
-	List<BookEntity> queryAllList();
-	
-	@Select("SELECT bookId, title, author, remark, createrTime FROM book WHERE bookId = #{id}")
-	BookEntity queryById(Long id);
-	
-	@Update("UPDATE book SET bookId = #{bookId}, title = #{title}, author = #{author}, remark = #{remark}, createrTime = #{createrTime}  WHERE bookId = #{bookId}")
-	Integer update(BookEntity entity);
-	
-	@Delete("DELETE FROM book WHERE bookId = #{id}")
-	Integer delete(Long id);
+    @Insert("INSERT INTO book (bookId, title, author, remark, createrTime) VALUES (#{bookId}, #{title}, #{author}, #{remark}, #{createrTime}) ")
+    Integer insert(BookEntity entity);
+    
+    @Select("SELECT bookId, title, author, remark, createrTime FROM book")
+    List<BookEntity> queryAllList();
+    
+    @Select("SELECT bookId, title, author, remark, createrTime FROM book WHERE bookId = #{id}")
+    BookEntity queryById(Long id);
+    
+    @Update("UPDATE book SET bookId = #{bookId}, title = #{title}, author = #{author}, remark = #{remark}, createrTime = #{createrTime}  WHERE bookId = #{bookId}")
+    Integer update(BookEntity entity);
+    
+    @Delete("DELETE FROM book WHERE bookId = #{id}")
+    Integer delete(Long id);
 }
 ```
 
@@ -3557,31 +3557,31 @@ import com.mutistic.mapper.BookMapper;
 @RestController
 @RequestMapping("/bookController/")
 public class BookController {
-	@Autowired
-	private BookMapper bookMapper;
-	// 查询所有book信息 
-	@GetMapping("queryAllList")
-	public Object queryAllList(HttpServletRequest request) { return ResponseUtil.setSuccess(bookMapper.queryAllList()); }
-	// 根据ID查询book信息
-	@GetMapping("queryById")
-	public Object queryById(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.queryById(id)); }
-	// 新增book信息 
-	@PostMapping("insert")
-	public Object insert(@RequestBody BookEntity book) {
-		book.setBookId((new Date()).getTime());
-		if(null == book.getCreaterTime()) 
-			book.setCreaterTime(new Date());
-		return ResponseUtil.setSuccess(bookMapper.insert(book));
-	}
-	// 修改book信息 
-	@PostMapping("update")
-	public Object update(@RequestBody BookEntity book) {
-		if(null == book.getCreaterTime()) book.setCreaterTime(new Date());
-		return ResponseUtil.setSuccess(bookMapper.update(book));
-	}
-	//根据ID删除book信息 
-	@DeleteMapping("delete")
-	public Object delete(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.delete(id)); }
+    @Autowired
+    private BookMapper bookMapper;
+    // 查询所有book信息 
+    @GetMapping("queryAllList")
+    public Object queryAllList(HttpServletRequest request) { return ResponseUtil.setSuccess(bookMapper.queryAllList()); }
+    // 根据ID查询book信息
+    @GetMapping("queryById")
+    public Object queryById(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.queryById(id)); }
+    // 新增book信息 
+    @PostMapping("insert")
+    public Object insert(@RequestBody BookEntity book) {
+        book.setBookId((new Date()).getTime());
+        if(null == book.getCreaterTime()) 
+            book.setCreaterTime(new Date());
+        return ResponseUtil.setSuccess(bookMapper.insert(book));
+    }
+    // 修改book信息 
+    @PostMapping("update")
+    public Object update(@RequestBody BookEntity book) {
+        if(null == book.getCreaterTime()) book.setCreaterTime(new Date());
+        return ResponseUtil.setSuccess(bookMapper.update(book));
+    }
+    //根据ID删除book信息 
+    @DeleteMapping("delete")
+    public Object delete(@RequestParam("id") Long id) { return ResponseUtil.setSuccess(bookMapper.delete(id)); }
 }
 ```
 
@@ -3596,19 +3596,19 @@ import org.springframework.ui.ModelMap;
 import com.alibaba.fastjson.JSON;
 // Response 工具类
 public class ResponseUtil {
-	private static final Logger log = LoggerFactory.getLogger(ResponseUtil.class);
-	public static ResponseEntity<ModelMap> setSuccess(Object data) {
-		ModelMap mode = new ModelMap();
-		if (data != null) {
-			mode.put("data", data);
-		}
+    private static final Logger log = LoggerFactory.getLogger(ResponseUtil.class);
+    public static ResponseEntity<ModelMap> setSuccess(Object data) {
+        ModelMap mode = new ModelMap();
+        if (data != null) {
+            mode.put("data", data);
+        }
 
-		mode.put("code", HttpStatus.OK.value());
-		mode.put("msg", HttpStatus.OK.getReasonPhrase());
-		mode.put("timestamp", System.currentTimeMillis());
-		log.info("response===> "+ JSON.toJSONString(mode));
-		return ResponseEntity.ok(mode);
-	}
+        mode.put("code", HttpStatus.OK.value());
+        mode.put("msg", HttpStatus.OK.getReasonPhrase());
+        mode.put("timestamp", System.currentTimeMillis());
+        log.info("response===> "+ JSON.toJSONString(mode));
+        return ResponseEntity.ok(mode);
+    }
 }
 ```
 
@@ -3640,9 +3640,9 @@ zk 与  curator 版本关系：【curator的版本：3.x或4.x，对应Zookeeper
 ```xml
 <!-- 服务的注册和发现(使用zokkeeper)：服务方使用组件:curator-x-discovery-server -->
 <dependency>
-	<groupId>org.apache.curator</groupId>
-	<artifactId>curator-x-discovery-server</artifactId>
-	<version>2.12.0</version>
+    <groupId>org.apache.curator</groupId>
+    <artifactId>curator-x-discovery-server</artifactId>
+    <version>2.12.0</version>
 </dependency>
 ```
 
@@ -3664,56 +3664,56 @@ import org.springframework.stereotype.Component;
 // ZK注册服务
 @Component
 public class ZKServiceRegister implements ApplicationRunner {
-	private static final Logger log = LoggerFactory.getLogger(ZKServiceRegister.class);
+    private static final Logger log = LoggerFactory.getLogger(ZKServiceRegister.class);
 
-	@Value("${zookeeper.address}")
-	private String zkAddress;
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
+    @Value("${zookeeper.address}")
+    private String zkAddress;
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
 
-		// 注册zk客户端
-		CuratorFramework client = CuratorFrameworkFactory.newClient(zkAddress, new RetryOneTime(400000));
-		client.start(); // 启动zk
-		client.blockUntilConnected(); // 链接
+        // 注册zk客户端
+        CuratorFramework client = CuratorFrameworkFactory.newClient(zkAddress, new RetryOneTime(400000));
+        client.start(); // 启动zk
+        client.blockUntilConnected(); // 链接
 
-		// 注册 127.0.0.1:8888 服务节点：服务节点名称为：address
-		ServiceInstance<Object> instances = ServiceInstance.builder().name("address").address("127.0.0.1").port(8888)
-				.build();
-		// 注册 book 服务 路径为host
-		ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
-				.basePath("/host").build();
-		discovery.registerService(instances);
-		discovery.start();
-		log.info("zookepper 服务注册成功：127.0.0.1:8888");
+        // 注册 127.0.0.1:8888 服务节点：服务节点名称为：address
+        ServiceInstance<Object> instances = ServiceInstance.builder().name("address").address("127.0.0.1").port(8888)
+                .build();
+        // 注册 book 服务 路径为host
+        ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
+                .basePath("/host").build();
+        discovery.registerService(instances);
+        discovery.start();
+        log.info("zookepper 服务注册成功：127.0.0.1:8888");
 
-		// 注册 192.168.16.113:8888 服务节点：服务节点名称为：address
-		ServiceInstance<Object> instances2 = ServiceInstance.builder().name("address").address("192.168.16.113")
-				.port(8888).build();
-		// 注册 book 服务 路径为host
-		ServiceDiscovery<Object> discovery2 = ServiceDiscoveryBuilder.builder(Object.class).client(client)
-				.basePath("/host").build();
-		discovery2.registerService(instances2);
-		discovery2.start();
-		log.info("zookepper 服务注册成功：192.168.16.113:9999");
-		
-		showZk();
-	}
+        // 注册 192.168.16.113:8888 服务节点：服务节点名称为：address
+        ServiceInstance<Object> instances2 = ServiceInstance.builder().name("address").address("192.168.16.113")
+                .port(8888).build();
+        // 注册 book 服务 路径为host
+        ServiceDiscovery<Object> discovery2 = ServiceDiscoveryBuilder.builder(Object.class).client(client)
+                .basePath("/host").build();
+        discovery2.registerService(instances2);
+        discovery2.start();
+        log.info("zookepper 服务注册成功：192.168.16.113:9999");
+        
+        showZk();
+    }
 
-	private void showZk() {
-		StringBuffer val = new StringBuffer("\nZookeeper注册服务：");
-		val.append("\n[可以在配置文件中配置zk的连接地址信息：zookeeper.address=127.0.0.1:2181]");
-		val.append("\n[服务注册方pom.xml添加curator使用zk的依赖：\n"
-				+ "<!-- 服务的注册和发现(使用zokkeeper)：服务方使用组件:curator-x-discovery-server -->\r\n" + 
-				"		<dependency>\r\n" + 
-				"			<groupId>org.apache.curator</groupId>\r\n" + 
-				"			<artifactId>curator-x-discovery-server</artifactId>\r\n" + 
-				"			<version>2.12.0</version>\r\n" + 
-				"		</dependency>]");
-		val.append("\n[通过 CuratorFrameworkFactory.newClient() 创建Zk链接]");
-		val.append("\n[通过 ServiceInstance 创建节点]");
-		val.append("\n[通过 ServiceDiscoveryBuilder 创建服务]");
-		System.out.println(val.toString());
-	}
+    private void showZk() {
+        StringBuffer val = new StringBuffer("\nZookeeper注册服务：");
+        val.append("\n[可以在配置文件中配置zk的连接地址信息：zookeeper.address=127.0.0.1:2181]");
+        val.append("\n[服务注册方pom.xml添加curator使用zk的依赖：\n"
+                + "<!-- 服务的注册和发现(使用zokkeeper)：服务方使用组件:curator-x-discovery-server -->\r\n" + 
+                "        <dependency>\r\n" + 
+                "            <groupId>org.apache.curator</groupId>\r\n" + 
+                "            <artifactId>curator-x-discovery-server</artifactId>\r\n" + 
+                "            <version>2.12.0</version>\r\n" + 
+                "        </dependency>]");
+        val.append("\n[通过 CuratorFrameworkFactory.newClient() 创建Zk链接]");
+        val.append("\n[通过 ServiceInstance 创建节点]");
+        val.append("\n[通过 ServiceDiscoveryBuilder 创建服务]");
+        System.out.println(val.toString());
+    }
 }
 ```
 
@@ -3722,9 +3722,9 @@ public class ZKServiceRegister implements ApplicationRunner {
 ```xml
 <!-- 服务的注册和发现(使用zokkeeper)：调用方使用组件:curator-x-discovery -->
 <dependency>
-	<groupId>org.apache.curator</groupId>
-	<artifactId>curator-x-discovery</artifactId>
-	<version>2.12.0</version>
+    <groupId>org.apache.curator</groupId>
+    <artifactId>curator-x-discovery</artifactId>
+    <version>2.12.0</version>
 </dependency>
 ```
 
@@ -3745,30 +3745,30 @@ import com.alibaba.fastjson.JSON;
 import com.mutistic.utils.CommonUtil;
 // zk服务的调用
 public class BookZKMain {
-	public static void main(String[] args) throws Exception {
-		// 链接zk客户端
-		CuratorFramework client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", new RetryOneTime(1000));
-		client.start(); // 启动zk
-		client.blockUntilConnected(); // 链接
+    public static void main(String[] args) throws Exception {
+        // 链接zk客户端
+        CuratorFramework client = CuratorFrameworkFactory.newClient("127.0.0.1:2181", new RetryOneTime(1000));
+        client.start(); // 启动zk
+        client.blockUntilConnected(); // 链接
 
-		ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
-				.basePath("/host").build();
-		Collection<ServiceInstance<Object>> list = discovery.queryForInstances("address");
+        ServiceDiscovery<Object> discovery = ServiceDiscoveryBuilder.builder(Object.class).client(client)
+                .basePath("/host").build();
+        Collection<ServiceInstance<Object>> list = discovery.queryForInstances("address");
 
-		List<String> serviceList = new ArrayList<String>();
-		list.forEach((instances) -> {
-			CommonUtil.printThree("获取zk服务注册信息：", JSON.toJSONString(instances));
-			serviceList.add(instances.getAddress() + ":" + instances.getPort());
-		});
-		
-		LoadBalance lb = new LoadBalance(serviceList);
-		for (int i = 0; i < 10; i++) {
-			// 调用接口
-			RestTemplate rt = new RestTemplate();
-			String url = "http://" + lb.choose() + "/bookController/queryById?id=1533384516863";
-			CommonUtil.printTwo("获取RestTemplate请求的结果：" + url, rt.getForObject(url, String.class));
-		}
-	}
+        List<String> serviceList = new ArrayList<String>();
+        list.forEach((instances) -> {
+            CommonUtil.printThree("获取zk服务注册信息：", JSON.toJSONString(instances));
+            serviceList.add(instances.getAddress() + ":" + instances.getPort());
+        });
+        
+        LoadBalance lb = new LoadBalance(serviceList);
+        for (int i = 0; i < 10; i++) {
+            // 调用接口
+            RestTemplate rt = new RestTemplate();
+            String url = "http://" + lb.choose() + "/bookController/queryById?id=1533384516863";
+            CommonUtil.printTwo("获取RestTemplate请求的结果：" + url, rt.getForObject(url, String.class));
+        }
+    }
 }
 ```
 轮询算法：LoadBalance.java：
@@ -3778,22 +3778,22 @@ import java.util.List;
 // 轮询算法 
 public class LoadBalance {
 
-	private int index = 0;
-	private List<String> services;
+    private int index = 0;
+    private List<String> services;
 
-	public LoadBalance(List<String> services) {
-		super();
-		this.services = services;
-	}
+    public LoadBalance(List<String> services) {
+        super();
+        this.services = services;
+    }
 
-	public String choose() {
-		String service = services.get(index);
-		index++;
-		if(index >= services.size()) {
-			index = 0;
-		}
-		return service;
-	}
+    public String choose() {
+        String service = services.get(index);
+        index++;
+        if(index >= services.size()) {
+            index = 0;
+        }
+        return service;
+    }
 }
 ```
 
@@ -3804,24 +3804,24 @@ pom.xml 添加spring-boot-devtools依赖：
 ```xml
 <!-- 热部署方式一：使用spring-boot-devtools插件 -->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-devtools</artifactId>
-	<optional>true</optional>
-	<scope>true</scope>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+    <scope>true</scope>
 </dependency>
 
 <build>
-	<plugins>
-		<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-			<configuration>
-				<!-- 没有该配置，spring-boot-devtools 热部署不生效 -->
-				<fork>true</fork>
-				<addResources>true</addResources>
-			</configuration>
-		</plugin>
-	</plugins>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <!-- 没有该配置，spring-boot-devtools 热部署不生效 -->
+                <fork>true</fork>
+                <addResources>true</addResources>
+            </configuration>
+        </plugin>
+    </plugins>
 </build>
 ```
 
@@ -3829,30 +3829,30 @@ pom.xml 添加spring-boot-devtools依赖：
 pom.xml build 添加springloaded依赖：
 ```xml
 <build>
-	<plugins>
-		<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-			<!-- 热部署方式二：使用springloaded插件 -->
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework</groupId>
-					<artifactId>springloaded</artifactId>
-					<version>1.2.6.RELEASE</version>
-				</dependency>
-			</dependencies>
-			<executions>
-				<execution>
-					<goals>
-						<goal>repackage</goal>
-					</goals>
-					<configuration>
-						<classifier>exec</classifier>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-	</plugins>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <!-- 热部署方式二：使用springloaded插件 -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>springloaded</artifactId>
+                    <version>1.2.6.RELEASE</version>
+                </dependency>
+            </dependencies>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                    <configuration>
+                        <classifier>exec</classifier>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
 </build>
 ```
 
@@ -3868,62 +3868,62 @@ pom.xml build 添加springloaded依赖：
 pom.xml build配置打包信息:
 ```xml
 <build>
-	<plugins>
-		<plugin>
-			<!-- appassembler-maven-plugin插件官网:http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html
-			mvn clean package appassembler:assemble
-			mvn clean appassembler:assemble -->
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>appassembler-maven-plugin</artifactId>
-			<version>2.0.0</version>
-			<configuration>
-				<!-- 生成unix、windows平台执行脚本 -->
-				<platforms>
-					<platform>windows</platform>
-					<platform>unix</platform>
-				</platforms>
-				<!-- 根目录 -->
-				<assembleDirectory>${project.build.directory}/server</assembleDirectory>
-				<!-- 打包的jar，以及maven依赖的jar放到这个目录 lib -->
-				<repositoryName>lib</repositoryName>
-				<!-- lib目录中jar存放的规则,默认是 ${groupId}/${artifactId}的目录格式,flat表示直接把jar放到 
-					repositoryName声明的目录 -->
-				<repositoryLayout>flat</repositoryLayout>
-				<!-- 可执行脚本的目录 -->
-				<binFolder>bin</binFolder>
-				<!-- 配置文件的目标目录 -->
-				<configurationDirectory>conf</configurationDirectory>
-				<!-- 拷贝配置文件到configurationDirectory配置的目录种 -->
-				<copyConfigurationDirectory>true</copyConfigurationDirectory>
-				<!-- 执行从项目的目录拷贝配置文件(默认 src.main.config) -->
-				<configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
-				<!-- 编码格式 -->
-				<encoding>UTF-8</encoding>
-				<!-- logs目录 -->
-				<logsDirectory>logs</logsDirectory>
-				<!-- 临时文件目录 -->
-				<tempDirectory>tep</tempDirectory>
-				<!-- 配置启动类 -->
-				<programs>
-					<program>
-						<id>server </id>
-						<mainClass>com.mutistic.Application</mainClass>
-						<!-- jvm参数 -->
-						<jvmSettings>
-							<extraArguments>
-								<!-- 指定以server的方式运行 -->
-								<extraArgument>-server</extraArgument>
-								<!-- 指定最大堆内存 -->
-								<extraArgument>-Xmx1G</extraArgument>
-								<!-- 指定最小堆内存 -->
-								<extraArgument>-Xms1G</extraArgument>
-							</extraArguments>
-						</jvmSettings>
-					</program>
-				</programs>
-			</configuration>
-		</plugin>
-	</plugins>
+    <plugins>
+        <plugin>
+            <!-- appassembler-maven-plugin插件官网:http://www.mojohaus.org/appassembler/appassembler-maven-plugin/index.html
+            mvn clean package appassembler:assemble
+            mvn clean appassembler:assemble -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>appassembler-maven-plugin</artifactId>
+            <version>2.0.0</version>
+            <configuration>
+                <!-- 生成unix、windows平台执行脚本 -->
+                <platforms>
+                    <platform>windows</platform>
+                    <platform>unix</platform>
+                </platforms>
+                <!-- 根目录 -->
+                <assembleDirectory>${project.build.directory}/server</assembleDirectory>
+                <!-- 打包的jar，以及maven依赖的jar放到这个目录 lib -->
+                <repositoryName>lib</repositoryName>
+                <!-- lib目录中jar存放的规则,默认是 ${groupId}/${artifactId}的目录格式,flat表示直接把jar放到 
+                    repositoryName声明的目录 -->
+                <repositoryLayout>flat</repositoryLayout>
+                <!-- 可执行脚本的目录 -->
+                <binFolder>bin</binFolder>
+                <!-- 配置文件的目标目录 -->
+                <configurationDirectory>conf</configurationDirectory>
+                <!-- 拷贝配置文件到configurationDirectory配置的目录种 -->
+                <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                <!-- 执行从项目的目录拷贝配置文件(默认 src.main.config) -->
+                <configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+                <!-- 编码格式 -->
+                <encoding>UTF-8</encoding>
+                <!-- logs目录 -->
+                <logsDirectory>logs</logsDirectory>
+                <!-- 临时文件目录 -->
+                <tempDirectory>tep</tempDirectory>
+                <!-- 配置启动类 -->
+                <programs>
+                    <program>
+                        <id>server </id>
+                        <mainClass>com.mutistic.Application</mainClass>
+                        <!-- jvm参数 -->
+                        <jvmSettings>
+                            <extraArguments>
+                                <!-- 指定以server的方式运行 -->
+                                <extraArgument>-server</extraArgument>
+                                <!-- 指定最大堆内存 -->
+                                <extraArgument>-Xmx1G</extraArgument>
+                                <!-- 指定最小堆内存 -->
+                                <extraArgument>-Xms1G</extraArgument>
+                            </extraArguments>
+                        </jvmSettings>
+                    </program>
+                </programs>
+            </configuration>
+        </plugin>
+    </plugins>
 </build>
 ```
 
